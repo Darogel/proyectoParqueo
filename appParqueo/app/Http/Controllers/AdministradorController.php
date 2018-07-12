@@ -7,8 +7,10 @@
  */
 
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
-use \Models\Administrador;
+use \App\Models\Administrador;
+
 /**
  * Description of AdministradorController
  *
@@ -38,7 +40,5 @@ class AdministradorController extends Controller {
             return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 400);
         }
     }
-    
-    
 
 }

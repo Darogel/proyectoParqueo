@@ -9,16 +9,16 @@
 namespace Models;
 
 /**
- * Description of Usuario
+ * Description of Reservacion
  *
  * @author Darwin
  */
 use Illuminate\Database\Eloquent\Model;
-class Usuario  extends Model{
+class Reservacion extends Model{
     //put your code here
-    protected $table ='usuario';
-    public $primaryKey='id_usuario';
-//    public $timestamps=false; 
-    protected $fillable=['nombres'];
-    protected $guarded =['id_usuario','usuario','clave'];
+    protected $table ='reservacion';
+    public $primaryKey='id_reservacion';
+//    public $timestamps=false;  
+    protected $fillable=['hora_entrada','hora_salida','estado'];
+    protected $guarded =['id_vehiculo','id_plaza','clave'];
 }

@@ -16,9 +16,9 @@ class Administrador extends Model{
     //put your code here
     protected $table ='administrador';
     public $primaryKey='id_admin';
-    public $timestamps=false; // formato de fecha 
-    protected $fillable=['nombre','estado'];
-    protected $guarded =['id_admin','usuario','clave'];
+//    public $timestamps=false; 
+    protected $fillable=['nombres','estado'];
+    protected $guarded =['id_admin','usuario','clave',];
     
     
     public function parqueo() {
