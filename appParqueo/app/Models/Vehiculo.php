@@ -21,4 +21,12 @@ class Vehiculo extends Model{
 //    public $timestamps=false; 
     protected $fillable=['placa'];
     protected $guarded =['id_vehiculo','id_usuario'];
+    
+     public function usuario(){
+        return $this->belongsTo('App\Models\Usuario','id_usuario'); 
+    }
+    
+    public function reservacion(){
+        return $this->belongsTo('App\Models\Reservacion','id_reservacion'); 
+    }
 }

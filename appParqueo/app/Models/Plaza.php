@@ -21,4 +21,12 @@ class Plaza extends Model{
 //    public $timestamps=false; 
     protected $fillable=['numero_puesto','estado','tipo'];
     protected $guarded =['id_plaza','id_parqueadero','clave'];
+    
+    public function parqueadero(){
+        return $this->belongsTo('App\Models\Parqueadero','id_parqueadero'); 
+    }
+    
+    public function reservacion(){
+        return $this->belongsTo('App\Models\Reservacion','id_plaza'); 
+    }
 }

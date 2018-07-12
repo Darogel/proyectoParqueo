@@ -21,4 +21,14 @@ class Reservacion extends Model{
 //    public $timestamps=false;  
     protected $fillable=['hora_entrada','hora_salida','estado'];
     protected $guarded =['id_vehiculo','id_plaza','clave'];
+
+     public function plaza() {
+        return $this ->hasMany('App\Models\Plaza','id_plaza');
+    }
+    
+    public function vehiculo() {
+        return $this ->hasOne('App\Models\Vehiculo','id_vehiculo');
+    }
+    
 }
+

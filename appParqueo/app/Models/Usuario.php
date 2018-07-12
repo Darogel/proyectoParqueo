@@ -21,4 +21,8 @@ class Usuario  extends Model{
 //    public $timestamps=false; 
     protected $fillable=['nombres'];
     protected $guarded =['id_usuario','usuario','clave'];
+    
+    public function vehiculo() {
+        return $this ->hasMany('App\Models\Vehiculo','id_vehiculo');
+    }
 }

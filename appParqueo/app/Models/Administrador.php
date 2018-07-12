@@ -21,7 +21,7 @@ class Administrador extends Model{
     protected $guarded =['id_admin','usuario','clave',];
     
     
-    public function parqueo() {
-        return $this ->hasMany('App\Models\Parqueo','id_admin');
+    public function parqueadero() {
+        return $this ->hasMany('App\Models\Parqueadero','id_Admin');
     }
 }

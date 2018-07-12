@@ -21,4 +21,11 @@ class Parqueadero extends Model{
     public $timestamps=false; // formato de fecha 
     protected $fillable=['nombre','coordenada_x','coordenada_y','precio_hora','numero_plazas'];
     protected $guarded =['id_Admin','id_parqueadero'];
+    
+    public function administrador(){
+        return $this->belongsTo('App\Models\Administrador','id_admin'); 
+    }
+    public function plaza() {
+        return $this ->hasMany('App\Models\Plaza','id_parqueadero');
+    }
 }
