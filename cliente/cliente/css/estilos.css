@@ -1,0 +1,65 @@
+
+nav{
+    display: inline-block;
+    width: 740px;
+    text-align: right;
+}
+nav ul{
+    list-style-type: none; 
+}
+nav li{
+    display: inline-block;
+    margin-right: 15px;
+}
+nav a{
+    font-size: 1.3em;
+    color: #181818;
+    text-decoration: none;
+}
+nav a:hover{
+    color: #760001;
+    border-bottom: 3px solid #760001;
+}
+#banner-image{
+    margin-top: 15px;
+    height: 200px;
+    border-radius: 5px;
+    background-image:  url(./imagen/font-index.JPG) no-repeat;
+    position: relative;
+    box-shadow: 0px 4px 4px #1c1a19;
+    margin-bottom: 25px;
+}
+#description{
+    position: absolute;
+    bottom: 0;
+    border-radius: 0px 0px 5px 5px;
+    width: 99.5%;
+    height: 33px;
+    padding-top: 15px;
+    padding-left: 4px;
+    background-color: rgba(24,24,24,0.8); 
+    color: white;
+    font-size: 0.8em;
+}
+#menu-inicio
+{
+    display: inline-block;
+}
+header h1
+{
+    font-family: 'BallparkWeiner', serif;
+    font-size: 2.5em;
+    font-weight: normal;
+}
+#logo, header h1
+{
+    display: inline-block;
+    margin-bottom: 60px;
+}
+header h2
+{
+    font-family: Dayrom, serif;
+    font-size: 1.1em;
+    margin-top: -60px;
+    font-weight: normal;
+}
