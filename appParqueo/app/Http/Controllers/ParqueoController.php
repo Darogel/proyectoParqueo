@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 class ParqueoController extends Controller {
 
     //put your code here
-    public function registrarPaqueo(Request $request) {
+    public function registrarParqueo(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
