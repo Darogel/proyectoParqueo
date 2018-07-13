@@ -23,4 +23,6 @@ $router->Post('/reservacion/registrar','ReservacionController@registrarReservaci
 $router->Post('/usuario/login','UsuarioController@inicioSesionUsuario');
 $router->Post('/usuario/registrar','UsuarioController@registrarUsuario');
 $router->Post('/usuario/modificar','UsuarioController@modificarUsuario');
+$router->Post('/vehiculo/registrar','VehiculoController@registrarVehiculo');
+$router->Post('/vehiculo/modificar','VehiculoController@modificarVehiculo');
 
