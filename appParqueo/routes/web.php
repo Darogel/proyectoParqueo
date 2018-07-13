@@ -14,3 +14,13 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->Post('/admin/login','AdministradorController@inicioSesionAdministrador');
+$router->Post('/parqueadero/registrar','ParqueaderoController@registrarParqueadero');
+$router->Post('/parqueadero/modificar','ParqueaderoController@ModificarParqueadero');
+$router->Post('/plaza/registrar','PlazaController@registrarPlaza');
+$router->Post('/reservacion/registrar','ReservacionController@registrarReservacion');
+$router->Post('/usuario/login','UsuarioController@inicioSesionUsuario');
+$router->Post('/usuario/registrar','UsuarioController@registrarUsuario');
+$router->Post('/usuario/modificar','UsuarioController@modificarUsuario');
+

@@ -20,7 +20,7 @@ class Parqueadero extends Model{
     public $primaryKey='id_parqueadero';
     public $timestamps=false; // formato de fecha 
     protected $fillable=['nombre','coordenada_x','coordenada_y','precio_hora','numero_plazas'];
-    protected $guarded =['id_Admin','id_parqueadero'];
+    protected $guarded =['id_admin','id_parqueadero'];
     
     public function administrador(){
         return $this->belongsTo('App\Models\Administrador','id_admin'); 

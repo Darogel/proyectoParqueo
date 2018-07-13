@@ -13,18 +13,21 @@ namespace App\Http\Controllers;
  *
  * @author Darwin
  */
-use Illuminate\Database\Eloquent\Model;
-class PlazaController extends Model {
+use Illuminate\Http\Request;
+use App\Models\Administrador;
+use App\Models\Parqueadero;
+use App\Models\Plaza;
+class PlazaController extends Controller {
 
     //put your code here
     public function registraPlaza(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $admin = \App\Models\Administrador::where("external_id", $data["clave"])->first();
+                $admin = Administrador::where("external_id", $data["clave"])->first();
                 if ($admin) {
-                    $usuario = \App\Models\Administrador::find($admin->id_admin);
-                    $plaza = new \App\Models\Plaza();
+                    $parqueadero = Parqueadero::find($admin->id_admin);
+                    $plaza = new Plaza();
                     $plaza->tipo = $data["tipo"];
                     $plaza->estado = $data["estado"];
                     $plaza->numero_puesto = $data["numero_puesto"];

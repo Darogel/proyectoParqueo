@@ -9,30 +9,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Models\Administrador; 
+use \App\Models\Parqueadero;
 
 /**
- * Description of ParqueoController
+ * Description of ParqueaderoController
  *
  * @author Darwin
  */
-class ParqueoController extends Controller {
+class ParqueaderoController extends Controller {
 
     //put your code here
-    public function registrarParqueo(Request $request) {
+    public function registrarParqueadero(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $admin = \App\Models\Administrador::where("external_id", $data["clave"])->first();
+                $admin = Administrador::where("external_id", $data["clave"])->first();
                 if ($admin) {
-                    $administrador = \App\Models\Administrador::find($admin->id_admin);
-                    $parqueo = new \Models\Parqueo();
-                    $parqueo->nombre = $data["nombre"];
-                    $parqueo->coordenadas = $data["coordenadas"];
-                    $parqueo->precio = $data["precio"];
-                    $parqueo->plazas = $data["plazas"];
-                    $parqueo->external_id = utilidades\UUID::v4();
-                    $parqueo->administrador()->associate($administrador);
-                    $parqueo->save();
+                    $administrador = Administrador::find($admin->id_admin);
+                    $parqueadero = new Parqueadero();
+                    $parqueadero->nombre = $data["nombre"];
+                    $parqueadero->coordenadas = $data["coordenadas"];
+                    $parqueadero->precio = $data["precio"];
+                    $parqueadero->plazas = $data["plazas"];
+                    $parqueadero->external_id = utilidades\UUID::v4();
+                    $parqueadero->administrador()->associate($administrador);
+                    $parqueadero->save();
                     return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
                 } else {
                     return response()->json(["mensaje" => "No se ha encontrado ningun dato", "siglas" => "NDE"], 203);
@@ -45,25 +47,25 @@ class ParqueoController extends Controller {
         }
     }
 
-    public function modificarParqueo(Request $request) {
+    public function modificarParqueadero(Request $request) {
 
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $parqueoObjeto = \Models\Parqueo::where("external_id", $data["external_id"])->first();
+                $parqueaderoObjeto = \Models\Parqueadero::where("external_id", $data["external_id"])->first();
                 if (isset($data["nombre"])) {
-                    $parqueoObjeto->nombre = $data["nombre"];
+                    $parqueaderoObjeto->nombre = $data["nombre"];
                 }
                 if (isset($data["precio"])) {
-                    $parqueoObjeto->precio = $data["precio"];
+                    $parqueaderoObjeto->precio = $data["precio"];
                 }
                 if (isset($data["plazas"])) {
-                    $parqueoObjeto->plazas = $data["plazas"];
+                    $parqueaderoObjeto->plazas = $data["plazas"];
                 }
                 if (isset($data["coordenadas"])) {
-                    $parqueoObjeto->coordenadas = $data["coordenadas"];
+                    $parqueaderoObjeto->coordenadas = $data["coordenadas"];
                 }
-                $parqueoObjeto->save();
+                $parqueaderoObjeto->save();
 
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
             } catch (Exceptio $ex) {
@@ -75,3 +77,5 @@ class ParqueoController extends Controller {
     }
 
 }
+
+

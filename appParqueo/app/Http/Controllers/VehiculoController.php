@@ -13,19 +13,21 @@ namespace App\Http\Controllers;
  *
  * @author Darwin
  */
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use App\Models\Usuario;
+use App\Models\Vehiculo;
 
-class VehiculoController extends Model {
+class VehiculoController extends Controller {
 
     //put your code here
     public function registrarVehiculo(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $usuario = \App\Models\Usuario::where("external_id", $data["clave"])->first();
+                $usuario = Usuario::where("external_id", $data["clave"])->first();
                 if ($usuario) {
-                    $usuario = \App\Models\Usuario::find($usuario->id_usuario);
-                    $vehiculo = new \App\Models\Vehiculo();
+                    $usuario = Usuario::find($usuario->id_usuario);
+                    $vehiculo = new Vehiculo();
                     $vehiculo->placa = $data["placa"];
                     $vehiculo->external_id = utilidades\UUID::v4();
                     $vehiculo->usuario()->associate($usuario);

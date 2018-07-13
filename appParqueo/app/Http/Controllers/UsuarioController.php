@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Usuario;
 
 /**
  * Description of UsuarioController
@@ -22,7 +23,7 @@ class UsuarioController extends Controller {
         if ($request->isJson()) {
             try {
                 $data = $request->json()->all();
-                $user = \App\Models\Usuario::where("usuario", $data["usuario"])->where("clave", $data["clave"])->first();
+                $user = Usuario::where("usuario", $data["usuario"])->where("clave", $data["clave"])->first();
                 if ($user) {
                     return response()->json(["usuario" => $user->usuario,
                                 "id" => $user->external_id,
@@ -44,12 +45,12 @@ class UsuarioController extends Controller {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $parqueo = new \App\Models\Usuario();
-                $parqueo->nombre = $data["nombre"];
-                $parqueo->usuario = $data["usuario"];
-                $parqueo->clave = $data["clave"];
-                $parqueo->external_id = utilidades\UUID::v4();
-                $parqueo->save();
+                $usuario = new Usuario();
+                $usuario->nombre = $data["nombre"];
+                $usuario->usuario = $data["usuario"];
+                $usuario->clave = $data["clave"];
+                $usuario->external_id = utilidades\UUID::v4();
+                $usuario->save();
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
             } catch (Exception $ex) {
                 return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
@@ -59,22 +60,22 @@ class UsuarioController extends Controller {
         }
     }
 
-    public function modificarUsuario(Request $request) {
+    public function modificarUsuario (Request $request) {
 
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $usuarioObjeto = \App\Models\Usuario::where("external_id", $data["external_id"])->first();
+                $usuarioObjeto = Usuario::where("external_id", $data["external_id"])->first();
                 if (isset($data["nombre"])) {
                     $usuarioObjeto->nombre = $data["nombre"];
                 }
                 if (isset($data["usuario"])) {
-                    $parqueoObjeto->precio = $data["precio"];
+                    $usuarioObjeto->precio = $data["precio"];
                 }
                 if (isset($data["clave"])) {
-                    $parqueoObjeto->clave = $data["clave"];
+                    $usuarioObjeto->clave = $data["clave"];
                 }
-                $parqueoObjeto->save();
+                $usuarioObjeto->save();
 
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
             } catch (Exceptio $ex) {

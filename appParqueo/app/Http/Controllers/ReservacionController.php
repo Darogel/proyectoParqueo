@@ -13,17 +13,20 @@ namespace App\Http\Controllers;
  *
  * @author Darwin
  */
-use Illuminate\Database\Eloquent\Model;
-class ReservacionController  extends Model{
+use Illuminate\Http\Request;
+use App\Models\Reservacion;
+use App\Models\Usuario;
+
+class ReservacionController extends Controller{
     //put your code here
     public function registrarReservacion(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $usuario = \App\Models\Usuario::where("external_id", $data["clave"])->first();
+                $usuario = Usuario::where("external_id", $data["clave"])->first();
                 if ($usuario) {
-                    $usuario = \App\Models\Usuario::find($usuario->id_usuario);
-                    $reservacion = new \App\Models\Vehiculo();
+                    $usuario = Usuario::find($usuario->id_usuario);
+                    $reservacion = new Reservacion();
                     $reservacion->hora_entrada = $data["hora_entrada"];
                     $reservacion->hora_salida = $data["hora_salida"];
                     $reservacion->estado = $data["estado"];
