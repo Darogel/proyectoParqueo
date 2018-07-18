@@ -9,7 +9,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \App\Models\Administrador; 
+use \App\Models\Administrador;
 use \App\Models\Parqueadero;
 
 /**
@@ -76,6 +76,22 @@ class ParqueaderoController extends Controller {
         }
     }
 
+    public function eliminarParqueadero(Request $request, $external_id) {
+        $parqueoObjeto = \App\Models\Parqueadero::where("external_id", $external_id)->first();
+        if ($parqueoObjeto) {
+            if ($request->isJson()) {
+                $data = $request->json()->all();
+                $parqueadero = \App\Models\Parqueadero::find($parqueoObjeto->id_parqueadero);
+                if (isset($data["estado"]))
+                    $parqueadero->estado = $data["estado"];
+                $parqueadero->save();
+                return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
+            }else {
+                return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 400);
+            }
+        } else {
+            return response()->json(["mensaje" => "No se encontro ningun dato", "siglas" => "NDE"], 204);
+        }
+    }
+
 }
-
-

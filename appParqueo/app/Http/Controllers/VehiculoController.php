@@ -45,23 +45,39 @@ class VehiculoController extends Controller {
     }
 
     public function modificarVehiculo(Request $request) {
-
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
                 $vehiculoObjeto = \App\Models\Usuario::where("external_id", $data["external_id"])->first();
-
                 if (isset($data["placa"])) {
                     $vehiculoObjeto->placa = $data["placa"];
                 }
                 $vehiculoObjeto->save();
-
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
             } catch (Exceptio $ex) {
                 return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
             }
         } else {
             return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
+        }
+    }
+    
+    public function eliminarVehiculo(Request $request,$external_id){
+        $vehiculoObjeto= \App\Models\Vehiculo::where("external_id",$external_id)-> first();
+        if ($vehiculoObjeto){
+            if($request->isJson()){
+                $data=$request->json()->all();
+                $vehiculo= App\Models\Vehiculo::find($vehiculoObjeto->id_vehiculo);
+               if (isset($data["estado"]))
+                    $vehiculo->estado = $data["estado"];
+                $vehiculo->save();
+                return response()-> json(["mensaje"=> "Operacion exitosa","siglas"=> "OE"],200);
+                
+            }else{
+                return response()-> json(["mensaje"=> "La data no tiene el formato deseado","siglas"=> "DNF"],400);
+            }
+        }else{
+            return response()-> json(["mensaje"=> "No se encontro ningun dato","siglas"=> "NDE"],204);
         }
     }
 
