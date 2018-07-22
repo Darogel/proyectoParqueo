@@ -16,13 +16,23 @@ $router->get('/', function () use ($router) {
 });
 
 $router->Post('/admin/login','AdministradorController@inicioSesionAdministrador');
+
 $router->Post('/parqueadero/registrar','ParqueaderoController@registrarParqueadero');
-$router->Post('/parqueadero/modificar','ParqueaderoController@ModificarParqueadero');
+$router->Post('/parqueadero/modificar','ParqueaderoController@modificarParqueadero');
+$router->Post('/parqueadero/eliminar','ParqueaderoController@eliminarParqueadero');
+
 $router->Post('/plaza/registrar','PlazaController@registrarPlaza');
+
 $router->Post('/reservacion/registrar','ReservacionController@registrarReservacion');
+$router->Post('/reservacion/modificar','ReservacionController@modificarReservacion');
+$router->Get('/reservacion/listar','ReservacionController@listarReservacion');
+$router->Post('/reservacion/listarAdmin','ReservacionController@listarReservacionesAdministrador');
+$router->Post('/reservacion/eliminar','ReservacionController@eliminarReservacion');
+
 $router->Post('/usuario/login','UsuarioController@inicioSesionUsuario');
 $router->Post('/usuario/registrar','UsuarioController@registrarUsuario');
 $router->Post('/usuario/modificar','UsuarioController@modificarUsuario');
+
 $router->Post('/vehiculo/registrar','VehiculoController@registrarVehiculo');
 $router->Post('/vehiculo/modificar','VehiculoController@modificarVehiculo');
-
+$router->Post('/vehiculo/eliminar','VehiculoController@eliminarVehiculo');
