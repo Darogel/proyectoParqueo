@@ -6,8 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Models;
-
+namespace App\Models;
 /**
  * Description of Vehiculo
  *

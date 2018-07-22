@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace Models;
+namespace App\Models;
 
 /**
  * Description of Parqueadero
@@ -19,7 +19,7 @@ class Parqueadero extends Model{
     protected $table ='parqueadero';
     public $primaryKey='id_parqueadero';
     public $timestamps=false; // formato de fecha 
-    protected $fillable=['nombre','coordenada_x','coordenada_y','precio_hora','numero_plazas'];
+    protected $fillable=['nombre','coordenada_x','coordenada_y','precio_hora','numero_plazas','estado'];
     protected $guarded =['id_admin','id_parqueadero'];
     
     public function administrador(){

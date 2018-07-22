@@ -27,7 +27,7 @@ class AdministradorController extends Controller {
                 if ($administrador) {
                     return response()->json(["usuario" => $administrador->usuario,
                                 "id" => $administrador->external_id,
-                                "nombre" => $administrador->nombre,
+                                "nombres" => $administrador->nombres,
                                 "token" => base64_encode($administrador->external_id . '--' . $administrador->usuario),
                                 "mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
                 } else {
