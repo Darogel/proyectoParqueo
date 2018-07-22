@@ -29,9 +29,10 @@ class ParqueaderoController extends Controller {
                     $administrador = Administrador::find($admin->id_admin);
                     $parqueadero = new Parqueadero();
                     $parqueadero->nombre = $data["nombre"];
-                    $parqueadero->coordenadas = $data["coordenadas"];
-                    $parqueadero->precio = $data["precio"];
-                    $parqueadero->plazas = $data["plazas"];
+                    $parqueadero->coordenada_x = $data["coordenada_x"];
+                    $parqueadero->coordenada_y = $data["coordenada_y"];
+                    $parqueadero->precio_hora = $data["precio"];
+                    $parqueadero->numero_plazas = $data["plazas"];
                     $parqueadero->external_id = utilidades\UUID::v4();
                     $parqueadero->administrador()->associate($administrador);
                     $parqueadero->save();
@@ -52,21 +53,23 @@ class ParqueaderoController extends Controller {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $parqueaderoObjeto = \Models\Parqueadero::where("external_id", $data["external_id"])->first();
+                $parqueaderoObjeto = Parqueadero::where("external_id", $data["external_id"])->first();
                 if (isset($data["nombre"])) {
                     $parqueaderoObjeto->nombre = $data["nombre"];
                 }
+                if (isset($data["coordenada_x"])) {
+                    $parqueaderoObjeto->coordenada_x = $data["coordenada_x"];
+                }
+                if (isset($data["coordenada_y"])) {
+                    $parqueaderoObjeto->coordenada_y = $data["coordenada_y"];
+                }
                 if (isset($data["precio"])) {
-                    $parqueaderoObjeto->precio = $data["precio"];
+                    $parqueaderoObjeto->precio_hora = $data["precio"];
                 }
                 if (isset($data["plazas"])) {
-                    $parqueaderoObjeto->plazas = $data["plazas"];
-                }
-                if (isset($data["coordenadas"])) {
-                    $parqueaderoObjeto->coordenadas = $data["coordenadas"];
+                    $parqueaderoObjeto->numero_plazas = $data["plazas"];
                 }
                 $parqueaderoObjeto->save();
-
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
             } catch (Exceptio $ex) {
                 return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
@@ -76,21 +79,20 @@ class ParqueaderoController extends Controller {
         }
     }
 
-    public function eliminarParqueadero(Request $request, $external_id) {
-        $parqueoObjeto = \App\Models\Parqueadero::where("external_id", $external_id)->first();
-        if ($parqueoObjeto) {
-            if ($request->isJson()) {
-                $data = $request->json()->all();
-                $parqueadero = \App\Models\Parqueadero::find($parqueoObjeto->id_parqueadero);
-                if (isset($data["estado"]))
-                    $parqueadero->estado = $data["estado"];
-                $parqueadero->save();
+    public function eliminarParqueadero(Request $request) {
+        if ($request->isJson()) {
+            $data = $request->json()->all();
+            try {
+                $parqueaderoObjeto = Parqueadero::where("external_id", $data["external_id"])->first();
+
+                $parqueaderoObjeto->estado = 0;
+                $parqueaderoObjeto->save();
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
-            }else {
-                return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 400);
+            } catch (Exceptio $ex) {
+                return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
             }
         } else {
-            return response()->json(["mensaje" => "No se encontro ningun dato", "siglas" => "NDE"], 204);
+            return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
         }
     }
 
