@@ -20,7 +20,7 @@ use App\Models\Plaza;
 class PlazaController extends Controller {
 
     //put your code here
-    public function registraPlaza(Request $request) {
+    public function registrarPlaza(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
@@ -29,8 +29,7 @@ class PlazaController extends Controller {
                     $parqueadero = Parqueadero::find($admin->id_admin);
                     $plaza = new Plaza();
                     $plaza->tipo = $data["tipo"];
-                    $plaza->estado = $data["estado"];
-                    $plaza->numero_puesto = $data["numero_puesto"];
+                    $plaza->numero_puesto = $data["numero"];
                     $plaza->external_id = utilidades\UUID::v4();
                     $plaza->parqueadero()->associate($parqueadero);
                     $plaza->save();
