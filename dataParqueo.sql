@@ -31,11 +31,11 @@ CREATE TABLE `administrador` (
   `clave` varchar(45) NOT NULL,
   `external_id` varchar(100) NOT NULL,
   `estado` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `update_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_admin`),
   UNIQUE KEY `id_Admin_UNIQUE` (`id_admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,6 +44,7 @@ CREATE TABLE `administrador` (
 
 LOCK TABLES `administrador` WRITE;
 /*!40000 ALTER TABLE `administrador` DISABLE KEYS */;
+INSERT INTO `administrador` VALUES (1,'Byron','mors','1234','7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678',1,'2018-07-18 04:10:34','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `administrador` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,14 +64,14 @@ CREATE TABLE `parqueadero` (
   `coordenada_y` double NOT NULL,
   `precio_hora` double NOT NULL,
   `numero_plazas` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `estado` tinyint(4) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `estado` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_parqueadero`),
   UNIQUE KEY `id_Parqueader_UNIQUE` (`id_parqueadero`),
   KEY `id_Admin_idx` (`id_Admin`),
   CONSTRAINT `id_Admin` FOREIGN KEY (`id_Admin`) REFERENCES `administrador` (`id_admin`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -79,6 +80,7 @@ CREATE TABLE `parqueadero` (
 
 LOCK TABLES `parqueadero` WRITE;
 /*!40000 ALTER TABLE `parqueadero` DISABLE KEYS */;
+INSERT INTO `parqueadero` VALUES (1,1,'Parqueadero1_editado4','fba0768b-8afc-4338-82aa-92db19b8b620',1.1,1.1,0.25,10,'2018-07-22 22:40:39','2018-07-22 23:15:49',0),(2,1,'parqueadero2','6f4717a8-30d4-4329-a448-8ab149b9faf3',1.1,1.1,0.25,10,'2018-07-23 04:11:00','2018-07-23 04:11:00',1),(3,1,'parqueadero3','957aa2ee-0b5d-4087-a320-47892a3fad3d',1.1,1.1,0.25,10,'2018-07-22 23:15:31','0000-00-00 00:00:00',1),(4,1,'parqueadero4','83a6c142-a134-41d9-b461-d37a69c928da',1.1,1.1,0.25,10,'2018-07-22 23:17:45','0000-00-00 00:00:00',1);
 /*!40000 ALTER TABLE `parqueadero` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -96,8 +98,8 @@ CREATE TABLE `plaza` (
   `external_id` varchar(100) NOT NULL,
   `tipo` varchar(50) DEFAULT NULL,
   `estado` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_plaza`),
   KEY `id_Parqueadero_idx` (`id_Parqueadero`),
   CONSTRAINT `id_Parqueadero` FOREIGN KEY (`id_Parqueadero`) REFERENCES `parqueadero` (`id_parqueadero`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -128,8 +130,8 @@ CREATE TABLE `reservacion` (
   `hora_entrada` time NOT NULL,
   `hora_salida` time NOT NULL,
   `estado` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_reservacion`),
   UNIQUE KEY `id_reservacion_UNIQUE` (`id_reservacion`),
   KEY `id_Vehiculo_idx` (`id_vehiculo`),
@@ -161,8 +163,8 @@ CREATE TABLE `usuario` (
   `usuario` varchar(50) NOT NULL,
   `clave` varchar(50) NOT NULL,
   `external_id` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -189,8 +191,8 @@ CREATE TABLE `vehiculo` (
   `id_usuario` int(11) NOT NULL,
   `placa` varchar(10) NOT NULL,
   `external_id` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_vehiculo`),
   UNIQUE KEY `id_vehiculo_UNIQUE` (`id_vehiculo`),
   UNIQUE KEY `placa_UNIQUE` (`placa`),
@@ -225,4 +227,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-12 15:18:04
+-- Dump completed on 2018-07-22 18:21:49
