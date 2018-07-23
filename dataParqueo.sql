@@ -97,13 +97,13 @@ CREATE TABLE `plaza` (
   `numero_puesto` int(11) NOT NULL,
   `external_id` varchar(100) NOT NULL,
   `tipo` varchar(50) DEFAULT NULL,
-  `estado` tinyint(4) NOT NULL,
+  `estado` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_plaza`),
   KEY `id_Parqueadero_idx` (`id_Parqueadero`),
   CONSTRAINT `id_Parqueadero` FOREIGN KEY (`id_Parqueadero`) REFERENCES `parqueadero` (`id_parqueadero`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,6 +112,7 @@ CREATE TABLE `plaza` (
 
 LOCK TABLES `plaza` WRITE;
 /*!40000 ALTER TABLE `plaza` DISABLE KEYS */;
+INSERT INTO `plaza` VALUES (1,1,1,'a06b1908-2461-4e38-b041-25718f8aae86','con techo',1,'2018-07-22 23:35:35','0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `plaza` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +130,7 @@ CREATE TABLE `reservacion` (
   `external_id` varchar(100) NOT NULL,
   `hora_entrada` time NOT NULL,
   `hora_salida` time NOT NULL,
-  `estado` tinyint(4) NOT NULL,
+  `estado` tinyint(4) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_reservacion`),
@@ -167,7 +168,7 @@ CREATE TABLE `usuario` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,6 +177,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Byron J','mors','1234','aa17640e-8c90-46fd-ba8f-06698580467b','2018-07-22 23:42:56','2018-07-22 23:52:57');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,12 +195,13 @@ CREATE TABLE `vehiculo` (
   `external_id` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `estado` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_vehiculo`),
   UNIQUE KEY `id_vehiculo_UNIQUE` (`id_vehiculo`),
   UNIQUE KEY `placa_UNIQUE` (`placa`),
   KEY `id_Usuario_idx` (`id_usuario`),
   CONSTRAINT `id_Usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,6 +210,7 @@ CREATE TABLE `vehiculo` (
 
 LOCK TABLES `vehiculo` WRITE;
 /*!40000 ALTER TABLE `vehiculo` DISABLE KEYS */;
+INSERT INTO `vehiculo` VALUES (1,1,'PCO-4453','56b99ba1-c6e2-40a3-87e1-cac62802d143','2018-07-23 05:00:54','2018-07-23 05:00:54',1),(2,1,'LBD-5869','e205cc58-6cf1-4d5f-bfa1-46b7d66f0aa8','2018-07-23 00:02:26','2018-07-23 00:10:09',0);
 /*!40000 ALTER TABLE `vehiculo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-22 18:21:49
+-- Dump completed on 2018-07-22 20:31:37

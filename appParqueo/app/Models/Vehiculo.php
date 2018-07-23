@@ -17,8 +17,8 @@ class Vehiculo extends Model{
     //put your code here
     protected $table ='vehiculo';
     public $primaryKey='id_vehiculo';
-//    public $timestamps=false; 
-    protected $fillable=['placa'];
+    public $timestamps=false; 
+    protected $fillable=['placa','estado'];
     protected $guarded =['id_vehiculo','id_usuario'];
     
      public function usuario(){

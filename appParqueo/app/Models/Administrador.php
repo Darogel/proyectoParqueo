@@ -16,7 +16,7 @@ class Administrador extends Model{
     //put your code here
     protected $table ='administrador';
     public $primaryKey='id_admin';
-//    public $timestamps=false; 
+    public $timestamps=false; 
     protected $fillable=['nombres','estado'];
     protected $guarded =['id_admin','usuario','clave',];
     

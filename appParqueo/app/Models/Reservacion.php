@@ -18,7 +18,7 @@ class Reservacion extends Model{
     //put your code here
     protected $table ='reservacion';
     public $primaryKey='id_reservacion';
-//    public $timestamps=false;  
+    public $timestamps=false;  
     protected $fillable=['hora_entrada','hora_salida','estado'];
     protected $guarded =['id_vehiculo','id_plaza','clave'];
 

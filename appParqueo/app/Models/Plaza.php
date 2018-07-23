@@ -18,7 +18,7 @@ class Plaza extends Model{
     //put your code here
     protected $table ='plaza';
     public $primaryKey='id_plaza';
-//    public $timestamps=false; 
+    public $timestamps=false; 
     protected $fillable=['numero_puesto','estado','tipo'];
     protected $guarded =['id_plaza','id_parqueadero','clave'];
     

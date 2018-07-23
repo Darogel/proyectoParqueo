@@ -18,7 +18,7 @@ class Usuario  extends Model{
     //put your code here
     protected $table ='usuario';
     public $primaryKey='id_usuario';
-//    public $timestamps=false; 
+    public $timestamps=false; 
     protected $fillable=['nombres'];
     protected $guarded =['id_usuario','usuario','clave'];
     
