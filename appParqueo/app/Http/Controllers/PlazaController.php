@@ -44,5 +44,21 @@ class PlazaController extends Controller {
             return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
         }
     }
+    
+    public function listarPlazaParqueadero($external_id) {
+        $this->external_id = $external_id;
+        $lista = \App\Models\Plaza::whereHas('parqueadero', function ($q) {
+                    $q->where('external_id', $this->external_id);
+                    $q->where('estado',true);
+                })->orderBy('created_at', 'desc')->get();
+
+        $data = array();
+        foreach ($lista as $item) {
+            $data[] = ["numero_puesto" => $item->numero_puesto,
+                "tipo" => $item->tipo];
+        }
+
+        return response()->json($data, 200);
+    }
 
 }
