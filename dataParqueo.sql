@@ -161,11 +161,10 @@ DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombres` varchar(100) NOT NULL,
-  `usuario` varchar(50) NOT NULL,
-  `clave` varchar(50) NOT NULL,
   `external_id` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `estado` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
@@ -177,7 +176,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Byron J','mors','1234','aa17640e-8c90-46fd-ba8f-06698580467b','2018-07-22 23:42:56','2018-07-22 23:52:57');
+INSERT INTO `usuario` VALUES (1,'Byron J','aa17640e-8c90-46fd-ba8f-06698580467b','2018-07-22 23:42:56','2018-07-22 23:52:57',1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,4 +230,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-22 20:31:37
+-- Dump completed on 2018-08-05 17:20:18
