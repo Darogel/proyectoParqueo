@@ -27,6 +27,6 @@ class Plaza extends Model{
     }
     
     public function reservacion(){
-        return $this->belongsTo('App\Models\Reservacion','id_plaza'); 
+        return $this->hasOne('App\Models\Reservacion','id_plaza'); 
     }
 }

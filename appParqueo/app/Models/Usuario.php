@@ -20,7 +20,7 @@ class Usuario  extends Model{
     public $primaryKey='id_usuario';
     public $timestamps=false; 
     protected $fillable=['nombres'];
-    protected $guarded =['id_usuario','usuario','clave'];
+    protected $guarded =['id_usuario'];
     
     public function vehiculo() {
         return $this ->hasMany('App\Models\Vehiculo','id_vehiculo');

@@ -23,11 +23,11 @@ class Reservacion extends Model{
     protected $guarded =['id_vehiculo','id_plaza','clave'];
 
      public function plaza() {
-        return $this ->hasMany('App\Models\Plaza','id_plaza');
+        return $this ->belongsTo('App\Models\Plaza','id_plaza');
     }
     
     public function vehiculo() {
-        return $this ->hasOne('App\Models\Vehiculo','id_vehiculo');
+        return $this ->belongsTo('App\Models\Vehiculo','id_vehiculo');
     }
     
 }
