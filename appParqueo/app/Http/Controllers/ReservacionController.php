@@ -21,6 +21,7 @@ use App\Models\Plaza;
 
 
 class ReservacionController extends Controller {
+    private $external_id;
 
     //put your code here
     public function registrarReservacion(Request $request) {
@@ -85,7 +86,7 @@ class ReservacionController extends Controller {
         return response()->json($data, 200);
     }*/
 
-    public function listarReservacionesParqueadero($external_id) {
+   /* public function listarReservacionesParqueadero($external_id) {
         $this->external_id = $external_id;
         $lista = Reservacion::whereHas('parqueadero', function ($q) {
                     $q->where('external_id', $this->external_id);
@@ -97,7 +98,7 @@ class ReservacionController extends Controller {
                 "hora_salida" => $item->hora_salida];
         }
         return response()->json($data, 200);
-    }
+    }*/
     
     public function eliminarReservacion(Request $request){
         if ($request->isJson()) {
@@ -114,6 +115,35 @@ class ReservacionController extends Controller {
         } else {
             return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
         }
+    }
+    public function listarReservacionesaParqueadero($external_id) {
+        $this->external_id = $external_id;
+        $lista = \App\Models\Reservacion::whereHas('parqueadero', function ($q) {
+                    $q->where('external_id', $this->external_id);
+                })->where('estado','1')->orderBy('created_at', 'desc')->get();
+        $data = array();
+        foreach ($lista as $item) {
+            $data[] = ["vehiculo" => $item->external_id,
+                "hora_entrada" => $item->hora_entrada,
+                "hora_salida" => $item->hora_salida,
+                "fecha" => $item->created_at->format("Y-m-d")];
+        }
+        return response()->json($data, 200);
+    }
+
+    public function listarReservacionesaUsuario($external_id) {
+        $this->external_id = $external_id;
+        $lista = \App\Models\Reservacion::whereHas('usuario', function ($q) {
+                    $q->where('external_id', $this->external_id);
+                })->where('estado','1')->orderBy('created_at', 'desc')->get();
+        $data = array();
+        foreach ($lista as $item) {
+            $data[] = ["vehiculo" => $item->external_id,
+                "hora_entrada" => $item->hora_entrada,
+                "hora_salida" => $item->hora_salida,
+                "fecha" => $item->created_at->format("Y-m-d")];
+        }
+        return response()->json($data, 200);
     }
 
 }
