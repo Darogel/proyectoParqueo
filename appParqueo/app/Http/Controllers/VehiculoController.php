@@ -81,14 +81,13 @@ class VehiculoController extends Controller {
     
     public function listarVehiculoUsuario($external_id) {
         $this->external_id = $external_id;
-        $lista = \App\Models\Vehiculo::whereHas('usuario', function ($q) {
+        $lista =Vehiculo::whereHas('usuario', function ($q) {
                     $q->where('external_id', $this->external_id);
                 })->orderBy('created_at', 'desc')->get();
 
         $data = array();
         foreach ($lista as $item) {
-            $data[] = ["placa" => $item->placa,
-                "fecha"=>$item->created_at->format("Y-m-d")];
+            $data[] = ["placa" => $item->placa];
         }
 
         return response()->json($data, 200);

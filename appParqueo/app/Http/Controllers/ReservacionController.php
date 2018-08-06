@@ -16,6 +16,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Reservacion;
 use App\Models\Usuario;
+use App\Models\Vehiculo;
+use App\Models\Plaza;
+
 
 class ReservacionController extends Controller {
 
@@ -24,20 +27,19 @@ class ReservacionController extends Controller {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $usuario = Usuario::where("external_id", $data["clave"])->first();
-                if ($usuario) {
-                    $usuario = Usuario::find($usuario->id_usuario);
+               $vehiculo=Vehiculo::where('external_id', $data["idV"])->first();
+               $plaza=Plaza::where('external_id',$data["idP"])->first();
+               $vehiculo= Vehiculo::find($vehiculo->id_vehiculo);
+               $plaza= Plaza::find($plaza->id_plaza);
                     $reservacion = new Reservacion();
-                    $reservacion->hora_entrada = $data["hora_entrada"];
-                    $reservacion->hora_salida = $data["hora_salida"];
-                    $reservacion->estado = $data["estado"];
+                    $reservacion->hora_entrada = $data["entrada"];
+                    $reservacion->hora_salida = $data["salida"];
                     $reservacion->external_id = utilidades\UUID::v4();
-                    $reservacion->usuario()->associate($usuario);
+                    $reservacion->vehiculo()->associate($vehiculo);
+                    $reservacion->plaza()->associate($plaza);
                     $reservacion->save();
                     return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
-                } else {
-                    return response()->json(["mensaje" => "No se ha encontrado ningun dato", "siglas" => "NDE"], 203);
-                }
+                
             } catch (Exception $ex) {
                 return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
             }
@@ -51,15 +53,15 @@ class ReservacionController extends Controller {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-                $reservacionObjeto = \Models\Parqueadero::where("external_id", $data["external_id"])->first();
+                $reservacionObjeto = Reservacion::where("external_id", $data["external_id"])->first();
                 if (isset($data["plaza"])) {
                     $reservacionObjeto->id_plaza = $data["plaza"];
                 }
-                if (isset($data["hora_entrada"])) {
-                    $reservacionObjeto->hora_entrada = $data["hora_entrada"];
+                if (isset($data["entrada"])) {
+                    $reservacionObjeto->hora_entrada = $data["entrada"];
                 }
-                if (isset($data["hora_salida"])) {
-                    $reservacionObjeto->hora_salida = $data["hora_salida"];
+                if (isset($data["salida"])) {
+                    $reservacionObjeto->hora_salida = $data["salida"];
                 }
                 $reservacionObjeto->save();
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
@@ -71,8 +73,8 @@ class ReservacionController extends Controller {
         }
     }
 
-    public function listarReservaciones() {
-        $lista = \App\Models\Reservacion::where('estado', true)->orderBy('created_at', 'desc')->get();
+  /*  public function listarReservaciones() {
+        $lista = Reservacion::where('estado', true)->orderBy('created_at', 'desc')->get();
         $data = array();
         foreach ($lista as $item) {
             $data[] = ["vehiculo" => $item->external_id,
@@ -81,39 +83,36 @@ class ReservacionController extends Controller {
                 "fecha" => $item->created_at->format("Y-m-d")];
         }
         return response()->json($data, 200);
-    }
+    }*/
 
-    public function listarReservacionesaAdministrador($external_id) {
+    public function listarReservacionesParqueadero($external_id) {
         $this->external_id = $external_id;
-        $lista = \App\Models\Reservacion::whereHas('administrador', function ($q) {
+        $lista = Reservacion::whereHas('parqueadero', function ($q) {
                     $q->where('external_id', $this->external_id);
                 })->orderBy('created_at', 'desc')->get();
         $data = array();
         foreach ($lista as $item) {
             $data[] = ["vehiculo" => $item->external_id,
                 "hora_entrada" => $item->hora_entrada,
-                "hora_salida" => $item->hora_salida,
-                "fecha" => $item->created_at->format("Y-m-d")];
+                "hora_salida" => $item->hora_salida];
         }
         return response()->json($data, 200);
     }
     
-    public function eliminarReservacion(Request $request,$external_id){
-        $reservacionObjeto= \App\Models\Reservacion::where("external_id",$external_id)-> first();
-        if ($reservacionObjeto){
-            if($request->isJson()){
-                $data=$request->json()->all();
-                $reservacion= \App\Models\Reservacion::find($reservacionObjeto->id_reservacion);
-               if (isset($data["estado"]))
-                    $reservacion->estado = $data["estado"];
-                $reservacion->save();
-                return response()-> json(["mensaje"=> "Operacion exitosa","siglas"=> "OE"],200);
-                
-            }else{
-                return response()-> json(["mensaje"=> "La data no tiene el formato deseado","siglas"=> "DNF"],400);
+    public function eliminarReservacion(Request $request){
+        if ($request->isJson()) {
+            $data = $request->json()->all();
+            try {
+                $ReservacionObjeto = Reservacion::where("external_id", $data["external_id"])->first();
+
+                $ReservacionObjeto->estado = 0;
+                $ReservacionObjeto->save();
+                return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
+            } catch (Exceptio $ex) {
+                return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
             }
-        }else{
-            return response()-> json(["mensaje"=> "No se encontro ningun dato","siglas"=> "NDE"],204);
+        } else {
+            return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
         }
     }
 

@@ -18,7 +18,7 @@ use App\Models\Administrador;
 use App\Models\Parqueadero;
 use App\Models\Plaza;
 class PlazaController extends Controller {
-
+//private $external_id;
     //put your code here
     public function registrarPlaza(Request $request) {
         if ($request->isJson()) {
@@ -47,10 +47,10 @@ class PlazaController extends Controller {
     
     public function listarPlazaParqueadero($external_id) {
         $this->external_id = $external_id;
-        $lista = \App\Models\Plaza::whereHas('parqueadero', function ($q) {
+        $lista = Plaza::whereHas('parqueadero', function ($q) {
                     $q->where('external_id', $this->external_id);
-                    $q->where('estado',true);
-                })->orderBy('created_at', 'desc')->get();
+                   
+                })->where('estado', '1')->OrderBy('numero_puesto','asc')->get();
 
         $data = array();
         foreach ($lista as $item) {

@@ -25,8 +25,8 @@ class UsuarioController extends Controller {
             try {
                 $usuario = new Usuario();
                 $usuario->nombres = $data["nombre"];
-                $usuario->usuario = $data["usuario"];
-                $usuario->clave = $data["clave"];
+              //  $usuario->usuario = $data["usuario"];
+              //  $usuario->clave = $data["clave"];
                 $usuario->external_id = utilidades\UUID::v4();
                 $usuario->save();
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
@@ -38,7 +38,7 @@ class UsuarioController extends Controller {
         }
     }
     
-    public function inicioSesionUsuario(Request $request) {
+  /*  public function inicioSesionUsuario(Request $request) {
         if ($request->isJson()) {
             try {
                 $data = $request->json()->all();
@@ -60,7 +60,7 @@ class UsuarioController extends Controller {
         }
     }
 
-   
+ */  
 
     public function modificarUsuario (Request $request) {
 
@@ -71,16 +71,16 @@ class UsuarioController extends Controller {
                 if (isset($data["nombre"])) {
                     $usuarioObjeto->nombres = $data["nombre"];
                 }
-                if (isset($data["usuario"])) {
+          /*      if (isset($data["usuario"])) {
                     $usuarioObjeto->precio = $data["precio"];
                 }
                 if (isset($data["clave"])) {
                     $usuarioObjeto->clave = $data["clave"];
-                }
+                }*/
                 $usuarioObjeto->save();
 
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
-            } catch (Exceptio $ex) {
+            } catch (Exception $ex) {
                 return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
             }
         } else {
