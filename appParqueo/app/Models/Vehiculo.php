@@ -26,6 +26,6 @@ class Vehiculo extends Model{
     }
     
     public function reservacion(){
-        return $this->hasOne('App\Models\Reservacion','id_reservacion'); 
+        return $this->hasOne('App\Models\Reservacion','id_vehiculo'); 
     }
 }

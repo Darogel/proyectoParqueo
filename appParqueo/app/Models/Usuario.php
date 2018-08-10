@@ -23,6 +23,10 @@ class Usuario  extends Model{
     protected $guarded =['id_usuario'];
     
     public function vehiculo() {
-        return $this ->hasMany('App\Models\Vehiculo','id_vehiculo');
+        return $this ->hasMany('App\Models\Vehiculo','id_usuario');
+    }
+    
+    public function reservacion(){
+         return $this->hasManyThrough('App\Models\Reservacion', 'App\Models\Vehiculo','id_usuario','id_vehiculo');
     }
 }

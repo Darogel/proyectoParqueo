@@ -16,11 +16,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Reservacion;
 use App\Models\Usuario;
+use App\Models\Parqueadero;
 use App\Models\Vehiculo;
 use App\Models\Plaza;
 
-
 class ReservacionController extends Controller {
+
     private $external_id;
 
     //put your code here
@@ -28,19 +29,18 @@ class ReservacionController extends Controller {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
-               $vehiculo=Vehiculo::where('external_id', $data["idV"])->first();
-               $plaza=Plaza::where('external_id',$data["idP"])->first();
-               $vehiculo= Vehiculo::find($vehiculo->id_vehiculo);
-               $plaza= Plaza::find($plaza->id_plaza);
-                    $reservacion = new Reservacion();
-                    $reservacion->hora_entrada = $data["entrada"];
-                    $reservacion->hora_salida = $data["salida"];
-                    $reservacion->external_id = utilidades\UUID::v4();
-                    $reservacion->vehiculo()->associate($vehiculo);
-                    $reservacion->plaza()->associate($plaza);
-                    $reservacion->save();
-                    return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
-                
+                $vehiculo = Vehiculo::where('external_id', $data["idV"])->first();
+                $plaza = Plaza::where('external_id', $data["idP"])->first();
+                $vehiculo = Vehiculo::find($vehiculo->id_vehiculo);
+                $plaza = Plaza::find($plaza->id_plaza);
+                $reservacion = new Reservacion();
+                $reservacion->hora_entrada = $data["entrada"];
+                $reservacion->hora_salida = $data["salida"];
+                $reservacion->external_id = utilidades\UUID::v4();
+                $reservacion->vehiculo()->associate($vehiculo);
+                $reservacion->plaza()->associate($plaza);
+                $reservacion->save();
+                return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
             } catch (Exception $ex) {
                 return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
             }
@@ -74,33 +74,7 @@ class ReservacionController extends Controller {
         }
     }
 
-  /*  public function listarReservaciones() {
-        $lista = Reservacion::where('estado', true)->orderBy('created_at', 'desc')->get();
-        $data = array();
-        foreach ($lista as $item) {
-            $data[] = ["vehiculo" => $item->external_id,
-                "hora_entrada" => $item->hora_entrada,
-                "hora_salida" => $item->hora_salida,
-                "fecha" => $item->created_at->format("Y-m-d")];
-        }
-        return response()->json($data, 200);
-    }*/
-
-   /* public function listarReservacionesParqueadero($external_id) {
-        $this->external_id = $external_id;
-        $lista = Reservacion::whereHas('parqueadero', function ($q) {
-                    $q->where('external_id', $this->external_id);
-                })->orderBy('created_at', 'desc')->get();
-        $data = array();
-        foreach ($lista as $item) {
-            $data[] = ["vehiculo" => $item->external_id,
-                "hora_entrada" => $item->hora_entrada,
-                "hora_salida" => $item->hora_salida];
-        }
-        return response()->json($data, 200);
-    }*/
-    
-    public function eliminarReservacion(Request $request){
+    public function eliminarReservacion(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
@@ -116,32 +90,32 @@ class ReservacionController extends Controller {
             return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
         }
     }
-    public function listarReservacionesaParqueadero($external_id) {
-        $this->external_id = $external_id;
-        $lista = \App\Models\Reservacion::whereHas('parqueadero', function ($q) {
-                    $q->where('external_id', $this->external_id);
-                })->where('estado','1')->orderBy('created_at', 'desc')->get();
+
+    public function listarReservacionesParqueadero($external_id) {
+        $parqueadero = Parqueadero::where('external_id', $external_id)->first();
+        $lista = Parqueadero::find($parqueadero->id_parqueadero)->reservacion;
         $data = array();
         foreach ($lista as $item) {
-            $data[] = ["vehiculo" => $item->external_id,
+             $vehiculo= Vehiculo::where('id_vehiculo',$item->id_vehiculo)->first();
+            $data[] = ["vehiculo" => $vehiculo->placa,
                 "hora_entrada" => $item->hora_entrada,
                 "hora_salida" => $item->hora_salida,
-                "fecha" => $item->created_at->format("Y-m-d")];
+                "fecha" => $item->created_at];
         }
         return response()->json($data, 200);
     }
+    
 
-    public function listarReservacionesaUsuario($external_id) {
-        $this->external_id = $external_id;
-        $lista = \App\Models\Reservacion::whereHas('usuario', function ($q) {
-                    $q->where('external_id', $this->external_id);
-                })->where('estado','1')->orderBy('created_at', 'desc')->get();
+    public function listarReservacionesUsuario($external_id) {
+        $usuario = Usuario::where('external_id', $external_id)->first();
+        $lista = Usuario::find($usuario->id_usuario)->reservacion;
         $data = array();
         foreach ($lista as $item) {
-            $data[] = ["vehiculo" => $item->external_id,
+            $vehiculo= Vehiculo::where('id_vehiculo',$item->id_vehiculo)->first();
+            $data[] = ["vehiculo" => $vehiculo->placa,
                 "hora_entrada" => $item->hora_entrada,
                 "hora_salida" => $item->hora_salida,
-                "fecha" => $item->created_at->format("Y-m-d")];
+                "fecha" => $item->created_at];
         }
         return response()->json($data, 200);
     }

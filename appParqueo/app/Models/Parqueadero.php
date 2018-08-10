@@ -28,4 +28,8 @@ class Parqueadero extends Model{
     public function plaza() {
         return $this ->hasMany('App\Models\Plaza','id_parqueadero');
     }
+    
+    public function reservacion(){
+         return $this->hasManyThrough('App\Models\Reservacion', 'App\Models\Plaza','id_parqueadero','id_plaza');
+    }
 }
