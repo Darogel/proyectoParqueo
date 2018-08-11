@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">resParking</string>
     <string name="title_activity_maps">Map</string>
+
+    //Nombres de Informacion Pedido
+    <string name="reservacion">Reservacion</string>
+
+    //Snippet
+    <string name="plaza">Plaza</string>
 </resources>
