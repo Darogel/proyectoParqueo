@@ -9,18 +9,21 @@
         android:id="@+id/nombre"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
-        android:textSize="25dp"/>
+        android:textSize="25dp"
+        android:text="Nombre"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/precio"
+        android:text="Precio"
         android:textColor="@color/colorPrimaryDark"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/plaza"
+        android:text="Plazas disponibles"
         android:textColor="@color/colorPrimaryDark"/>
     <LinearLayout
         android:layout_width="match_parent"

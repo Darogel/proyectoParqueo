@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "396784602504",
+    "firebase_url": "https://resparking-10737.firebaseio.com",
+    "project_id": "resparking-10737",
+    "storage_bucket": "resparking-10737.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396784602504:android:c090c36b6ddc3ef8",
+        "android_client_info": {
+          "package_name": "com.aplicaciones.resparking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "396784602504-6crerldiea25k1ecela8nnnpoljmcuuk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aplicaciones.resparking",
+            "certificate_hash": "4e88621ca7aa161409122e3adc387e685379ff0d"
+          }
+        },
+        {
+          "client_id": "396784602504-lak2d3ssi1dpnfqpovb5iab8fkdu8ovf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGBD7kmZdYXcf7XU_JokzfRZJRCH3qPaY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "396784602504-lak2d3ssi1dpnfqpovb5iab8fkdu8ovf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
