@@ -3,6 +3,7 @@ package com.aplicaciones.resparking;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,6 +14,8 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+
+import com.facebook.AccessToken;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -22,6 +25,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -29,6 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker marcador;
     double lat = 0.0;
     double lng = 0.0;
+
 
     private static final int LOCATION_REQUEST = 500;
 
@@ -40,6 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
 
     }
 
@@ -84,16 +91,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                //Para llamar un Toast------------
-                Toast.makeText(getApplicationContext(),"Aqui para llamar al Login",Toast.LENGTH_LONG).show();
-
-                //Para llamar Nueva Actividad
-               /* Intent intent = new Intent(getApplicationContext(), SiginActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                        Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);*/
+                if (AccessToken.getCurrentAccessToken()==null) {
+                    goLoginFB();
+                }else {
+                    reservacionAdd();
+                }
             }
         });
+    }
+
+    private void reservacionAdd() {
+        Intent intent=new Intent(this,ReservacionAdd.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void goLoginFB() {
+        Intent intent=new Intent(this,LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void agregarMarcador(double lat, double lng){
@@ -146,4 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 10000,0,locationListener);
 
     }
+
+
+
 }

@@ -1,10 +1,33 @@
 <resources>
     <string name="app_name">resParking</string>
     <string name="title_activity_maps">Map</string>
+    <string name="facebook_app_id">2151823018396409</string>
+    <string name="fb_login_protocol_scheme">fb2151823018396409</string>
+    <string name="error_login">Error al ingresar</string>
+    <string name="error_login_firebase">Error al acceder a Firebase</string>
+    //Reservacion add
+    <string name="h_entrada">Entrada:</string>
+    <string name="h_salida">Salida:</string>
+    <string name="vehiculo">Vehiculo:</string>
+
+    //Plaza add
+    <string name="puesto">Numero Puesto</string>
+    <string name="Tipo">Tipo Plaza</string>
+    <string name="estado">Estado</string>
+
+    <string name="guardar">Guardar</string>
+    <string name="volver">Volver</string>
+
 
     //Nombres de Informacion Pedido
     <string name="reservacion">Reservacion</string>
 
     //Snippet
-    <string name="plaza">Plaza</string>
+    <string name="plaza">Plaza:</string>
+    <string name="nombre_parqueo">Nombre Parqueadero:</string>
+    <string name="external">External id:</string>
+    <string name="coordenadaX">Coordenada X:</string>
+    <string name="coordenadaY">Coordenada Y:</string>
+    <string name="pHora">Precio Hora:</string>
+    <string name="nPlaza">Numero de Plazas:</string>
 </resources>
