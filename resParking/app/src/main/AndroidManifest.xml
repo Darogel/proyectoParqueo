@@ -31,7 +31,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDNSvK492cym2CahM1EatJnDJpiWPILaQ8" />
 
+<<<<<<< HEAD
         <activity android:name=".LoginActivity" />
+=======
+        <activity android:name=".LoginActivity"></activity>
+>>>>>>> 4ba0f2640f497ae32c1166c98f3da3433d37e33c
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps">
@@ -62,9 +66,13 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity android:name=".ReservacionAdd" />
         <activity android:name=".ParqueaderoAdd" />
         <activity android:name=".PlazaAdd"></activity>
+=======
+        <activity android:name=".ReservacionAdd"></activity>
+>>>>>>> 4ba0f2640f497ae32c1166c98f3da3433d37e33c
     </application>
 
 </manifest>

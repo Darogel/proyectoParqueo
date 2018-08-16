@@ -10,11 +10,14 @@
     <string name="h_salida">Salida:</string>
     <string name="vehiculo">Vehiculo:</string>
 
+<<<<<<< HEAD
     //Plaza add
     <string name="puesto">Numero Puesto</string>
     <string name="Tipo">Tipo Plaza</string>
     <string name="estado">Estado</string>
 
+=======
+>>>>>>> 4ba0f2640f497ae32c1166c98f3da3433d37e33c
     <string name="guardar">Guardar</string>
     <string name="volver">Volver</string>
 
@@ -24,10 +27,13 @@
 
     //Snippet
     <string name="plaza">Plaza:</string>
+<<<<<<< HEAD
     <string name="nombre_parqueo">Nombre Parqueadero:</string>
     <string name="external">External id:</string>
     <string name="coordenadaX">Coordenada X:</string>
     <string name="coordenadaY">Coordenada Y:</string>
     <string name="pHora">Precio Hora:</string>
     <string name="nPlaza">Numero de Plazas:</string>
+=======
+>>>>>>> 4ba0f2640f497ae32c1166c98f3da3433d37e33c
 </resources>

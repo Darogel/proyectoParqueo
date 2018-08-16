@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ReservacionAdd">
 
+<<<<<<< HEAD
    <!-- <TextView
+=======
+    <TextView
+>>>>>>> 4ba0f2640f497ae32c1166c98f3da3433d37e33c
     android:id="@+id/txt_plazaR"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -91,6 +95,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/btn_hSalida"
         android:ems="10"
+<<<<<<< HEAD
         android:inputType="textPersonName" />-->
   <TextView
       android:id="@+id/txv_hEntrada"
@@ -221,3 +226,8 @@
       android:text="@string/volver" />
 
  </RelativeLayout>
+=======
+        android:inputType="textPersonName" />
+
+</RelativeLayout>
+>>>>>>> 4ba0f2640f497ae32c1166c98f3da3433d37e33c
