@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ParqueaderoAdd">
+    tools:context=".ParqueaderoAdd"
+    android:background="@drawable/background_login">
 
   <!--  <TextView
         android:id="@+id/txt_external"
@@ -51,7 +52,8 @@
         android:layout_marginTop="120dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/coordenadaX"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="#fff"/>
 
 
     <EditText
@@ -79,7 +81,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/nombre_parqueo"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="#fff"/>
 
 
 
@@ -108,7 +111,8 @@
         android:layout_marginTop="200dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/coordenadaY"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="#fff"/>
 
 
     <EditText
@@ -136,7 +140,8 @@
         android:layout_marginTop="300dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/pHora"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="#fff"/>
 
 
     <EditText
@@ -164,7 +169,8 @@
       android:layout_marginTop="390dp"
       android:layout_marginHorizontal="50dp"
       android:text="@string/nPlaza"
-      android:layout_alignParentLeft="true" />
+      android:layout_alignParentLeft="true"
+      android:textColor="#fff"/>
 
 
   <EditText

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReservacionAdd">
+    tools:context=".ReservacionAdd"
+    android:background="@drawable/background_login">
 
    <!-- <TextView
     android:id="@+id/txt_plazaR"
@@ -101,7 +102,8 @@
       android:layout_marginTop="80dp"
       android:layout_marginHorizontal="50dp"
       android:text="@string/h_entrada"
-      android:layout_alignParentLeft="true" />
+      android:layout_alignParentLeft="true"
+      android:textColor="#fff"/>
 
 
   <EditText
@@ -131,7 +133,8 @@
       android:layout_marginTop="180dp"
       android:layout_marginHorizontal="50dp"
       android:text="@string/h_salida"
-      android:layout_alignParentLeft="true" />
+      android:layout_alignParentLeft="true"
+      android:textColor="#fff"/>
 
 
   <EditText
@@ -161,7 +164,8 @@
       android:layout_marginBottom="160dp"
       android:text="@string/vehiculo"
       android:layout_alignParentLeft="true"
-      android:layout_marginHorizontal="50dp"/>
+      android:layout_marginHorizontal="50dp"
+      android:textColor="#fff"/>
 
   <EditText
       android:id="@+id/txt_vehiculo"
@@ -185,7 +189,8 @@
       tools:layout_editor_absoluteX="16dp"
       tools:layout_editor_absoluteY="314dp"
       android:layout_alignParentLeft="true"
-      android:layout_marginHorizontal="50dp"/>
+      android:layout_marginHorizontal="50dp"
+      android:textColor="#fff"/>
 
   <EditText
       android:id="@+id/txt_plaza"
