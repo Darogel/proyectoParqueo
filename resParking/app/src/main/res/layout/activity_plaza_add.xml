@@ -4,88 +4,107 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlazaAdd">
-    <TextView
-        android:id="@+id/txv_nPuesto"
+    tools:context=".PlazaAdd"
+    android:background="@drawable/background_login">
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="150dp"
-        android:layout_marginHorizontal="50dp"
-        android:text="@string/puesto"
-        android:layout_alignParentLeft="true" />
+        android:layout_height="440dp"
+        android:layout_centerVertical="true"
+        android:background="@color/com_facebook_likeboxcountview_border_color"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            />
+        <TextView
+            android:id="@+id/txv_nPuesto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="150dp"
+            android:layout_marginHorizontal="50dp"
+            android:text="@string/puesto"
+            android:layout_alignParentLeft="true"
+            android:textColor="#fff"
+            />
+
+        <EditText
+            android:id="@+id/etxt_nPuesto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txv_nPuesto"
+            android:layout_marginHorizontal="50dp"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:background="#fff"/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cbx_puesto"
+            android:layout_alignEnd="@+id/etxt_nPuesto"
+            android:layout_alignTop="@+id/etxt_nPuesto"
+            android:layout_alignRight="@+id/etxt_nPuesto">
+        </Spinner>
+
+        <TextView
+            android:id="@+id/txv_tipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="250dp"
+            android:layout_marginHorizontal="50dp"
+            android:text="@string/Tipo"
+            android:layout_alignParentLeft="true"
+            android:textColor="#fff"/>
 
 
-    <EditText
-        android:id="@+id/etxt_nPuesto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txv_nPuesto"
-        android:layout_marginHorizontal="50dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName" />
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cbx_puesto"
-        android:layout_alignEnd="@+id/etxt_nPuesto"
-        android:layout_alignTop="@+id/etxt_nPuesto"
-        android:layout_alignRight="@+id/etxt_nPuesto">
-    </Spinner>
-
-    <TextView
-        android:id="@+id/txv_tipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="250dp"
-        android:layout_marginHorizontal="50dp"
-        android:text="@string/Tipo"
-        android:layout_alignParentLeft="true" />
+        <EditText
+            android:id="@+id/etxt_tipo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txv_tipo"
+            android:layout_marginHorizontal="50dp"
+            android:ems="10"
+            android:enabled="false"
+            android:inputType="textPersonName"
+            android:background="#fff"/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cbx_tipo"
+            android:layout_alignEnd="@+id/etxt_tipo"
+            android:layout_alignTop="@+id/etxt_tipo"
+            android:layout_alignRight="@+id/etxt_tipo">
+        </Spinner>
 
 
-    <EditText
-        android:id="@+id/etxt_tipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txv_tipo"
-        android:layout_marginHorizontal="50dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName" />
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/cbx_tipo"
-        android:layout_alignEnd="@+id/etxt_tipo"
-        android:layout_alignTop="@+id/etxt_tipo"
-        android:layout_alignRight="@+id/etxt_tipo">
-    </Spinner>
+        <ImageButton
+            android:id="@+id/btn_guardarPl"
+            android:layout_width="83dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="56dp"
+            android:layout_marginHorizontal="50dp"
+            android:background="@android:color/holo_orange_dark"
+            android:src="@android:drawable/ic_menu_add"
+            android:text="@string/guardar" />
 
+        <ImageButton
+            android:id="@+id/btn_volverPl"
+            android:layout_width="78dp"
+            android:layout_height="46dp"
 
-    <ImageButton
-        android:id="@+id/btn_guardarPl"
-        android:layout_width="83dp"
-        android:layout_height="45dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="56dp"
-        android:layout_marginHorizontal="50dp"
-        android:background="@android:color/holo_orange_dark"
-        android:src="@android:drawable/ic_menu_add"
-        android:text="@string/guardar" />
+            android:layout_alignTop="@+id/btn_guardarPl"
+            android:layout_toEndOf="@+id/txv_nPuesto"
+            android:background="@color/colorPrimaryDark"
+            android:src="@android:drawable/ic_menu_revert"
+            android:text="@string/volver" />
 
-    <ImageButton
-        android:id="@+id/btn_volverPl"
-        android:layout_width="78dp"
-        android:layout_height="46dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/btn_guardarR"
-        android:layout_marginEnd="88dp"
-        android:background="@color/colorPrimaryDark"
-        android:src="@android:drawable/ic_menu_revert"
-        android:text="@string/volver" />
+    </RelativeLayout>
+
 
 </RelativeLayout>

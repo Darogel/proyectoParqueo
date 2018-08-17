@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ParqueaderoAdd">
+    tools:context=".ParqueaderoAdd"
+    android:background="@drawable/background_login">
 
   <!--  <TextView
         android:id="@+id/txt_external"
@@ -24,9 +25,8 @@
       android:id="@+id/btn_guardarPq"
       android:layout_width="56dp"
       android:layout_height="wrap_content"
-      android:layout_alignParentStart="true"
-      android:layout_alignTop="@+id/btn_volverR"
-      android:layout_marginStart="78dp"
+      android:layout_alignEnd="@+id/btn_coordenadaX"
+      android:layout_alignTop="@+id/btn_volverPq"
       android:background="@android:color/holo_orange_dark"
       android:src="@android:drawable/ic_menu_add"
       android:text="@string/guardar" />
@@ -51,7 +51,8 @@
         android:layout_marginTop="120dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/coordenadaX"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="#fff"/>
 
 
     <EditText
@@ -61,7 +62,8 @@
         android:layout_below="@+id/btn_coordenadaX"
         android:layout_marginHorizontal="50dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:background="#fff"/>
 
   <ImageView
       android:layout_width="wrap_content"
@@ -79,7 +81,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/nombre_parqueo"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="#fff"/>
 
 
 
@@ -90,7 +93,8 @@
         android:layout_below="@+id/btn_nombre"
         android:layout_marginHorizontal="50dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:background="#fff"/>
 
   <ImageView
       android:layout_width="24dp"
@@ -108,7 +112,8 @@
         android:layout_marginTop="200dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/coordenadaY"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="#fff"/>
 
 
     <EditText
@@ -118,7 +123,8 @@
         android:layout_below="@+id/btn_coordenadaY"
         android:layout_marginHorizontal="50dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:background="#fff"/>
 
   <ImageView
       android:layout_width="wrap_content"
@@ -136,7 +142,8 @@
         android:layout_marginTop="300dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/pHora"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:textColor="#fff"/>
 
 
     <EditText
@@ -146,7 +153,8 @@
         android:layout_below="@+id/btn_pHora"
         android:layout_marginHorizontal="50dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:background="#fff"/>
 
   <ImageView
       android:layout_width="wrap_content"
@@ -164,7 +172,8 @@
       android:layout_marginTop="390dp"
       android:layout_marginHorizontal="50dp"
       android:text="@string/nPlaza"
-      android:layout_alignParentLeft="true" />
+      android:layout_alignParentLeft="true"
+      android:textColor="#fff"/>
 
 
   <EditText
@@ -174,7 +183,8 @@
       android:layout_below="@+id/btn_nPlaza"
       android:layout_marginHorizontal="50dp"
       android:ems="10"
-      android:inputType="textPersonName" />
+      android:inputType="textPersonName"
+      android:background="#fff"/>
 
   <ImageView
       android:layout_width="wrap_content"

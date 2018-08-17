@@ -27,7 +27,6 @@ import android.widget.Toast;
 
 
 import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -72,9 +71,6 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-
     }
 
     @Override
@@ -140,6 +136,8 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+
 
     private void plazaAdd() {
         Intent intent=new Intent(this,PlazaAdd.class);
@@ -229,13 +227,7 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_logIn) {
-            if (AccessToken.getCurrentAccessToken()==null) {
-                goLoginFB();
-            }else {
-
-            }
-
+        if (id == R.id.action_settings) {
             return true;
         }
 
@@ -258,21 +250,13 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_logOut) {
-            logOut();
+        } else if (id == R.id.nav_send) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    public void logOut(){
-        FirebaseAuth.getInstance().signOut();
-        LoginManager.getInstance().logOut();
-        Toast.makeText(getApplicationContext(),R.string.logOut, Toast.LENGTH_SHORT).show();
     }
 
 }

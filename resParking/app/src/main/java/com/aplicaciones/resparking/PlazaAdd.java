@@ -25,13 +25,13 @@ public class PlazaAdd extends AppCompatActivity {
         btn_volverPl=(ImageButton) findViewById(R.id.btn_volverPl);
 
         spinner = (Spinner) findViewById(R.id.cbx_puesto);
-        String[] puesto = {"1","2","3","4","5","6","7","8","9","10"};
+        String[] puesto = {"Seleccionar","1","2","3","4","5","6","7","8","9","10"};
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, puesto));
 
 
 
-        spinner1 = (Spinner) findViewById(R.id.cbx_puesto);
-        String[] tipo = {"Con techo","Sin techo"};
+        spinner1 = (Spinner) findViewById(R.id.cbx_tipo);
+        String[] tipo = {"Seleccionar","Con techo","Sin techo"};
         spinner1.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipo));
 
 
