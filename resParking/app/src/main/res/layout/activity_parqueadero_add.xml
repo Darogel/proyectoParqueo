@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ParqueaderoAdd"
-    android:background="@drawable/background_login">
+    tools:context=".ParqueaderoAdd">
 
   <!--  <TextView
         android:id="@+id/txt_external"
@@ -22,7 +21,7 @@
 
 
   <ImageButton
-      android:id="@+id/btn_guardarR"
+      android:id="@+id/btn_guardarPq"
       android:layout_width="56dp"
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
@@ -33,7 +32,7 @@
       android:text="@string/guardar" />
 
   <ImageButton
-      android:id="@+id/btn_volverR"
+      android:id="@+id/btn_volverPq"
       android:layout_width="56dp"
       android:layout_height="wrap_content"
       android:layout_alignEnd="@+id/txt_coordenadaX"
@@ -52,8 +51,7 @@
         android:layout_marginTop="120dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/coordenadaX"
-        android:layout_alignParentLeft="true"
-        android:textColor="#fff"/>
+        android:layout_alignParentLeft="true" />
 
 
     <EditText
@@ -81,8 +79,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/nombre_parqueo"
-        android:layout_alignParentLeft="true"
-        android:textColor="#fff"/>
+        android:layout_alignParentLeft="true" />
 
 
 
@@ -111,8 +108,7 @@
         android:layout_marginTop="200dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/coordenadaY"
-        android:layout_alignParentLeft="true"
-        android:textColor="#fff"/>
+        android:layout_alignParentLeft="true" />
 
 
     <EditText
@@ -140,8 +136,7 @@
         android:layout_marginTop="300dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/pHora"
-        android:layout_alignParentLeft="true"
-        android:textColor="#fff"/>
+        android:layout_alignParentLeft="true" />
 
 
     <EditText
@@ -169,8 +164,7 @@
       android:layout_marginTop="390dp"
       android:layout_marginHorizontal="50dp"
       android:text="@string/nPlaza"
-      android:layout_alignParentLeft="true"
-      android:textColor="#fff"/>
+      android:layout_alignParentLeft="true" />
 
 
   <EditText

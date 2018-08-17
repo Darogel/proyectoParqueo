@@ -13,13 +13,16 @@ public class PlazaAdd extends AppCompatActivity {
     private Spinner spinner;
     private Spinner spinner1;
 
-    private ImageButton btn_guardarR;
-    private ImageButton btn_volverR;
+    private ImageButton btn_guardarPl;
+    private ImageButton btn_volverPl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plaza_add);
+
+        btn_guardarPl=(ImageButton) findViewById(R.id.btn_guardarPl);
+        btn_volverPl=(ImageButton) findViewById(R.id.btn_volverPl);
 
         spinner = (Spinner) findViewById(R.id.cbx_puesto);
         String[] puesto = {"1","2","3","4","5","6","7","8","9","10"};
@@ -38,14 +41,14 @@ public class PlazaAdd extends AppCompatActivity {
     private void oyente() {
 
 
-        this.btn_guardarR.setOnClickListener(new View.OnClickListener() {
+        this.btn_guardarPl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
 
-        this.btn_volverR.setOnClickListener(new View.OnClickListener() {
+        this.btn_volverPl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToMaps();
