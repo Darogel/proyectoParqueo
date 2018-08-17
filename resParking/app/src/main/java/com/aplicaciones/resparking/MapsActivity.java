@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 
 import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -228,7 +229,13 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logIn) {
+            if (AccessToken.getCurrentAccessToken()==null) {
+                goLoginFB();
+            }else {
+
+            }
+
             return true;
         }
 
@@ -251,13 +258,21 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logOut) {
+            logOut();
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    public void logOut(){
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
+        Toast.makeText(getApplicationContext(),R.string.logOut, Toast.LENGTH_SHORT).show();
     }
 
 }
