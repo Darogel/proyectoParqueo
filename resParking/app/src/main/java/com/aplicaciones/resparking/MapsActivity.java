@@ -20,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +51,8 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
     private static final int LOCATION_REQUEST = 500;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,7 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -141,6 +145,17 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
     private void plazaAdd() {
         Intent intent=new Intent(this,PlazaAdd.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+    private void listarActivity() {
+        Intent intent=new Intent(this,ListarActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    private void loginAdmin(){
+        Intent intent=new Intent(this,LoginAdministrador.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -228,10 +243,11 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            loginAdmin();
         }
 
         return super.onOptionsItemSelected(item);
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -245,7 +261,7 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         } else if (id == R.id.nav_plaza) {
             plazaAdd();
         } else if (id == R.id.nav_listar) {
-
+            listarActivity();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

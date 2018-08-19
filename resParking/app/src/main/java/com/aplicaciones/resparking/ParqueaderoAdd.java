@@ -4,34 +4,38 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class ParqueaderoAdd extends AppCompatActivity {
 
-    private ImageButton btn_guardarPq;
-    private ImageButton btn_volverPq;
+    private Button btn_guardarPr;
+    private Button btn_volver;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parqueadero_add);
 
-        btn_guardarPq=(ImageButton) findViewById(R.id.btn_guardarPq);
-        btn_volverPq=(ImageButton) findViewById(R.id.btn_volverPq);
+        btn_guardarPr=(Button) findViewById(R.id.btn_guardarPr);
+        btn_volver=(Button) findViewById(R.id.btn_volverPr);
         oyente();
     }
 
     private void oyente() {
 
 
-        this.btn_guardarPq.setOnClickListener(new View.OnClickListener() {
+        this.btn_guardarPr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
 
-        this.btn_volverPq.setOnClickListener(new View.OnClickListener() {
+        this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToMaps();

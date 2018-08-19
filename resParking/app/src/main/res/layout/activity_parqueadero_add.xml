@@ -7,40 +7,33 @@
     tools:context=".ParqueaderoAdd"
     android:background="@drawable/background_login">
 
-  <!--  <TextView
-        android:id="@+id/txt_external"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="218dp"
-        android:text="@string/external"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="314dp"
-        android:textSize="20dp"
-        android:layout_alignParentLeft="true" />-->
-
-
-  <ImageButton
-      android:id="@+id/btn_guardarPq"
-      android:layout_width="56dp"
+  <Button
+      android:id="@+id/btn_guardarPr"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignEnd="@+id/btn_coordenadaX"
-      android:layout_alignTop="@+id/btn_volverPq"
-      android:background="@android:color/holo_orange_dark"
-      android:src="@android:drawable/ic_menu_add"
-      android:text="@string/guardar" />
+      android:layout_below="@+id/txt_nPlaza"
+      android:layout_marginTop="24dp"
+      android:background="@drawable/background_button_login"
+      android:clickable="true"
+      android:padding="16dp"
+      android:text="Guardar"
+      android:textAllCaps="false"
+      android:textColor="#f16f7d" />
 
-  <ImageButton
-      android:id="@+id/btn_volverPq"
-      android:layout_width="56dp"
+  <Button
+      android:id="@+id/btn_volverPr"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignEnd="@+id/txt_coordenadaX"
-      android:layout_alignParentBottom="true"
-      android:layout_marginBottom="15dp"
-      android:background="@color/colorPrimaryDark"
-      android:src="@android:drawable/ic_menu_revert"
-      android:text="@string/volver" />
+      android:layout_marginTop="24dp"
+      android:background="@drawable/background_button_volver"
+      android:clickable="true"
+      android:padding="16dp"
+      android:text="Volver"
+      android:textAllCaps="false"
+      android:textColor="#fff"
+      android:layout_below="@+id/btn_guardarPr"/>
 
     <TextView
         android:id="@+id/btn_coordenadaX"
@@ -48,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="90dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/coordenadaX"
         android:layout_alignParentLeft="true"
@@ -109,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="150dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/coordenadaY"
         android:layout_alignParentLeft="true"
@@ -139,7 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="210dp"
         android:layout_marginHorizontal="50dp"
         android:text="@string/pHora"
         android:layout_alignParentLeft="true"
@@ -169,7 +162,7 @@
       android:layout_height="wrap_content"
       android:layout_alignParentStart="true"
       android:layout_alignParentTop="true"
-      android:layout_marginTop="390dp"
+      android:layout_marginTop="280dp"
       android:layout_marginHorizontal="50dp"
       android:text="@string/nPlaza"
       android:layout_alignParentLeft="true"

@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 
@@ -13,16 +14,16 @@ public class PlazaAdd extends AppCompatActivity {
     private Spinner spinner;
     private Spinner spinner1;
 
-    private ImageButton btn_guardarPl;
-    private ImageButton btn_volverPl;
+    private Button btn_guardarPl;
+    private Button btn_volverPl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plaza_add);
 
-        btn_guardarPl=(ImageButton) findViewById(R.id.btn_guardarPl);
-        btn_volverPl=(ImageButton) findViewById(R.id.btn_volverPl);
+        btn_guardarPl=(Button) findViewById(R.id.btn_guardarPl);
+        btn_volverPl=(Button) findViewById(R.id.btn_volverPl);
 
         spinner = (Spinner) findViewById(R.id.cbx_puesto);
         String[] puesto = {"Seleccionar","1","2","3","4","5","6","7","8","9","10"};
