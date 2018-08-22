@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.aplicaciones.resparking.R;
 import com.aplicaciones.resparking.modelo.Vehiculo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
@@ -20,6 +21,13 @@ public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
         super(context, R.layout.item_lista,data);
         this.dataSet=data;
         this.mContext=context;
+    }
+
+    public ListaVehiculo(Context context){
+        super(context, R.layout.lista_vacia, new ArrayList<Vehiculo>());
+
+        this.dataSet = new ArrayList<Vehiculo>();
+        this.mContext = context;
     }
 
     @Override

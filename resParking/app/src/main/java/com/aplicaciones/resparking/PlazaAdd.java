@@ -52,15 +52,15 @@ public class PlazaAdd extends AppCompatActivity {
         this.btn_volverPl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToMaps();
+                administrador();
 
             }
         });
 
     }
 
-    private void goToMaps() {
-        Intent intent=new Intent(this,MapsActivity.class);
+    private void administrador() {
+        Intent intent=new Intent(this,AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

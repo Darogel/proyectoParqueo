@@ -67,6 +67,7 @@
         <activity android:name=".PlazaAdd" />
         <activity android:name=".LoginAdministrador" />
         <activity android:name=".ListarActivity"/>
+        <activity android:name=".AdministradorActivity"/>
     </application>
 
 </manifest>

@@ -27,8 +27,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
     private ImageButton  btn_hEntradaR;
     private ImageButton btn_hSalidaR;
-    private ImageButton btn_guardarR;
-    private ImageButton btn_volverR;
+    private Button btn_guardarR;
+    private Button btn_volverR;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -44,8 +44,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
         btn_hEntradaR=(ImageButton) findViewById(R.id.btn_hEntradaR);
         btn_hSalidaR=(ImageButton) findViewById(R.id.btn_hSalidaR);
-        btn_guardarR=(ImageButton) findViewById(R.id.btn_guardarR);
-        btn_volverR=(ImageButton) findViewById(R.id.btn_volverR);
+        btn_guardarR=(Button) findViewById(R.id.btn_guardarR);
+        btn_volverR=(Button) findViewById(R.id.btn_volverR);
 
         btn_hEntradaR.setOnClickListener(this);
         btn_hSalidaR.setOnClickListener(this);

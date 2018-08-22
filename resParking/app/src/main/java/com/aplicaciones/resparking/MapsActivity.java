@@ -24,9 +24,17 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
+import com.aplicaciones.resparking.controlador.ws.Conexion;
+import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
+import com.aplicaciones.resparking.modelo.Vehiculo;
 import com.facebook.AccessToken;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,6 +48,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MapsActivity extends  AppCompatActivity
 implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
@@ -47,6 +58,11 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
     private Marker marcador;
     double lat = 0.0;
     double lng = 0.0;
+
+    private ListaVehiculo listaAdaptador;
+    private ListView listView;
+
+    private RequestQueue requestQueue;
 
 
     private static final int LOCATION_REQUEST = 500;
@@ -57,6 +73,12 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        /*listView = (ListView) findViewById(R.id.mi_lista);
+        listaAdaptador = new ListaVehiculo(new ArrayList<Vehiculo>(), this);
+        listView.setAdapter(listaAdaptador);*/
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -128,31 +150,17 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         });
     }
 
-
     private void reservacionAdd() {
         Intent intent=new Intent(this,ReservacionAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
-    private void parqueaderoAdd() {
-        Intent intent=new Intent(this,ParqueaderoAdd.class);
+    private void administrador() {
+        Intent intent=new Intent(this,AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-
-
-    private void plazaAdd() {
-        Intent intent=new Intent(this,PlazaAdd.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-    private void listarActivity() {
-        Intent intent=new Intent(this,ListarActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
     private void loginAdmin(){
         Intent intent=new Intent(this,LoginAdministrador.class);
@@ -257,11 +265,11 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         int id = item.getItemId();
 
         if (id == R.id.nav_parqueadero) {
-            parqueaderoAdd();
         } else if (id == R.id.nav_plaza) {
-            plazaAdd();
+            administrador();
         } else if (id == R.id.nav_listar) {
-            listarActivity();
+           // listarActivity();
+            listarVehiculo("aa17640e-8c90-46fd-ba8f-06698580467b");
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -273,6 +281,27 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    private void listarVehiculo(String exID_usuario){
+        VolleyPeticion<Vehiculo[]> vehiculo= Conexion.listarVehiculo(
+                this, exID_usuario, new Response.Listener<Vehiculo[]>() {
+                    @Override
+                    public void onResponse(Vehiculo[] response) {
+                        listaAdaptador=new ListaVehiculo(Arrays.asList(response),getApplicationContext());
+                        listView.setAdapter(listaAdaptador);
+                        //dialog();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast toast1 =Toast.makeText(getApplicationContext(),getApplicationContext().getString(R.string.error_busqueda)
+                                ,Toast.LENGTH_SHORT);
+                    }
+                }
+        );
+        requestQueue.add(vehiculo);
     }
 
 }

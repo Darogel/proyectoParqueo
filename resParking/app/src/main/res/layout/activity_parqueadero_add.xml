@@ -7,6 +7,8 @@
     tools:context=".ParqueaderoAdd"
     android:background="@drawable/background_login">
 
+
+
   <Button
       android:id="@+id/btn_guardarPr"
       style="@style/Base.TextAppearance.AppCompat.Body1"
@@ -185,5 +187,6 @@
       android:layout_alignTop="@+id/txt_nPlaza"
       android:layout_marginHorizontal="20dp"
       android:src="@android:drawable/ic_menu_info_details" />
+
 
 </RelativeLayout>

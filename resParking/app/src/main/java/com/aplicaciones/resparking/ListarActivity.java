@@ -21,10 +21,6 @@ import java.util.Arrays;
 public class ListarActivity extends AppCompatActivity {
     private Button btn_volver;
 
-    private ListaVehiculo listaAdaptador;
-    private ListView listView;
-
-    private RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,35 +34,17 @@ public class ListarActivity extends AppCompatActivity {
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                goToMaps();
+                administrador();
 
             }
         });
     }
 
-    private void goToMaps() {
-        Intent intent=new Intent(this,MapsActivity.class);
+    private void administrador() {
+        Intent intent=new Intent(this,AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
- /*   private void listarVehiculo(String exID_usuario){
-        VolleyPeticion<Vehiculo[]> films= Conexion.listarVehiculo(
-                getApplicationContext(), exID_usuario, new Response.Listener<PeliculasJson[]>() {
-                    @Override
-                    public void onResponse(PeliculasJson[] response) {
-                        listaAdaptador=new ListaVehiculo(Arrays.asList(response),);
-                        listView.setAdapter(listaAdaptador);
-                        //dialog();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast toast1 =Toast.makeText(getApplicationContext(),getApplicationContext()).getString(R.string.msg_no_busqueda)
-                                ,Toast.LENGTH_SHORT);
-                    }
-                }
-        );
-        requestQueue.add(films);
-    }*/
+
 }

@@ -19,6 +19,8 @@
     <string name="guardar">Guardar</string>
     <string name="volver">Volver</string>
 
+    <string name="error_busqueda">Error en la busqueda</string>
+
 
     //Nombres de Informacion Pedido
     <string name="reservacion">Reservacion</string>
@@ -38,4 +40,5 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Login Administrador</string>
+
 </resources>

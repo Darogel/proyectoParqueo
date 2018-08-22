@@ -11,9 +11,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="40dp"
         android:text="@string/mensaje"
         android:textColor="#000"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/btn_volver"
@@ -38,6 +39,7 @@
 
 
     <ListView
+        android:id="@+id/mi_lista"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
