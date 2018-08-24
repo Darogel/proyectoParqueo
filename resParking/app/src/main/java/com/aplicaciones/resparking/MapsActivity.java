@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -24,18 +25,22 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
 import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
 import com.aplicaciones.resparking.modelo.Vehiculo;
 import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,6 +59,9 @@ import java.util.Arrays;
 public class MapsActivity extends  AppCompatActivity
 implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
+    public static String TOKEN="";
+    public static String ID_EXTERNAL="";
+
     private GoogleMap mMap;
     private Marker marcador;
     double lat = 0.0;
@@ -61,6 +69,10 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
     private ListaVehiculo listaAdaptador;
     private ListView listView;
+
+    private TextView nombre;
+    private TextView correo;
+    private ImageView foto;
 
     private RequestQueue requestQueue;
 
@@ -73,17 +85,9 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-        /*listView = (ListView) findViewById(R.id.mi_lista);
-        listaAdaptador = new ListaVehiculo(new ArrayList<Vehiculo>(), this);
-        listView.setAdapter(listaAdaptador);*/
-
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -96,6 +100,29 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+      //  listView = (ListView) findViewById(R.id.mi_lista);
+      //  listaAdaptador = new ListaVehiculo(new ArrayList<Vehiculo>(), this);
+     //   listView.setAdapter(listaAdaptador);
+
+        nombre=(TextView)findViewById(R.id.txtNombreN);
+        correo=(TextView)findViewById(R.id.txtCorreoN);
+        foto=(ImageView)findViewById(R.id.imageViewN);
+        requestQueue= Volley.newRequestQueue(getApplicationContext());
+
+        FirebaseUser user =FirebaseAuth.getInstance().getCurrentUser();
+        if (user!=null){
+            String name =user.getDisplayName();
+            String email=user.getEmail();
+            Uri foto=user.getPhotoUrl();
+           // nombre.setText(name);
+      //      correo.setText(email);
+        }else{
+         //   nombre.setText("Nombre");
+          //  correo.setText("Correo");
+        }
+
+
 
     }
 
@@ -274,7 +301,8 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logOut) {
+            logOut();
 
         }
 
@@ -302,6 +330,11 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
                 }
         );
         requestQueue.add(vehiculo);
+    }
+
+    private void logOut(){
+        FirebaseAuth.getInstance().signOut();
+        LoginManager.getInstance().logOut();
     }
 
 }

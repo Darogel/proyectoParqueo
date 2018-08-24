@@ -31,13 +31,13 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/usuario"
                 android:layout_marginTop="5dp"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@android:drawable/sym_action_email"
                 android:drawablePadding="12dp"
                 android:ems="10"
                 android:hint="Username"
-                android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
                 android:textColorHint="#fff" />
@@ -50,6 +50,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/clave"
                 android:layout_marginTop="4dp"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@android:drawable/ic_lock_idle_lock"

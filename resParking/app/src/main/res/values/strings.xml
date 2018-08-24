@@ -41,4 +41,5 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Login Administrador</string>
 
+    <string name="msg_no_busqueda">No se pudo encontrar</string>
 </resources>

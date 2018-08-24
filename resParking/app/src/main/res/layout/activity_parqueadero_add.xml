@@ -57,7 +57,7 @@
         android:layout_below="@+id/btn_coordenadaX"
         android:layout_marginHorizontal="50dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:background="#fff"/>
 
   <ImageView
@@ -82,7 +82,7 @@
 
 
     <EditText
-        android:id="@+id/txt_nombre"
+        android:id="@+id/txt_nombrePar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_nombre"
@@ -118,7 +118,7 @@
         android:layout_below="@+id/btn_coordenadaY"
         android:layout_marginHorizontal="50dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:background="#fff"/>
 
   <ImageView
@@ -148,7 +148,7 @@
         android:layout_below="@+id/btn_pHora"
         android:layout_marginHorizontal="50dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="numberDecimal"
         android:background="#fff"/>
 
   <ImageView
@@ -178,7 +178,7 @@
       android:layout_below="@+id/btn_nPlaza"
       android:layout_marginHorizontal="50dp"
       android:ems="10"
-      android:inputType="textPersonName"
+      android:inputType="number"
       android:background="#fff"/>
 
   <ImageView

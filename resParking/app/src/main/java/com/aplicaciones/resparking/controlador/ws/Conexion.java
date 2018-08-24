@@ -5,9 +5,14 @@ import android.support.annotation.NonNull;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.aplicaciones.resparking.modelo.Administrador;
+import com.aplicaciones.resparking.modelo.Parqueadero;
 import com.aplicaciones.resparking.modelo.Plaza;
 import com.aplicaciones.resparking.modelo.Reservacion;
+import com.aplicaciones.resparking.modelo.Usuario;
 import com.aplicaciones.resparking.modelo.Vehiculo;
+
+import java.util.HashMap;
 
 public class Conexion {
     private static final String APi_URL = "https://parqueoapp.000webhostapp.com/public/";
@@ -24,6 +29,8 @@ public class Conexion {
         peticion.setResponseClass(Vehiculo[].class);
         return peticion;
     }
+
+
 
     public static VolleyPeticion<Plaza[]> listarPlazas(
             @NonNull final Context context,
@@ -77,4 +84,40 @@ public class Conexion {
         peticion.setResponseClass(PeliculasJson.class);
         return peticion;
     }*/
+
+    public static VolleyPeticion<Administrador> iniciarSesion(
+            @NonNull final Context context,
+            @NonNull final HashMap mapa,
+            @NonNull final Response.Listener<Administrador> responseListener,
+            @NonNull Response.ErrorListener errorListener){
+        final String url = APi_URL+"admin/login";
+        VolleyPeticion request = new VolleyPeticion(
+                context,
+                Request.Method.POST,
+                url,
+                mapa,
+                HashMap.class,
+                String.class,
+                responseListener,errorListener);
+        request.setResponseClass(Administrador.class);
+        return request;
+    }
+
+    public static VolleyPeticion<Parqueadero> registrarParqueadero(
+            @NonNull final Context context,
+            @NonNull final HashMap mapa,
+            @NonNull final Response.Listener<Parqueadero> responseListener,
+            @NonNull Response.ErrorListener errorListener){
+        final String url = APi_URL+"parqueadero/registrar";
+        VolleyPeticion request = new VolleyPeticion(
+                context,
+                Request.Method.POST,
+                url,
+                mapa,
+                HashMap.class,
+                String.class,
+                responseListener,errorListener);
+        request.setResponseClass(Parqueadero.class);
+        return request;
+    }
 }

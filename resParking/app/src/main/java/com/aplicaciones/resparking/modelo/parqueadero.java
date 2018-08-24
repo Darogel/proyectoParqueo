@@ -1,6 +1,6 @@
 package com.aplicaciones.resparking.modelo;
 
-public class parqueadero {
+public class Parqueadero {
     public String nombre;
     public String external_id;
     public String coordenada_x;

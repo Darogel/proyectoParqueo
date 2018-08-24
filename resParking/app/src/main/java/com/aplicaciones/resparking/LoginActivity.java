@@ -15,6 +15,7 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -22,6 +23,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,16 +40,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        progressBar=(ProgressBar)findViewById(R.id.progress_bar);
+        progressBar=(ProgressBar) findViewById(R.id.progressbar_login);
         callbackManager=CallbackManager.Factory.create();
 
 
         loginButton=(LoginButton)findViewById(R.id.loginButton);
+      //loginButton.setReadPermissions(Arrays.asList("email"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
-
 
             }
 
@@ -58,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(getApplicationContext(),R.string.error_login, Toast.LENGTH_SHORT).show();
+                System.out.println(error);
 
             }
         });
@@ -69,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user!=null){
                     reservacionAdd();
+
                 }
             }
         };
@@ -82,8 +87,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleFacebookAccessToken(AccessToken accessToken) {
-      //  progressBar.setVisibility(View.VISIBLE);
-     //   loginButton.setVisibility(View.GONE);
+        progressBar.setVisibility(View.VISIBLE);
+        loginButton.setVisibility(View.GONE);
 
         AuthCredential credential= FacebookAuthProvider.getCredential(accessToken.getToken());
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -92,8 +97,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (!task.isSuccessful()){
                   Toast.makeText(getApplicationContext(),R.string.error_login_firebase,Toast.LENGTH_LONG).show();
                 }
-            //    progressBar.setVisibility(View.GONE);
-             //   loginButton.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+                loginButton.setVisibility(View.VISIBLE);
             }
         });
     }

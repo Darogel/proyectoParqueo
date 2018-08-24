@@ -7,13 +7,26 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.aplicaciones.resparking.controlador.adaptador.ListaPlaza;
+import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
+import com.aplicaciones.resparking.controlador.ws.Conexion;
+import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
+import com.aplicaciones.resparking.modelo.Plaza;
+import com.aplicaciones.resparking.modelo.Vehiculo;
+
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class ReservacionAdd extends AppCompatActivity implements View.OnClickListener{
@@ -22,6 +35,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     private EditText etxt_hEntrada;
     private EditText etxt_hSalida;
 
+    public static String placa="";
+
     private TextView txt_plazaR;
     private TextView txt_vehiculoR;
 
@@ -29,6 +44,11 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     private ImageButton btn_hSalidaR;
     private Button btn_guardarR;
     private Button btn_volverR;
+
+    private ListaVehiculo listaVehiculo;
+    private ListaPlaza listaPlaza;
+    private RequestQueue requestQueue;
+    private RequestQueue requestQueue1;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -50,6 +70,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         btn_hEntradaR.setOnClickListener(this);
         btn_hSalidaR.setOnClickListener(this);
 
+        consultaPlaza();
+        consultaVehiculo();
         oyente();
 
 
@@ -114,7 +136,6 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
             }
         });
-
     }
 
     private void goToMaps() {
@@ -122,4 +143,53 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
+    private void consultaVehiculo(){
+        VolleyPeticion<Vehiculo[]> vehiculo= Conexion.listarVehiculo(
+                getApplicationContext(),
+                MapsActivity.ID_EXTERNAL,
+                new Response.Listener<Vehiculo[]>() {
+                    @Override
+                    public void onResponse(Vehiculo[] response) {
+                        listaVehiculo= new ListaVehiculo(Arrays.asList(response),getApplicationContext());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast toas1 = Toast.makeText(getApplicationContext(),getString(R.string.msg_no_busqueda),Toast.LENGTH_SHORT);
+                        toas1.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                        toas1.show();
+                        return ;
+                    }
+                }
+        );
+        requestQueue.add(vehiculo);
+    }
+
+
+    private void consultaPlaza(){
+        VolleyPeticion<Plaza[]> plaza= Conexion.listarPlazas(
+                getApplicationContext(),
+                MapsActivity.ID_EXTERNAL,
+                new Response.Listener<Plaza[]>() {
+                    @Override
+                    public void onResponse(Plaza[] response) {
+                        listaPlaza= new ListaPlaza(Arrays.asList(response),getApplicationContext());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast toas1 = Toast.makeText(getApplicationContext(),getString(R.string.msg_no_busqueda),Toast.LENGTH_SHORT);
+                        toas1.setGravity(Gravity.CENTER_VERTICAL,0,0);
+                        toas1.show();
+                        return ;
+                    }
+                }
+        );
+        requestQueue1.add(plaza);
+    }
+
+
 }
