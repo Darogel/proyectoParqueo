@@ -289,13 +289,6 @@ public class MapsActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void administrador() {
-        Intent intent = new Intent(this, AdministradorActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-
     private void loginAdmin() {
         Intent intent = new Intent(this, LoginAdministrador.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -400,7 +393,6 @@ public class MapsActivity extends AppCompatActivity
 
         if (id == R.id.nav_parqueadero) {
         } else if (id == R.id.nav_plaza) {
-            administrador();
         } else if (id == R.id.nav_listar) {
             // listarActivity();
             listarVehiculo("aa17640e-8c90-46fd-ba8f-06698580467b");

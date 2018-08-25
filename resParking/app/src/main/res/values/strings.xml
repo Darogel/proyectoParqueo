@@ -42,6 +42,7 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Login Administrador</string>
+    <string name="action_settings1">Salir Administrador</string>
 
     <string name="msg_no_busqueda">No se encontraron Datos</string>
 
