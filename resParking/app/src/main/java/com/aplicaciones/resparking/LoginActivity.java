@@ -45,11 +45,12 @@ public class LoginActivity extends AppCompatActivity {
 
 
         loginButton=(LoginButton)findViewById(R.id.loginButton);
-      //loginButton.setReadPermissions(Arrays.asList("email"));
+        loginButton.setReadPermissions(Arrays.asList("email"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
+
 
             }
 
@@ -61,7 +62,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onError(FacebookException error) {
                 Toast.makeText(getApplicationContext(),R.string.error_login, Toast.LENGTH_SHORT).show();
-                System.out.println(error);
 
             }
         });

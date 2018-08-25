@@ -30,7 +30,46 @@ public class Conexion {
         return peticion;
     }
 
+    public static  VolleyPeticion<Parqueadero[]> listarParqueadero(
+            @NonNull final Context context,
+            @NonNull String exIdAdmin,
+            @NonNull Response.Listener<Vehiculo[]> responseListener,
+            @NonNull Response.ErrorListener errorListener
+    ){
+        exIdAdmin= exIdAdmin.replace(" ","+");
+        final String url = APi_URL +"parqueadero/listar/"+exIdAdmin;
+        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+        peticion.setResponseClass(Parqueadero[].class);
+        return peticion;
+    }
+    /* public static VolleyPeticion<PeliculasJson> getPelicula(
+            @NonNull final Context context,
+            @NonNull String imbd,
+            @NonNull Response.Listener<PeliculasJson> responseListener,
+            @NonNull Response.ErrorListener errorListener
+    ){
+        final String url = APi_URL +"&i="+imbd+"&plot=full";
+        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+        peticion.setResponseClass(PeliculasJson.class);
+        return peticion;
+    }*/
 
+    public static VolleyPeticion<Parqueadero> getParqueaderos(
+            @NonNull final Context context,
+            @NonNull String id,
+            @NonNull String x,
+            @NonNull Response.Listener<Parqueadero> responseListener,
+            @NonNull Response.ErrorListener errorListener
+    ){
+        //id = id.replace( " ", "+");
+        final String url = APi_URL + "parqueadero/listar/" + id +"/buscar/"+ x;
+        VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET,
+                url,
+                responseListener,
+                errorListener);
+        peticion.setResponseClass(Parqueadero.class);
+        return peticion;
+    }
 
     public static VolleyPeticion<Plaza[]> listarPlazas(
             @NonNull final Context context,
@@ -58,6 +97,8 @@ public class Conexion {
         return peticion;
     }
 
+
+
     public static VolleyPeticion<Reservacion[]> listarReservacionUs(
             @NonNull final Context context,
             @NonNull String exIdUsuario,
@@ -73,17 +114,6 @@ public class Conexion {
 
 
 
-   /* public static VolleyPeticion<PeliculasJson> getPelicula(
-            @NonNull final Context context,
-            @NonNull String imbd,
-            @NonNull Response.Listener<PeliculasJson> responseListener,
-            @NonNull Response.ErrorListener errorListener
-    ){
-        final String url = APi_URL +"&i="+imbd+"&plot=full";
-        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
-        peticion.setResponseClass(PeliculasJson.class);
-        return peticion;
-    }*/
 
     public static VolleyPeticion<Administrador> iniciarSesion(
             @NonNull final Context context,

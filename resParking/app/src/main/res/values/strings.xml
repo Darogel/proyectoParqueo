@@ -24,11 +24,13 @@
 
     //Nombres de Informacion Pedido
     <string name="reservacion">Reservacion</string>
+    <string name="btn_cerrar">Cerrar</string>
+    <string name="btn_reservar">Reservar</string>
 
     //Snippet
     <string name="plaza">Plaza:</string>
     <string name="nombre_parqueo">Nombre Parqueadero:</string>
-    <string name="external">External id:</string>
+    <string name="external">Precio:</string>
     <string name="coordenadaX">Coordenada X:</string>
     <string name="coordenadaY">Coordenada Y:</string>
     <string name="pHora">Precio Hora:</string>
@@ -41,5 +43,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Login Administrador</string>
 
-    <string name="msg_no_busqueda">No se pudo encontrar</string>
+    <string name="msg_no_busqueda">No se encontraron Datos</string>
+
+
 </resources>

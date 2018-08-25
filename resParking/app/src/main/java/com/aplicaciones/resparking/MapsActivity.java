@@ -2,6 +2,7 @@ package com.aplicaciones.resparking;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,7 +10,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -19,12 +22,17 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,12 +43,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.aplicaciones.resparking.controlador.adaptador.ListaParqueadero;
 import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
 import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
+import com.aplicaciones.resparking.modelo.Parqueadero;
 import com.aplicaciones.resparking.modelo.Vehiculo;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+//import com.google.android.gms.common.api.Response;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -55,12 +66,13 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class MapsActivity extends  AppCompatActivity
-implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
+public class MapsActivity extends AppCompatActivity
+        implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
-    public static String TOKEN="";
-    public static String ID_EXTERNAL="";
+    public static String TOKEN = "";
+    public static String ID_EXTERNAL = "";
 
     private GoogleMap mMap;
     private Marker marcador;
@@ -68,7 +80,10 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
     double lng = 0.0;
 
     private ListaVehiculo listaAdaptador;
+    private ListaParqueadero listaAdaptadorP;
     private ListView listView;
+
+    private List<Parqueadero> dataset;
 
     private TextView nombre;
     private TextView correo;
@@ -76,9 +91,12 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
 
     private RequestQueue requestQueue;
 
+    private MarkerOptions marker;
+
+    private AlertDialog dialog;
+
 
     private static final int LOCATION_REQUEST = 500;
-
 
 
     @Override
@@ -101,29 +119,33 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-      //  listView = (ListView) findViewById(R.id.mi_lista);
-      //  listaAdaptador = new ListaVehiculo(new ArrayList<Vehiculo>(), this);
-     //   listView.setAdapter(listaAdaptador);
 
-        nombre=(TextView)findViewById(R.id.txtNombreN);
-        correo=(TextView)findViewById(R.id.txtCorreoN);
-        foto=(ImageView)findViewById(R.id.imageViewN);
-        requestQueue= Volley.newRequestQueue(getApplicationContext());
+        nombre = (TextView) findViewById(R.id.txtNombreN);
+        correo = (TextView) findViewById(R.id.txtCorreoN);
+        foto = (ImageView) findViewById(R.id.imageViewN);
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        FirebaseUser user =FirebaseAuth.getInstance().getCurrentUser();
-        if (user!=null){
-            String name =user.getDisplayName();
-            String email=user.getEmail();
-            Uri foto=user.getPhotoUrl();
-           // nombre.setText(name);
-      //      correo.setText(email);
-        }else{
-         //   nombre.setText("Nombre");
-          //  correo.setText("Correo");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            Uri foto = user.getPhotoUrl();
+            // nombre.setText(name);
+            //      correo.setText(email);
+        } else {
+            //   nombre.setText("Nombre");
+            //  correo.setText("Correo");
         }
 
 
+    }
 
+    public void permiso() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
+            return;
+        }
+        mMap.setMyLocationEnabled(true);
     }
 
     @Override
@@ -134,19 +156,21 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         miUbicacion();
         Puntos(googleMap);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},LOCATION_REQUEST );
+        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
             return;
-        }
-        mMap.setMyLocationEnabled(true);
+        }/*/
+        permiso();
+
+
     }
 
     @SuppressLint("MissingPermission")
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
-        switch (requestCode){
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
             case LOCATION_REQUEST:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     mMap.setMyLocationEnabled(true);
                 }
                 break;
@@ -154,62 +178,145 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         }
     }
 
-    public  void Puntos(GoogleMap googleMap) {
+    public void Puntos(GoogleMap googleMap) {
         mMap = googleMap;
-        final LatLng Clinica = new LatLng(-4.026261, -79.203282);
-        final LatLng parqueoPublico = new LatLng(-4.003510,-79.200831);
-        mMap.addMarker(new MarkerOptions().position(Clinica).title("Clinica San Isidro").snippet("plaza"));
-                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-        mMap.addMarker(new MarkerOptions().position(parqueoPublico).title("Parqueo Publico").snippet("plaza"));
-                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
-        DetallesParqueo adapter = new DetallesParqueo(MapsActivity.this);
-        mMap.setInfoWindowAdapter(adapter);
+        final LatLng parqueaderoSanFrancisco = new LatLng(-4.0086472, -79.2034037);
+        final LatLng parqueoPublico = new LatLng(-4.003510, -79.200831);
+        final LatLng parqueoAzuay = new LatLng(-4.0048335, -79.211932);
+        final LatLng parqueoPublio1 = new LatLng(-4.0040273, -79.202404);
+        final LatLng parqueoPatioVillage = new LatLng(-4.0027127, -79.2114909);
+        final Marker marcador = mMap.addMarker(new MarkerOptions().position(parqueaderoSanFrancisco).title(""));
+        final Marker marcador1 = mMap.addMarker(new MarkerOptions().position(parqueoPublico).title(""));
+        final Marker marcador2 = mMap.addMarker(new MarkerOptions().position(parqueoAzuay).title(""));
+        final Marker marcador3 = mMap.addMarker(new MarkerOptions().position(parqueoPublio1).title(""));
+        final Marker marcador4 = mMap.addMarker(new MarkerOptions().position(parqueoPatioVillage).title(""));
 
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public void onInfoWindowClick(Marker marker) {
-                if (AccessToken.getCurrentAccessToken()==null) {
-                    goLoginFB();
-                }else {
-                    reservacionAdd();
+            public boolean onMarkerClick(Marker marker) {
+                double latitu = marcador.getPosition().latitude;
+                String latitul = String.valueOf(latitu);
+                double latitud = marcador1.getPosition().latitude;
+                String latitud1 = String.valueOf(latitud);
+                double latitud2 = marcador2.getPosition().latitude;
+                String latitud3 = String.valueOf(latitud2);
+                double latitud4 = marcador3.getPosition().latitude;
+                String latitud5 = String.valueOf(latitud4);
+                double latitud6 = marcador4.getPosition().latitude;
+                String latitud7 = String.valueOf(latitud6);
+                if (marker.equals(marcador)) {
+                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitul);
                 }
+                if (marker.equals(marcador1)) {
+                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitud1);
+                }
+                if (marker.equals(marcador2)) {
+                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitud3);
+                }
+                if (marker.equals(marcador3)) {
+                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitud5);
+                }
+                if (marker.equals(marcador4)) {
+                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitud7);
+                }
+                return false;
             }
         });
     }
 
+    private void consultarWs(String exIdAdmin, String x) {
+        VolleyPeticion<Parqueadero> films = Conexion.getParqueaderos(
+                this,
+                exIdAdmin,
+                x,
+                new Response.Listener<Parqueadero>() {
+                    @Override
+                    public void onResponse(Parqueadero response) {
+                        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MapsActivity.this);
+                        final View mView = getLayoutInflater().inflate(R.layout.modal_marcador, null);
+                        mBuilder.setView(mView);
+                        TextView nombre = (TextView) mView.findViewById(R.id.nombre_parqueo);
+                        nombre.setText(response.nombre);
+                        TextView plaza = (TextView) mView.findViewById(R.id.plaza);
+                        plaza.setText(response.numero_plazas);
+                        TextView precio = (TextView) mView.findViewById(R.id.external);
+                        precio.setText(response.precio_hora);
+                        Button reservacion = (Button) mView.findViewById(R.id.dialogButtonEscoger);
+                        Button cerrar = (Button) mView.findViewById(R.id.dialogButtonCerrar);
+
+                        dialog = mBuilder.create();
+                        dialog.show();
+
+                        reservacion.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if (AccessToken.getCurrentAccessToken() == null) {
+                                    goLoginFB();
+                                } else {
+                                    reservacionAdd();
+                                }
+                            }
+                        });
+
+                        cerrar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast toast1 = Toast.makeText(getApplicationContext(),
+                                getApplicationContext().getString(R.string.msg_no_busqueda),
+                                Toast.LENGTH_LONG);
+                        toast1.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                        toast1.show();
+                    }
+                }
+        );
+        requestQueue.add(films);
+    }
+
+
     private void reservacionAdd() {
-        Intent intent=new Intent(this,ReservacionAdd.class);
+        Intent intent = new Intent(this, ReservacionAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
     private void administrador() {
-        Intent intent=new Intent(this,AdministradorActivity.class);
+        Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
 
-    private void loginAdmin(){
-        Intent intent=new Intent(this,LoginAdministrador.class);
+    private void loginAdmin() {
+        Intent intent = new Intent(this, LoginAdministrador.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     private void goLoginFB() {
-        Intent intent=new Intent(this,LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    private void agregarMarcador(double lat, double lng){
+    private void agregarMarcador(double lat, double lng) {
         LatLng coordenada = new LatLng(lat, lng);
-        CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenada,16);
+        CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenada, 16);
         if (marcador != null) marcador.remove();
         mMap.animateCamera(miUbicacion);
     }
 
-    public void actualizarUbicacion(Location location){
-        if (location != null){
+    public void actualizarUbicacion(Location location) {
+        if (location != null) {
             lat = location.getLatitude();
             lng = location.getLongitude();
             agregarMarcador(lat, lng);
@@ -238,17 +345,17 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         }
     };
 
-    private void miUbicacion(){
+    private void miUbicacion() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED){
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         actualizarUbicacion(location);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                10000,0,locationListener);
+                10000, 0, locationListener);
 
     }
 
@@ -295,7 +402,7 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
         } else if (id == R.id.nav_plaza) {
             administrador();
         } else if (id == R.id.nav_listar) {
-           // listarActivity();
+            // listarActivity();
             listarVehiculo("aa17640e-8c90-46fd-ba8f-06698580467b");
         } else if (id == R.id.nav_manage) {
 
@@ -312,27 +419,27 @@ implements OnMapReadyCallback,NavigationView.OnNavigationItemSelectedListener {
     }
 
 
-    private void listarVehiculo(String exID_usuario){
-        VolleyPeticion<Vehiculo[]> vehiculo= Conexion.listarVehiculo(
+    private void listarVehiculo(String exID_usuario) {
+        VolleyPeticion<Vehiculo[]> vehiculo = Conexion.listarVehiculo(
                 this, exID_usuario, new Response.Listener<Vehiculo[]>() {
                     @Override
                     public void onResponse(Vehiculo[] response) {
-                        listaAdaptador=new ListaVehiculo(Arrays.asList(response),getApplicationContext());
+                        listaAdaptador = new ListaVehiculo(Arrays.asList(response), getApplicationContext());
                         listView.setAdapter(listaAdaptador);
                         //dialog();
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast toast1 =Toast.makeText(getApplicationContext(),getApplicationContext().getString(R.string.error_busqueda)
-                                ,Toast.LENGTH_SHORT);
+                        Toast toast1 = Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.error_busqueda)
+                                , Toast.LENGTH_SHORT);
                     }
                 }
         );
         requestQueue.add(vehiculo);
     }
 
-    private void logOut(){
+    private void logOut() {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
     }

@@ -3,6 +3,7 @@ package com.aplicaciones.resparking;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,57 +29,72 @@ public class LoginAdministrador extends AppCompatActivity {
     private Button btn_inicio;
     private Button btn_volver;
     private RequestQueue requestQueue;
+
+    public void limpiarTexto(){
+        usuario.getText().clear();
+        clave.getText().clear();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_administrador);
-        usuario=(EditText)findViewById(R.id.usuario);
-        clave=(EditText)findViewById(R.id.clave);
-        btn_inicio=(Button)findViewById(R.id.btn_login_admin);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        usuario = (EditText) findViewById(R.id.usuario);
+        clave = (EditText) findViewById(R.id.clave);
+        btn_inicio = (Button) findViewById(R.id.btn_login_admin);
         btn_volver = (Button) findViewById(R.id.btn_volver);
-        requestQueue= Volley.newRequestQueue(getApplicationContext());
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
         oyente();
 
     }
+
     private void oyente() {
 
         btn_inicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String user=usuario.getText().toString();
-                String password=clave.getText().toString();
-                if (user.trim().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Falta usuario",Toast.LENGTH_SHORT).show();
+                String user = usuario.getText().toString();
+                String password = clave.getText().toString();
+                if (user.trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Falta usuario", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (password.trim().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Falta clave",Toast.LENGTH_SHORT).show();
+                if (password.trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Falta clave", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                HashMap<String,String> mapa= new HashMap<>();
-                mapa.put("usuario",user);
-                mapa.put("clave",password);
+                HashMap<String, String> mapa = new HashMap<>();
+                mapa.put("usuario", user);
+                mapa.put("clave", password);
 
-                VolleyPeticion<Administrador> inicio= Conexion.iniciarSesion(
+                VolleyPeticion<Administrador> inicio = Conexion.iniciarSesion(
                         getApplicationContext(),
                         mapa,
                         new Response.Listener<Administrador>() {
                             @Override
                             public void onResponse(Administrador response) {
+                                if(response != null){
+                                    MapsActivity.TOKEN = response.token;
+                                    MapsActivity.ID_EXTERNAL = response.id;
+                                    Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
 
-                                MapsActivity.TOKEN=response.token;
-                                MapsActivity.ID_EXTERNAL=response.id;
-                                Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
-
-                                goToAdministrar();
+                                    goToAdministrar();
+                                }else{
+                                    Toast.makeText(getApplicationContext(),"Usuario o Contrasña Incorrecto",Toast.LENGTH_SHORT).show();
+                                    limpiarTexto();
+                                }
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-
                                 VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+
 
                             }
                         }
@@ -97,13 +113,13 @@ public class LoginAdministrador extends AppCompatActivity {
     }
 
     private void goToMaps() {
-        Intent intent=new Intent(this,MapsActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     private void goToAdministrar() {
-        Intent intent=new Intent(this,AdministradorActivity.class);
+        Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
