@@ -1,28 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <ImageView
+        android:layout_width="75dip"
+        android:layout_height="75dip"
+        android:id="@+id/imgFilms"
+        android:src="@mipmap/ic_launcher_round"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvTitulo"
         android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imgFilms"
         android:textColor="#040404"
         android:typeface="sans"
         android:textSize="15dip"
         android:textStyle="bold"
         android:text="TextView"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvYear"
-        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@+id/imgFilms"
+        android:layout_toRightOf="@+id/imgFilms"
         android:textColor="#343434"
         android:textSize="10dip"
         android:layout_marginTop="1dip"
         android:text="TextView"/>
+</LinearLayout>
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTitulo"
+            android:layout_alignParentTop="true"
+            android:textColor="#040404"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textStyle="bold"
+            android:text="TextView"/>
 
-
-
-</RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvYear"
+            android:layout_alignParentBottom="true"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:layout_marginTop="1dip"
+            android:text="TextView"/>
+    </RelativeLayout>-->

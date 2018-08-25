@@ -19,14 +19,13 @@ public class ListaPlaza extends ArrayAdapter<Plaza> {
     Context mContext;
 
     public ListaPlaza(List<Plaza> data, Context context){
-        super(context, R.layout.item_lista,data); //ojo con item_lista
+        super(context, R.layout.item_lista_plaza,data);
         this.dataSet=data;
         this.mContext=context;
     }
 
     public ListaPlaza(Context context){
         super(context, R.layout.lista_vacia, new ArrayList<Plaza>());
-
         this.dataSet = new ArrayList<Plaza>();
         this.mContext = context;
     }
@@ -38,13 +37,11 @@ public class ListaPlaza extends ArrayAdapter<Plaza> {
         if (dataSet.isEmpty()){
             item=inflater.inflate(R.layout.lista_vacia,null);
         }else {
-            item=inflater.inflate(R.layout.item_lista,null);
+            item=inflater.inflate(R.layout.item_lista_plaza,null);
         }
 
-
-        /*/TextView numeroP=(TextView)item.findViewById(R.id.vPlacaD);
-        numeroP.setText(dataSet.get(position).numero_puesto);*/
-
+        TextView numeroP=(TextView)item.findViewById(R.id.puesto);
+        numeroP.setText(dataSet.get(position).numero_puesto);
         return item;
     }
 }

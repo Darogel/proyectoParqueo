@@ -41,8 +41,8 @@ public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
         }
 
 
-        TextView placaV=(TextView)item.findViewById(R.id.vPlacaD);
-        placaV.setText(dataSet.get(position).placa);
+        TextView placa=(TextView)item.findViewById(R.id.vPlaca);
+        placa.setText(dataSet.get(position).placa);
 
 
         return item;

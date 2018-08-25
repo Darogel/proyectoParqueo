@@ -16,10 +16,12 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -68,6 +70,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+//import static com.aplicaciones.resparking.R.id.page_content;
+
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
@@ -94,6 +98,10 @@ public class MapsActivity extends AppCompatActivity
     private MarkerOptions marker;
 
     private AlertDialog dialog;
+
+    private ViewPager mViewPager;
+
+    private TabLayout mTabLayout;
 
 
     private static final int LOCATION_REQUEST = 500;
@@ -136,9 +144,18 @@ public class MapsActivity extends AppCompatActivity
             //   nombre.setText("Nombre");
             //  correo.setText("Correo");
         }
-
+        //setViewPager();
 
     }
+
+   /* public void setViewPager(){
+        mViewPager = findViewById(R.id.page_content);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mViewPagerAdapter);
+
+        mTabLayout = (TabLayout) findViewById(R.id.tab);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }*/
 
     public void permiso() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

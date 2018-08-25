@@ -66,8 +66,8 @@
         <activity android:name=".ParqueaderoAdd" />
         <activity android:name=".PlazaAdd" />
         <activity android:name=".LoginAdministrador" />
-        <activity android:name=".controlador.fragmentoR.ListarActivity"/>
         <activity android:name=".AdministradorActivity"/>
+        <activity android:name=".ListarReservacionP" />
     </application>
 
 </manifest>

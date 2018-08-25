@@ -2,6 +2,8 @@ package com.aplicaciones.resparking;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -10,12 +12,18 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.aplicaciones.resparking.controlador.fragmentoR.ListarActivity;
 
 public class AdministradorActivity extends AppCompatActivity {
     private ImageButton btn_parqueadero;
     private ImageButton btn_plaza;
     private ImageButton btn_reservacion;
+    /*private ViewPager mViewPager;
+    private ViewPagerAdapter mViewPagerAdapter;
+
+    private TabLayout mTabLayout;*/
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +36,17 @@ public class AdministradorActivity extends AppCompatActivity {
         btn_plaza = (ImageButton) findViewById(R.id.btn_plaza);
         btn_reservacion = (ImageButton) findViewById(R.id.btn_reservacion);
         oyente();
+        //setViewPager();
 
     }
+    /*public void setViewPager(){
+        mViewPager = findViewById(R.id.page_content);
+        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mViewPagerAdapter);
+
+        mTabLayout = (TabLayout) findViewById(R.id.tab);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -64,9 +81,10 @@ public class AdministradorActivity extends AppCompatActivity {
         Intent intent=new Intent(this,PlazaAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+
     }
-    private void listarActivity() {
-        Intent intent=new Intent(this,ListarActivity.class);
+    private void listaReservacioP() {
+        Intent intent = new Intent(this, ListarReservacionP.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -90,7 +108,7 @@ public class AdministradorActivity extends AppCompatActivity {
         this.btn_reservacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listarActivity();
+                listaReservacioP();
             }
         });
     }
