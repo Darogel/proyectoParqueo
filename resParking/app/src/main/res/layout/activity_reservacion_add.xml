@@ -87,60 +87,38 @@
         android:id="@+id/txt_vehiculoR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/etxt_hSalida"
-        android:layout_marginBottom="160dp"
+        android:layout_alignBottom="@+id/cbx_vehiculo"
+        android:layout_alignParentStart="true"
         android:layout_marginHorizontal="50dp"
         android:text="@string/vehiculo"
         android:textColor="#fff" />
 
-    <EditText
-        android:id="@+id/txt_vehiculo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/txt_vehiculoR"
-        android:layout_below="@+id/txt_vehiculoR"
-        android:layout_marginHorizontal="50dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName" />
-
     <Spinner
         android:id="@+id/cbx_vehiculo"
-        android:layout_width="wrap_content"
+        android:layout_width="123dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/txt_vehiculo"
-        android:layout_alignRight="@+id/txt_vehiculo"
-        android:layout_alignTop="@+id/txt_vehiculo"></Spinner>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="260dp"
+        android:layout_marginEnd="98dp"></Spinner>
 
     <TextView
         android:id="@+id/txt_plazaR"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txt_vehiculo"
-        android:layout_marginBottom="218dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/etxt_hSalida"
         android:layout_marginHorizontal="50dp"
         android:text="@string/plaza"
         android:textColor="#fff" />
 
-    <EditText
-        android:id="@+id/txt_plaza"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/txt_plazaR"
-        android:layout_below="@+id/txt_plazaR"
-        android:layout_marginHorizontal="50dp"
-        android:ems="10"
-        android:enabled="false"
-        android:inputType="textPersonName" />
-
     <Spinner
         android:id="@+id/cbx_plaza"
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/txt_plaza"
-        android:layout_alignRight="@+id/txt_plaza"
-        android:layout_alignTop="@+id/txt_plaza"></Spinner>
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/etxt_hSalida"
+        android:layout_marginEnd="100dp"></Spinner>
 
     <Button
         android:id="@+id/btn_guardarR"

@@ -37,6 +37,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 public class ReservacionAdd extends AppCompatActivity implements View.OnClickListener {
+    public static String ID_EXTERNAL_PLAZA = "";
+    public static String ID_EXTERNAL_VEHICULO = "";
+
     private int hora, minutos;
 
     private EditText etxt_hEntrada;
@@ -205,18 +208,19 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                         listaVehiculo = new ListaVehiculo(Arrays.asList(response), getApplicationContext());
                         listaVehiculo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerVehiculo.setAdapter(listaVehiculo);
-
-                        /*spinnerVehiculo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        spinnerVehiculo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                Toast toas1 = Toast.makeText(getApplicationContext(), getString(R.string.msg_no_busqueda), Toast.LENGTH_SHORT);
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                                Object item = spinnerPlaza.getItemAtPosition(i);
-                                System.out.println(item);
+                                Vehiculo vehiculo= (Vehiculo) adapterView.getItemAtPosition(i);
+                                ID_EXTERNAL_VEHICULO=vehiculo.external_id;
                             }
-                        });*/
 
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
 
+                            }
+                        });
                     }
                 },
                 new Response.ErrorListener() {
@@ -243,6 +247,19 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                         listaPlaza = new ListaPlaza(Arrays.asList(response), getApplicationContext());
                         listaPlaza.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         spinnerPlaza.setAdapter(listaPlaza);
+                        spinnerPlaza.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                                Plaza plaza= (Plaza) adapterView.getItemAtPosition(i);
+                                ID_EXTERNAL_PLAZA=plaza.external_id;
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
                     }
                 },
                 new Response.ErrorListener() {
