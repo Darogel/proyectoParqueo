@@ -18,6 +18,7 @@ public class ListaPlaza extends ArrayAdapter<Plaza> {
     private List<Plaza> dataSet;
     Context mContext;
 
+
     public ListaPlaza(List<Plaza> data, Context context){
         super(context, R.layout.item_lista_plaza,data);
         this.dataSet=data;

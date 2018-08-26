@@ -7,17 +7,7 @@
     android:background="#fff"
     android:orientation="vertical"
     tools:context=".AdministradorActivity">
-    <!--<android.support.v4.view.ViewPager
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/page_content"
-        >
-    </android.support.v4.view.ViewPager>
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />-->
+
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

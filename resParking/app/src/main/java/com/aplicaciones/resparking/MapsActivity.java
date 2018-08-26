@@ -306,6 +306,12 @@ public class MapsActivity extends AppCompatActivity
     }
 
 
+    private void ingresarVehiculo() {
+        Intent intent = new Intent(this, IngresarVehiculo.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     private void reservacionAdd() {
         Intent intent = new Intent(this, ReservacionAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -415,7 +421,8 @@ public class MapsActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_parqueadero) {
-        } else if (id == R.id.nav_plaza) {
+        } else if (id == R.id.nav_placa) {
+            ingresarVehiculo();
         } else if (id == R.id.nav_listar) {
             // listarActivity();
             listaReservacioU();

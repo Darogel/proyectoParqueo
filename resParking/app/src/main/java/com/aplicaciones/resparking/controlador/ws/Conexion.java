@@ -133,6 +133,23 @@ public class Conexion {
         return request;
     }
 
+    public static VolleyPeticion<Reservacion> eliminarReservacion(
+            @NonNull final Context context,
+            @NonNull final HashMap mapa,
+            @NonNull final Response.Listener<Reservacion> responseListener,
+            @NonNull Response.ErrorListener errorListener){
+        final String url = APi_URL+"reservacion/eliminar";
+        VolleyPeticion request = new VolleyPeticion(
+                context,
+                Request.Method.POST,
+                url,
+                mapa,
+                HashMap.class,
+                String.class,
+                responseListener,errorListener);
+        request.setResponseClass(Reservacion.class);
+        return request;
+    }
     public static VolleyPeticion<Parqueadero> registrarParqueadero(
             @NonNull final Context context,
             @NonNull final HashMap mapa,
@@ -148,6 +165,24 @@ public class Conexion {
                 String.class,
                 responseListener,errorListener);
         request.setResponseClass(Parqueadero.class);
+        return request;
+    }
+
+    public static VolleyPeticion<Vehiculo> registrarVehiculo(
+            @NonNull final Context context,
+            @NonNull final HashMap mapa,
+            @NonNull final Response.Listener<Vehiculo> responseListener,
+            @NonNull Response.ErrorListener errorListener){
+        final String url = APi_URL+"vehiculo/registrar";
+        VolleyPeticion request = new VolleyPeticion(
+                context,
+                Request.Method.POST,
+                url,
+                mapa,
+                HashMap.class,
+                String.class,
+                responseListener,errorListener);
+        request.setResponseClass(Vehiculo.class);
         return request;
     }
 

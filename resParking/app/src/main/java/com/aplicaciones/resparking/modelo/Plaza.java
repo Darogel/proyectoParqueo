@@ -7,4 +7,11 @@ public class Plaza {
     public String estado;
     public String created_at;
 
+    @Override
+    public String toString(){
+        return numero_puesto +" - "+ tipo;
+    }
+
+
+
 }

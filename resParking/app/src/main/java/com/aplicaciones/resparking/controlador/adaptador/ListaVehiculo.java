@@ -40,7 +40,6 @@ public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
             item=inflater.inflate(R.layout.item_lista,null);
         }
 
-
         TextView placa=(TextView)item.findViewById(R.id.vPlaca);
         placa.setText(dataSet.get(position).placa);
 

@@ -18,6 +18,7 @@
 
     <string name="guardar">Guardar</string>
     <string name="volver">Volver</string>
+    <string name="btn_guardar">Guardar</string>
 
     <string name="error_busqueda">Error en la busqueda</string>
 
@@ -43,6 +44,9 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Login Administrador</string>
     <string name="action_settings1">Salir Administrador</string>
+    <string name="action_eliminar">Eliminar Reservacion</string>
+    <string name="action_modificar">Modificar Vehiculo</string>
+
 
     <string name="msg_no_busqueda">No se encontraron Datos</string>
 
