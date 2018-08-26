@@ -135,9 +135,9 @@ public class MapsActivity extends AppCompatActivity
         View hView =navigationView.getHeaderView(0);
 
 
-        nombre = (TextView) findViewById(R.id.txtNombreN);
-        correo = (TextView) findViewById(R.id.txtCorreoN);
-        foto = (ImageView) findViewById(R.id.imageViewN);
+        nombre = (TextView)hView.findViewById(R.id.txtNombreN);
+        correo = (TextView)hView.findViewById(R.id.txtCorreoN);
+        foto = (ImageView)hView.findViewById(R.id.imageViewN);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
