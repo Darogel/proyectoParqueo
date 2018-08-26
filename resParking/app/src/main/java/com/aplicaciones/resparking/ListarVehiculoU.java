@@ -45,8 +45,7 @@ public class ListarVehiculoU extends AppCompatActivity {
 
 
         requestQueue = Volley.newRequestQueue(this);
-        //consultarWs(MapsActivity.ID_EXTERNAL);
-        consultarWs("aa17640e-8c90-46fd-ba8f-06698580467b");
+        consultarWs(MapsActivity.ID_EXTERNAL_USER);
         oyente();
     }
 

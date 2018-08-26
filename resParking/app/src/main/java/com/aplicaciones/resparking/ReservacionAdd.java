@@ -85,9 +85,6 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
         spinnerPlaza = (Spinner) findViewById(R.id.cbx_plaza);
         spinnerVehiculo = (Spinner) findViewById(R.id.cbx_vehiculo);
-        //String texto = spinnerPlaza.getSelectedItem().toString();
-        /*String[] puesto = consultaPlaza();
-        spinnerVehiculo.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, puesto));*/
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         consultaPlaza();
@@ -126,13 +123,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
     private void listaReservacioU() {
         Intent intent = new Intent(this, ListarReservacionE.class);
-        //intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        //private void listaReservacioU() {
-        //        Intent intent = new Intent(this, ListarReservacionU.class);
-        //        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        //        startActivity(intent);
-        //    }
     }
 
     @Override
@@ -205,8 +197,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     private void consultaVehiculo() {
         final VolleyPeticion<Vehiculo[]> vehiculo = Conexion.listarVehiculo(
                 getApplicationContext(),
-                //MapsActivity.ID_EXTERNAL
-                "aa17640e-8c90-46fd-ba8f-06698580467b",
+                MapsActivity.ID_EXTERNAL_USER,
                 new Response.Listener<Vehiculo[]>() {
                     @Override
                     public void onResponse(Vehiculo[] response) {
@@ -245,8 +236,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     private void consultaPlaza() {
         VolleyPeticion<Plaza[]> plaza = Conexion.listarPlazas(
                 getApplicationContext(),
-                //MapsActivity.ID_EXTERNAL
-                "fba0768b-8afc-4338-82aa-92db19b8b620",
+                MapsActivity.ID_PARQUEADERO,
                 new Response.Listener<Plaza[]>() {
                     @Override
                     public void onResponse(Plaza[] response) {

@@ -41,12 +41,11 @@ public class ListarReservacionP extends AppCompatActivity {
 
         TextView mensaje = (TextView) findViewById(R.id.reserva);
         mensaje.setText("Reservacion Del Parqueadero");
-        btn_volver = (Button)findViewById(R.id.btn_volver);
+        btn_volver = (Button) findViewById(R.id.btn_volver);
 
 
         requestQueue = Volley.newRequestQueue(this);
-        //consultarWs(MapsActivity.ID_EXTERNAL);
-        consultarWs("fba0768b-8afc-4338-82aa-92db19b8b620");
+        consultarWs(MapsActivity.ID_PARQUEADERO);
         oyente();
     }
 
@@ -83,8 +82,6 @@ public class ListarReservacionP extends AppCompatActivity {
                         toast1.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                         toast1.show();
 
-                        /*Intent intent = new Intent(ListarReservacionP.this, AdministradorActivity.class);
-                        startActivity(intent);*/
                     }
 
                 }

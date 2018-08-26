@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".controlador.fragmentoR.ListarActivity">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/reserva"
@@ -12,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/mensaje"
+        android:textStyle="bold"
         android:textColor="#000"
         android:textSize="15dp" />
 

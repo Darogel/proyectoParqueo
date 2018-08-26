@@ -17,39 +17,47 @@
             android:id="@+id/image"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp" />
-
+            android:layout_marginRight="5dp"
+            android:src="@drawable/placeholder"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="fill"
-            android:text="@string/nombre_parqueo" />
+            android:text="@string/nombre_parqueo"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/nombre_parqueo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="fill"
-            android:textColor="#000" />
+            android:textColor="#000"
+            android:textStyle="italic"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="fill"
-            android:text="@string/plaza" />
+            android:text="@string/plaza"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"/>
 
         <TextView
             android:id="@+id/plaza"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="fill"
-            android:textColor="#000" />
+            android:textColor="#000"
+            android:textStyle="italic"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="fill"
-            android:text="@string/external" />
+            android:text="@string/external"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimary"/>
 
 
         <TextView
@@ -58,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:scrollbars="vertical"
-            android:textColor="#000" />
+            android:textColor="#000"
+            android:textStyle="italic"/>
 
 
         <View

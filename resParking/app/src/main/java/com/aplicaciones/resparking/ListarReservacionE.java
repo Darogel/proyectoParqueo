@@ -58,8 +58,7 @@ public class ListarReservacionE extends AppCompatActivity {
 
 
         requestQueue = Volley.newRequestQueue(this);
-        //consultarWs(MapsActivity.ID_EXTERNAL);
-        consultarWs("aa17640e-8c90-46fd-ba8f-06698580467b");
+        consultarWs(MapsActivity.ID_EXTERNAL_USER);
         oyente();
     }
 
@@ -93,9 +92,9 @@ public class ListarReservacionE extends AppCompatActivity {
                                 dialog.setContentView(R.layout.modal_confirmacion);
 
                                 TextView nombre = (TextView) dialog.findViewById(R.id.titulo);
-                                nombre.setText("Eliminar Reservacion");
+                                nombre.setText("ELIMINAR RESERVACION!");
                                 TextView plaza = (TextView) dialog.findViewById(R.id.mensaje);
-                                plaza.setText("Esta Seguro de Eliminar la Reservacion");
+                                plaza.setText("¿Desea eliminar la reservacion?");
                                 Button reservacion = (Button) dialog.findViewById(R.id.dialogButtonGuardar);
                                 Button cerrar = (Button) dialog.findViewById(R.id.dialogButtonCerrar);
 
@@ -137,7 +136,7 @@ public class ListarReservacionE extends AppCompatActivity {
 
     private void goToMaps() {
         Intent intent = new Intent(this, MapsActivity.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

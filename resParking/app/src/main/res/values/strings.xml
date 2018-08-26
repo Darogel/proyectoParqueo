@@ -18,7 +18,7 @@
 
     <string name="guardar">Guardar</string>
     <string name="volver">Volver</string>
-    <string name="btn_guardar">Guardar</string>
+    <string name="btn_guardar">Aceptar</string>
 
     <string name="error_busqueda">Error en la busqueda</string>
 

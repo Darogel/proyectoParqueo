@@ -41,12 +41,11 @@ public class ListarReservacionU extends AppCompatActivity {
 
         TextView mensaje = (TextView) findViewById(R.id.reserva);
         mensaje.setText("Reservacion Del Usuario");
-        btn_volver = (Button)findViewById(R.id.btn_volver);
+        btn_volver = (Button) findViewById(R.id.btn_volver);
 
 
         requestQueue = Volley.newRequestQueue(this);
-        //consultarWs(MapsActivity.ID_EXTERNAL);
-        consultarWs("aa17640e-8c90-46fd-ba8f-06698580467b");
+        consultarWs(MapsActivity.ID_EXTERNAL_USER);
         oyente();
     }
 
@@ -83,8 +82,6 @@ public class ListarReservacionU extends AppCompatActivity {
                         toast1.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                         toast1.show();
 
-                        /*Intent intent = new Intent(ListarReservacionP.this, AdministradorActivity.class);
-                        startActivity(intent);*/
                     }
 
                 }
@@ -93,7 +90,7 @@ public class ListarReservacionU extends AppCompatActivity {
     }
 
     private void goToMaps() {
-        Intent intent=new Intent(this,MapsActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

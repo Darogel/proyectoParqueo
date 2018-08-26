@@ -41,7 +41,7 @@ public class ParqueaderoAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parqueadero_add);
 
-        txt_nombrePar=(EditText)findViewById(R.id.txt_nombrePar);
+        txt_nombrePar=(EditText)findViewById(R.id.txt_nombreP);
         txt_coordenadaX=(EditText)findViewById(R.id.txt_coordenadaX);
         txt_coordenadaY=(EditText)findViewById(R.id.txt_coordenadaY);
         txt_precio=(EditText)findViewById(R.id.txt_pHora);

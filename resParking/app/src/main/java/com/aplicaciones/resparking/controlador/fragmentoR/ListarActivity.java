@@ -21,12 +21,14 @@ public class ListarActivity extends Fragment {
     private ListaReservacion listaAdaptadorWs;
     private ListView listView;
 
-    public static ListarActivity newInstance(){return  new ListarActivity();}
+    public static ListarActivity newInstance() {
+        return new ListarActivity();
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_listar_reservacion, container,false);
+        View rootView = inflater.inflate(R.layout.activity_listar_reservacion, container, false);
         listView = (ListView) rootView.findViewById(R.id.mi_lista);
 
 
@@ -47,38 +49,10 @@ public class ListarActivity extends Fragment {
     }
 
     private void administrador() {
-        Intent intent=new Intent(getContext(),AdministradorActivity.class);
+        Intent intent = new Intent(getContext(), AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-    /*
-    private  void consultarWs(String exIdAdmin) {
-            VolleyPeticion<PeliculasJson[]> films = Conexion.getListaPeliculas(
-                getActivity(),
-                titulo,
-                new Response.Listener<PeliculasJson[]>() {
-                    @Override
-                    public void onResponse(PeliculasJson[] response) {
-                        listaAdaptadorWs = new ListaPeliculasJson(Arrays.asList(response),
-                                getActivity());
-                        listView.setAdapter(listaAdaptadorWs);
-                        dialog();
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast toast1 = Toast.makeText(getActivity(),
-                                getActivity().getString(R.string.msg_no_busqueda),
-                                Toast.LENGTH_LONG);
-                        toast1.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                        toast1.show();
-                    }
-                }
-        );
-        requestQueue.add(films);
-    }
-     */
 
 
 }

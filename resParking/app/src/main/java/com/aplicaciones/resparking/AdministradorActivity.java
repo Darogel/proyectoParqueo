@@ -17,11 +17,6 @@ public class AdministradorActivity extends AppCompatActivity {
     private ImageButton btn_parqueadero;
     private ImageButton btn_plaza;
     private ImageButton btn_reservacion;
-    /*private ViewPager mViewPager;
-    private ViewPagerAdapter mViewPagerAdapter;
-
-    private TabLayout mTabLayout;*/
-
 
 
     @Override
@@ -36,17 +31,8 @@ public class AdministradorActivity extends AppCompatActivity {
         btn_plaza = (ImageButton) findViewById(R.id.btn_plaza);
         btn_reservacion = (ImageButton) findViewById(R.id.btn_reservacion);
         oyente();
-        //setViewPager();
 
     }
-    /*public void setViewPager(){
-        mViewPager = findViewById(R.id.page_content);
-        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mViewPagerAdapter);
-
-        mTabLayout = (TabLayout) findViewById(R.id.tab);
-        mTabLayout.setupWithViewPager(mViewPager);
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,22 +58,24 @@ public class AdministradorActivity extends AppCompatActivity {
     }
 
     private void parqueaderoAdd() {
-        Intent intent=new Intent(this,ParqueaderoAdd.class);
+        Intent intent = new Intent(this, ParqueaderoAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     private void plazaAdd() {
-        Intent intent=new Intent(this,PlazaAdd.class);
+        Intent intent = new Intent(this, PlazaAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 
     }
+
     private void listaReservacioP() {
         Intent intent = new Intent(this, ListarReservacionP.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
     private void oyente() {
 
         this.btn_parqueadero.setOnClickListener(new View.OnClickListener() {
@@ -113,18 +101,18 @@ public class AdministradorActivity extends AppCompatActivity {
         });
     }
 
-    private void cerrarSesion(){
+    private void cerrarSesion() {
         Toast toast1 = Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.error_busqueda)
                 , Toast.LENGTH_SHORT);
         MapsActivity.TOKEN = "";
         MapsActivity.ID_EXTERNAL = "";
-        Intent intent=new Intent(this,LoginAdministrador.class);
+        Intent intent = new Intent(this, LoginAdministrador.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     private void goToMaps() {
-        Intent intent=new Intent(this,MapsActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

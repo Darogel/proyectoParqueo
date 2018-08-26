@@ -83,6 +83,7 @@ public class MapsActivity extends AppCompatActivity
     public static String TOKEN = "";
     public static String ID_EXTERNAL = "";
     public static String ID_EXTERNAL_USER = "";
+    public static String ID_PARQUEADERO = "";
 
     private GoogleMap mMap;
     private Marker marcador;
@@ -132,12 +133,12 @@ public class MapsActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        View hView =navigationView.getHeaderView(0);
+        View hView = navigationView.getHeaderView(0);
 
 
-        nombre = (TextView)hView.findViewById(R.id.txtNombreN);
-        correo = (TextView)hView.findViewById(R.id.txtCorreoN);
-        foto = (ImageView)hView.findViewById(R.id.imageViewN);
+        nombre = (TextView) hView.findViewById(R.id.txtNombreN);
+        correo = (TextView) hView.findViewById(R.id.txtCorreoN);
+        foto = (ImageView) hView.findViewById(R.id.imageViewN);
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -146,14 +147,13 @@ public class MapsActivity extends AppCompatActivity
             String email = user.getEmail();
             Uri photo = user.getPhotoUrl();
             loginRegistrarUsuario(email);
-             nombre.setText(name);
-                  correo.setText(email);
-            Picasso.get().load(photo).into((ImageView)foto);
+            nombre.setText(name);
+            correo.setText(email);
+            Picasso.get().load(photo).into((ImageView) foto);
         } else {
-               nombre.setText("Nombre");
-              correo.setText("Correo");
+            nombre.setText("Nombre");
+            correo.setText("Correo");
         }
-        //setViewPager();
 
     }
 
@@ -179,10 +179,6 @@ public class MapsActivity extends AppCompatActivity
         miUbicacion();
         Puntos(googleMap);
 
-        /*if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
-            return;
-        }/*/
         permiso();
 
 
@@ -254,7 +250,7 @@ public class MapsActivity extends AppCompatActivity
                 x,
                 new Response.Listener<Parqueadero>() {
                     @Override
-                    public void onResponse(Parqueadero response) {
+                    public void onResponse(final Parqueadero response) {
                         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MapsActivity.this);
                         final View mView = getLayoutInflater().inflate(R.layout.modal_marcador, null);
                         mBuilder.setView(mView);
@@ -274,6 +270,7 @@ public class MapsActivity extends AppCompatActivity
                             @Override
                             public void onClick(View view) {
                                 if (AccessToken.getCurrentAccessToken() == null) {
+                                    MapsActivity.ID_PARQUEADERO = response.external_id;
                                     goLoginFB();
                                 } else {
                                     reservacionAdd();
@@ -467,7 +464,7 @@ public class MapsActivity extends AppCompatActivity
         LoginManager.getInstance().logOut();
     }
 
-    private void loginRegistrarUsuario(String correo){
+    private void loginRegistrarUsuario(String correo) {
 
         HashMap<String, String> mapa = new HashMap<>();
         mapa.put("correo", correo);
@@ -478,20 +475,20 @@ public class MapsActivity extends AppCompatActivity
                 new Response.Listener<Usuario>() {
                     @Override
                     public void onResponse(Usuario response) {
-                        if(response != null){
+                        if (response != null) {
                             //   MapsActivity.TOKEN = response.token;
                             MapsActivity.ID_EXTERNAL_USER = response.external_id;
                             Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
 
-                        }else{
-                            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+                        VolleyTiposError errores = VolleyProcesadorResultado.parseErrorResponse(error);
 
 
                     }
