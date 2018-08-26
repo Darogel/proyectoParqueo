@@ -49,7 +49,10 @@ import com.aplicaciones.resparking.controlador.adaptador.ListaParqueadero;
 import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
 import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
+import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
+import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
 import com.aplicaciones.resparking.modelo.Parqueadero;
+import com.aplicaciones.resparking.modelo.Usuario;
 import com.aplicaciones.resparking.modelo.Vehiculo;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
@@ -65,9 +68,11 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 //import static com.aplicaciones.resparking.R.id.page_content;
@@ -77,6 +82,7 @@ public class MapsActivity extends AppCompatActivity
 
     public static String TOKEN = "";
     public static String ID_EXTERNAL = "";
+    public static String ID_EXTERNAL_USER = "";
 
     private GoogleMap mMap;
     private Marker marcador;
@@ -126,6 +132,7 @@ public class MapsActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View hView =navigationView.getHeaderView(0);
 
 
         nombre = (TextView) findViewById(R.id.txtNombreN);
@@ -137,12 +144,14 @@ public class MapsActivity extends AppCompatActivity
         if (user != null) {
             String name = user.getDisplayName();
             String email = user.getEmail();
-            Uri foto = user.getPhotoUrl();
-            // nombre.setText(name);
-            //      correo.setText(email);
+            Uri photo = user.getPhotoUrl();
+            loginRegistrarUsuario(email);
+             nombre.setText(name);
+                  correo.setText(email);
+            Picasso.get().load(photo).into((ImageView)foto);
         } else {
-            //   nombre.setText("Nombre");
-            //  correo.setText("Correo");
+               nombre.setText("Nombre");
+              correo.setText("Correo");
         }
         //setViewPager();
 
@@ -449,6 +458,39 @@ public class MapsActivity extends AppCompatActivity
     private void logOut() {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
+    }
+
+    private void loginRegistrarUsuario(String correo){
+
+        HashMap<String, String> mapa = new HashMap<>();
+        mapa.put("correo", correo);
+
+        VolleyPeticion<Usuario> inicio = Conexion.loginRegistrar(
+                getApplicationContext(),
+                mapa,
+                new Response.Listener<Usuario>() {
+                    @Override
+                    public void onResponse(Usuario response) {
+                        if(response != null){
+                            //   MapsActivity.TOKEN = response.token;
+                            MapsActivity.ID_EXTERNAL_USER = response.external_id;
+                            Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
+
+                        }else{
+                            Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+
+
+                    }
+                }
+        );
+        requestQueue.add(inicio);
     }
 
 }

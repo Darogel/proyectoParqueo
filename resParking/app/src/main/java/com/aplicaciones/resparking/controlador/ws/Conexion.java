@@ -150,4 +150,22 @@ public class Conexion {
         request.setResponseClass(Parqueadero.class);
         return request;
     }
+
+    public static VolleyPeticion<Usuario> loginRegistrar(
+            @NonNull final Context context,
+            @NonNull final HashMap mapa,
+            @NonNull final Response.Listener<Usuario> responseListener,
+            @NonNull Response.ErrorListener errorListener){
+        final String url = APi_URL+"usuario/loginReg";
+        VolleyPeticion request = new VolleyPeticion(
+                context,
+                Request.Method.POST,
+                url,
+                mapa,
+                HashMap.class,
+                String.class,
+                responseListener,errorListener);
+        request.setResponseClass(Usuario.class);
+        return request;
+    }
 }
