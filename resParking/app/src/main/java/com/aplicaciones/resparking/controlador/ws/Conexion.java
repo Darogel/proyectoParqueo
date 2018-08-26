@@ -106,7 +106,7 @@ public class Conexion {
             @NonNull Response.ErrorListener errorListener
     ){
         exIdUsuario= exIdUsuario.replace(" ","+");
-        final String url = APi_URL +"plaza/listar/"+exIdUsuario;
+        final String url = APi_URL +"reservacion/listarUs/"+exIdUsuario;
         VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
         peticion.setResponseClass(Reservacion[].class);
         return peticion;

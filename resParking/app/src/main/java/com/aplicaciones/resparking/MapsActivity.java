@@ -148,14 +148,11 @@ public class MapsActivity extends AppCompatActivity
 
     }
 
-   /* public void setViewPager(){
-        mViewPager = findViewById(R.id.page_content);
-        mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mViewPagerAdapter);
-
-        mTabLayout = (TabLayout) findViewById(R.id.tab);
-        mTabLayout.setupWithViewPager(mViewPager);
-    }*/
+    private void listaReservacioU() {
+        Intent intent = new Intent(this, ListarReservacionU.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
     public void permiso() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -412,7 +409,8 @@ public class MapsActivity extends AppCompatActivity
         } else if (id == R.id.nav_plaza) {
         } else if (id == R.id.nav_listar) {
             // listarActivity();
-            listarVehiculo("aa17640e-8c90-46fd-ba8f-06698580467b");
+            listaReservacioU();
+            //listarVehiculo("aa17640e-8c90-46fd-ba8f-06698580467b");
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

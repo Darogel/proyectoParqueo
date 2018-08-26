@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -74,7 +75,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
         spinnerPlaza=(Spinner) findViewById(R.id.cbx_plaza);
         spinnerVehiculo=(Spinner) findViewById(R.id.cbx_vehiculo);
-
+        /*String[] puesto = consultaPlaza();
+        spinnerVehiculo.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, puesto));*/
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         consultaPlaza();
@@ -161,10 +163,10 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                 new Response.Listener<Vehiculo[]>() {
                     @Override
                     public void onResponse(Vehiculo[]response) {
+
                         listaVehiculo = new ListaVehiculo(Arrays.asList(response),getApplicationContext());
                         spinnerVehiculo.setAdapter(listaVehiculo);
-
-                        //listView.setAdapter(listaVehiculo);
+                        System.out.println(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -191,7 +193,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                     public void onResponse(Plaza[] response) {
                         listaPlaza = new ListaPlaza(Arrays.asList(response),getApplicationContext());
                         spinnerPlaza.setAdapter(listaPlaza);
-
+                        System.out.println(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -205,8 +207,6 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                 }
         );
         requestQueue.add(plaza);
-
-
     }
 
 }

@@ -21,7 +21,7 @@ import com.aplicaciones.resparking.modelo.Reservacion;
 
 import java.util.Arrays;
 
-public class ListarReservacionP extends AppCompatActivity {
+public class ListarVehiculoU extends AppCompatActivity {
     private ListView mi_lista;
     private ListaReservacion listarReservacion;
     private RequestQueue requestQueue;
@@ -40,13 +40,13 @@ public class ListarReservacionP extends AppCompatActivity {
         mi_lista.setAdapter(listarReservacion);
 
         TextView mensaje = (TextView) findViewById(R.id.reserva);
-        mensaje.setText("Reservacion Del Parqueadero");
+        mensaje.setText("Listado de Vehiculos");
         btn_volver = (Button)findViewById(R.id.btn_volver);
 
 
         requestQueue = Volley.newRequestQueue(this);
         //consultarWs(MapsActivity.ID_EXTERNAL);
-        consultarWs("fba0768b-8afc-4338-82aa-92db19b8b620");
+        consultarWs("aa17640e-8c90-46fd-ba8f-06698580467b");
         oyente();
     }
 
@@ -54,14 +54,14 @@ public class ListarReservacionP extends AppCompatActivity {
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                administrador();
+                goToMaps();
 
             }
         });
     }
 
     private void consultarWs(String extIdAdmin) {
-        VolleyPeticion<Reservacion[]> menus = Conexion.listarReservacionParq(
+        VolleyPeticion<Reservacion[]> menus = Conexion.listarReservacionUs(
                 getApplicationContext(),
                 extIdAdmin,
 
@@ -92,8 +92,8 @@ public class ListarReservacionP extends AppCompatActivity {
         requestQueue.add(menus);
     }
 
-    private void administrador() {
-        Intent intent = new Intent(getApplicationContext(), AdministradorActivity.class);
+    private void goToMaps() {
+        Intent intent=new Intent(this,MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
