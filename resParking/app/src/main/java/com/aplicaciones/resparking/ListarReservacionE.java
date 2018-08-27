@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class ListarReservacionE extends AppCompatActivity {
+    private static String EXTERNAL_ID_RESERVACION = "";
     private ListView mi_lista;
     private ListaReservacion listarReservacion;
     private RequestQueue requestQueue;
@@ -90,6 +91,9 @@ public class ListarReservacionE extends AppCompatActivity {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 final Dialog dialog = new Dialog(ListarReservacionE.this);
                                 dialog.setContentView(R.layout.modal_confirmacion);
+                                Reservacion reser = (Reservacion) adapterView.getItemAtPosition(i);
+                                EXTERNAL_ID_RESERVACION = reser.external_id;
+
 
                                 TextView nombre = (TextView) dialog.findViewById(R.id.titulo);
                                 nombre.setText("ELIMINAR RESERVACION!");
@@ -98,11 +102,11 @@ public class ListarReservacionE extends AppCompatActivity {
                                 Button reservacion = (Button) dialog.findViewById(R.id.dialogButtonGuardar);
                                 Button cerrar = (Button) dialog.findViewById(R.id.dialogButtonCerrar);
 
-                                System.out.println(listarReservacion.getItem(i).external_id);
                                 reservacion.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        //consultarWsE();
+                                        consultarWsE(EXTERNAL_ID_RESERVACION);
+
                                         dialog.dismiss();
                                     }
                                 });
@@ -142,7 +146,7 @@ public class ListarReservacionE extends AppCompatActivity {
 
     private void consultarWsE(String idRes) {
         HashMap<String, String> mapa = new HashMap<>();
-        mapa.put("id_reservacion", idRes);
+        mapa.put("external_id", idRes);
         VolleyPeticion<Reservacion> eliminar = Conexion.eliminarReservacion(
                 getApplicationContext(),
                 mapa,
@@ -150,10 +154,10 @@ public class ListarReservacionE extends AppCompatActivity {
                     @Override
                     public void onResponse(Reservacion response) {
                         if (response != null) {
-                            Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Se Elimino Correctamente", Toast.LENGTH_SHORT).show();
 
                         } else {
-                            Toast.makeText(getApplicationContext(), "Usuario o Contrasña Incorrecto", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "No Se pudo Eliminar", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },

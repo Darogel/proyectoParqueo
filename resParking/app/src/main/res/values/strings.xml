@@ -28,6 +28,9 @@
     <string name="btn_cerrar">Cerrar</string>
     <string name="btn_reservar">Reservar</string>
 
+    <string name="entrada">Hora Entrada</string>
+    <string name="salida">Hora Salida</string>
+
     //Snippet
     <string name="plaza">Plaza:</string>
     <string name="nombre_parqueo">Nombre Parqueadero:</string>

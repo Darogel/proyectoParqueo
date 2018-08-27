@@ -186,6 +186,24 @@ public class Conexion {
         return request;
     }
 
+    public static VolleyPeticion<Reservacion> registrarReservacion(
+            @NonNull final Context context,
+            @NonNull final HashMap mapa,
+            @NonNull final Response.Listener<Reservacion> responseListener,
+            @NonNull Response.ErrorListener errorListener){
+        final String url = APi_URL+"reservacion/registrar";
+        VolleyPeticion request = new VolleyPeticion(
+                context,
+                Request.Method.POST,
+                url,
+                mapa,
+                HashMap.class,
+                String.class,
+                responseListener,errorListener);
+        request.setResponseClass(Reservacion.class);
+        return request;
+    }
+
     public static VolleyPeticion<Usuario> loginRegistrar(
             @NonNull final Context context,
             @NonNull final HashMap mapa,

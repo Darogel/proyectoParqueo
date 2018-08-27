@@ -37,7 +37,7 @@
                             android:drawableLeft="@android:drawable/ic_lock_idle_lock"
                             android:drawablePadding="12dp"
                             android:ems="10"
-                            android:hint="Nombre Plaza"
+                            android:hint="Numero Plaza"
                             android:maxLines="1"
                             android:padding="8dp"
                             android:textColorHint="#fff"

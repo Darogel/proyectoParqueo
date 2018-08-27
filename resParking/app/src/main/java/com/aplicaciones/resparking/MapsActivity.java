@@ -83,7 +83,7 @@ public class MapsActivity extends AppCompatActivity
     public static String TOKEN = "";
     public static String ID_EXTERNAL = "";
     public static String ID_EXTERNAL_USER = "";
-    public static String ID_PARQUEADERO = "";
+    public static String ID_PARQUEADERO = "fba0768b-8afc-4338-82aa-92db19b8b620";
 
     private GoogleMap mMap;
     private Marker marcador;
@@ -260,6 +260,8 @@ public class MapsActivity extends AppCompatActivity
                         plaza.setText(response.numero_plazas);
                         TextView precio = (TextView) mView.findViewById(R.id.external);
                         precio.setText(response.precio_hora);
+
+                        System.out.println(response.external_id);
                         Button reservacion = (Button) mView.findViewById(R.id.dialogButtonEscoger);
                         Button cerrar = (Button) mView.findViewById(R.id.dialogButtonCerrar);
 
@@ -270,9 +272,9 @@ public class MapsActivity extends AppCompatActivity
                             @Override
                             public void onClick(View view) {
                                 if (AccessToken.getCurrentAccessToken() == null) {
-                                    MapsActivity.ID_PARQUEADERO = response.external_id;
                                     goLoginFB();
                                 } else {
+
                                     reservacionAdd();
                                 }
                             }
@@ -421,9 +423,7 @@ public class MapsActivity extends AppCompatActivity
         } else if (id == R.id.nav_placa) {
             ingresarVehiculo();
         } else if (id == R.id.nav_listar) {
-            // listarActivity();
             listaReservacioU();
-            //listarVehiculo("aa17640e-8c90-46fd-ba8f-06698580467b");
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

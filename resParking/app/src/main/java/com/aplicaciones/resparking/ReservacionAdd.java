@@ -30,11 +30,15 @@ import com.aplicaciones.resparking.controlador.adaptador.ListaPlaza;
 import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
 import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
+import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
+import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
 import com.aplicaciones.resparking.modelo.Plaza;
+import com.aplicaciones.resparking.modelo.Reservacion;
 import com.aplicaciones.resparking.modelo.Vehiculo;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class ReservacionAdd extends AppCompatActivity implements View.OnClickListener {
     public static String ID_EXTERNAL_PLAZA = "";
@@ -72,16 +76,16 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
-        txt_plazaR = (TextView) findViewById(R.id.txt_plazaR);
-        txt_vehiculoR = (TextView) findViewById(R.id.txt_vehiculoR);
+        txt_plazaR = (TextView) findViewById(R.id.txt_plazaN);
+        txt_vehiculoR = (TextView) findViewById(R.id.txt_VehiculoN);
 
         etxt_hEntrada = (EditText) findViewById(R.id.etxt_hEntrada);
         etxt_hSalida = (EditText) findViewById(R.id.etxt_hSalida);
 
         btn_hEntradaR = (ImageButton) findViewById(R.id.btn_hEntradaR);
         btn_hSalidaR = (ImageButton) findViewById(R.id.btn_hSalidaR);
-        btn_guardarR = (Button) findViewById(R.id.btn_guardarR);
-        btn_volverR = (Button) findViewById(R.id.btn_volverR);
+        btn_guardarR = (Button) findViewById(R.id.btn_guardarRs);
+        btn_volverR = (Button) findViewById(R.id.btn_volverRs);
 
         btn_hEntradaR.setOnClickListener(this);
         btn_hSalidaR.setOnClickListener(this);
@@ -177,6 +181,56 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         this.btn_guardarR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String external=MapsActivity.ID_EXTERNAL;
+                String entrada=etxt_hEntrada.getText().toString();
+                String salida=etxt_hSalida.getText().toString();
+                String plaza=ID_EXTERNAL_PLAZA;
+                String vehiculo=ID_EXTERNAL_VEHICULO;
+                if (entrada.trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Este Campo No Puede estar Vacio",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (salida.trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Este Campo No Puede estar Vacio",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (plaza.trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Este Campo No Puede estar Vacio",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (vehiculo.trim().isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Este Campo No Puede estar Vacio",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                HashMap<String,String> mapa= new HashMap<>();
+                mapa.put("idP",plaza);
+                mapa.put("idV",vehiculo);
+                mapa.put("entrada",entrada);
+                mapa.put("salida",salida);
+
+                VolleyPeticion<Reservacion> regPar= Conexion.registrarReservacion(
+                        getApplicationContext(),
+                        mapa,
+                        new Response.Listener<Reservacion>() {
+                            @Override
+                            public void onResponse(Reservacion response) {
+
+                                Toast.makeText(getApplicationContext(),"Se ha añadido Su Reservacion",Toast.LENGTH_SHORT).show();
+
+                                limpiarTexto();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                                VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+
+                            }
+                        }
+                );
+                requestQueue.add(regPar);
+
 
             }
         });
@@ -188,6 +242,10 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+    }
+    public void limpiarTexto(){
+        etxt_hEntrada.getText().clear();
+        etxt_hSalida.getText().clear();
     }
 
     private void goToMaps() {
