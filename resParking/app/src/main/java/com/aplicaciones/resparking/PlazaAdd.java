@@ -8,6 +8,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.aplicaciones.resparking.controlador.ws.Conexion;
+import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
+import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
+import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
+import com.aplicaciones.resparking.modelo.Plaza;
+
+import java.util.HashMap;
 
 public class PlazaAdd extends AppCompatActivity {
 
@@ -16,6 +29,8 @@ public class PlazaAdd extends AppCompatActivity {
 
     private Button btn_guardarPl;
     private Button btn_volverPl;
+
+    private RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +50,7 @@ public class PlazaAdd extends AppCompatActivity {
         String[] tipo = {"Seleccionar","Con techo","Sin techo"};
         spinner1.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, tipo));
 
+        requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         oyente();
     }
@@ -45,7 +61,40 @@ public class PlazaAdd extends AppCompatActivity {
         this.btn_guardarPl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final String numero_p= spinner.getSelectedItem().toString();
+                final String tipo= spinner1.getSelectedItem().toString();
 
+
+
+
+                HashMap<String,String> mapa= new HashMap<>();
+                mapa.put("clave",
+                        MapsActivity.ID_EXTERNAL);
+                mapa.put("tipo",tipo);
+                mapa.put("numero",numero_p);
+
+
+                VolleyPeticion<Plaza> regPlaz= Conexion.registrarPlaza(
+                        getApplicationContext(),
+                        mapa,
+                        new Response.Listener<Plaza>() {
+                            @Override
+                            public void onResponse(Plaza response) {
+                                Toast.makeText(getApplicationContext(),"Se ha añadido su plaza",Toast.LENGTH_SHORT).show();
+                                administrador();
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                                VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+
+                            }
+                        }
+                );
+                requestQueue.add(regPlaz);
             }
         });
 

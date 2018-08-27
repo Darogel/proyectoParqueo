@@ -1,4 +1,4 @@
-package com.aplicaciones.resparking;
+﻿package com.aplicaciones.resparking;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -34,11 +34,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class ListarReservacionE extends AppCompatActivity {
-<<<<<<< HEAD
     private static String EXTERNAL_ID_RESERVACION = "";
-=======
     private String EXTERNAL_ID_RESERVACION="";
->>>>>>> 36112ef62faa619df3f7b2928e8f40b8c52f84c2
     private ListView mi_lista;
     private ListaReservacion listarReservacion;
     private RequestQueue requestQueue;
@@ -95,14 +92,11 @@ public class ListarReservacionE extends AppCompatActivity {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 final Dialog dialog = new Dialog(ListarReservacionE.this);
                                 dialog.setContentView(R.layout.modal_confirmacion);
-<<<<<<< HEAD
                                 Reservacion reser = (Reservacion) adapterView.getItemAtPosition(i);
                                 EXTERNAL_ID_RESERVACION = reser.external_id;
 
-=======
                                 Reservacion reser= (Reservacion) adapterView.getItemAtPosition(i);
                                 EXTERNAL_ID_RESERVACION=reser.external_id;
->>>>>>> 36112ef62faa619df3f7b2928e8f40b8c52f84c2
 
                                 TextView nombre = (TextView) dialog.findViewById(R.id.titulo);
                                 nombre.setText("ELIMINAR RESERVACION!");

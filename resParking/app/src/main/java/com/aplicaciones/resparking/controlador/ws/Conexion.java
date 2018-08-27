@@ -42,17 +42,6 @@ public class Conexion {
         peticion.setResponseClass(Parqueadero[].class);
         return peticion;
     }
-    /* public static VolleyPeticion<PeliculasJson> getPelicula(
-            @NonNull final Context context,
-            @NonNull String imbd,
-            @NonNull Response.Listener<PeliculasJson> responseListener,
-            @NonNull Response.ErrorListener errorListener
-    ){
-        final String url = APi_URL +"&i="+imbd+"&plot=full";
-        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
-        peticion.setResponseClass(PeliculasJson.class);
-        return peticion;
-    }*/
 
     public static VolleyPeticion<Parqueadero> getParqueaderos(
             @NonNull final Context context,
@@ -219,6 +208,24 @@ public class Conexion {
                 String.class,
                 responseListener,errorListener);
         request.setResponseClass(Usuario.class);
+        return request;
+    }
+
+    public static VolleyPeticion<Plaza> registrarPlaza(
+            @NonNull final Context context,
+            @NonNull final HashMap mapa,
+            @NonNull final Response.Listener<Plaza> responseListener,
+            @NonNull Response.ErrorListener errorListener){
+        final String url = APi_URL+"plaza/registrar";
+        VolleyPeticion request = new VolleyPeticion(
+                context,
+                Request.Method.POST,
+                url,
+                mapa,
+                HashMap.class,
+                String.class,
+                responseListener,errorListener);
+        request.setResponseClass(Plaza.class);
         return request;
     }
 }
