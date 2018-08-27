@@ -34,6 +34,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class ListarReservacionE extends AppCompatActivity {
+    private String EXTERNAL_ID_RESERVACION="";
     private ListView mi_lista;
     private ListaReservacion listarReservacion;
     private RequestQueue requestQueue;
@@ -90,6 +91,8 @@ public class ListarReservacionE extends AppCompatActivity {
                             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                 final Dialog dialog = new Dialog(ListarReservacionE.this);
                                 dialog.setContentView(R.layout.modal_confirmacion);
+                                Reservacion reser= (Reservacion) adapterView.getItemAtPosition(i);
+                                EXTERNAL_ID_RESERVACION=reser.external_id;
 
                                 TextView nombre = (TextView) dialog.findViewById(R.id.titulo);
                                 nombre.setText("ELIMINAR RESERVACION!");
