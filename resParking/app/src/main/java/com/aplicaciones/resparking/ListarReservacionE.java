@@ -1,4 +1,4 @@
-package com.aplicaciones.resparking.modelo;
+package com.aplicaciones.resparking;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -16,13 +16,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
-import com.aplicaciones.resparking.MapsActivity;
-import com.aplicaciones.resparking.R;
 import com.aplicaciones.resparking.controlador.adaptador.ListaReservacion;
 import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
 import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
 import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
+import com.aplicaciones.resparking.modelo.Reservacion;
 
 import java.util.Arrays;
 import java.util.HashMap;
