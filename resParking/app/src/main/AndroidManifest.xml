@@ -69,7 +69,6 @@
         <activity android:name=".AdministradorActivity"/>
         <activity android:name=".ListarReservacionP" />
         <activity android:name=".ListarReservacionU"/>
-        <activity android:name=".ListarReservacionE"/>
         <activity android:name=".IngresarVehiculo"/>
     </application>
 

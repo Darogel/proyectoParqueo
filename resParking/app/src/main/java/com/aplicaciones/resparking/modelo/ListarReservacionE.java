@@ -1,12 +1,9 @@
-﻿package com.aplicaciones.resparking;
+package com.aplicaciones.resparking.modelo;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,23 +16,19 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
+import com.aplicaciones.resparking.MapsActivity;
+import com.aplicaciones.resparking.R;
 import com.aplicaciones.resparking.controlador.adaptador.ListaReservacion;
 import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
 import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
 import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
-import com.aplicaciones.resparking.modelo.Administrador;
-import com.aplicaciones.resparking.modelo.Parqueadero;
-import com.aplicaciones.resparking.modelo.Reservacion;
-import com.facebook.AccessToken;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ListarReservacionE extends AppCompatActivity {
+public class ListarReservacionE extends AppCompatActivity{
     private static String EXTERNAL_ID_RESERVACION = "";
-    private String EXTERNAL_ID_RESERVACION="";
     private ListView mi_lista;
     private ListaReservacion listarReservacion;
     private RequestQueue requestQueue;
@@ -94,9 +87,6 @@ public class ListarReservacionE extends AppCompatActivity {
                                 dialog.setContentView(R.layout.modal_confirmacion);
                                 Reservacion reser = (Reservacion) adapterView.getItemAtPosition(i);
                                 EXTERNAL_ID_RESERVACION = reser.external_id;
-
-                                Reservacion reser= (Reservacion) adapterView.getItemAtPosition(i);
-                                EXTERNAL_ID_RESERVACION=reser.external_id;
 
                                 TextView nombre = (TextView) dialog.findViewById(R.id.titulo);
                                 nombre.setText("ELIMINAR RESERVACION!");
