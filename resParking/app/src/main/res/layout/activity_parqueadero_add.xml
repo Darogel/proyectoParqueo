@@ -56,7 +56,8 @@
                 android:drawableLeft="@android:drawable/ic_dialog_map"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:hint="Coordenada X"
+                android:hint="Coordenadas"
+                android:enabled="false"
                 android:inputType="numberSigned"
                 android:maxLines="1"
                 android:padding="8dp"
@@ -67,7 +68,7 @@
                 android:layout_height="1dp"
                 android:background="#f9d7db" />
 
-            <EditText
+           <!--<EditText
                 android:id="@+id/txt_coordenadaY"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,7 +86,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#f9d7db" />
+                android:background="#f9d7db" />-->
 
             <EditText
                 android:id="@+id/txt_pHora"

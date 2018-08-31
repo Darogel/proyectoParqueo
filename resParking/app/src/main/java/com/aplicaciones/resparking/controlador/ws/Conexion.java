@@ -45,13 +45,12 @@ public class Conexion {
 
     public static VolleyPeticion<Parqueadero> getParqueaderos(
             @NonNull final Context context,
-            @NonNull String id,
             @NonNull String x,
             @NonNull Response.Listener<Parqueadero> responseListener,
             @NonNull Response.ErrorListener errorListener
     ){
         //id = id.replace( " ", "+");
-        final String url = APi_URL + "parqueadero/listar/" + id +"/buscar/"+ x;
+        final String url = APi_URL + "parqueadero/listar/buscar/"+ x;
         VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET,
                 url,
                 responseListener,
@@ -83,6 +82,17 @@ public class Conexion {
         final String url = APi_URL +"reservacion/listarParq/"+exIdParqueadero;
         VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
         peticion.setResponseClass(Reservacion[].class);
+        return peticion;
+    }
+
+    public static VolleyPeticion<Parqueadero[]> parqueaderoListar(
+            @NonNull final Context context,
+            @NonNull Response.Listener<Parqueadero[]> responseListener,
+            @NonNull Response.ErrorListener errorListener
+    ){
+        final String url = APi_URL +"parqueadero/listar";
+        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+        peticion.setResponseClass(Parqueadero[].class);
         return peticion;
     }
 

@@ -83,8 +83,10 @@ public class MapsActivity extends AppCompatActivity
     public static String TOKEN = "";
     public static String ID_EXTERNAL = "";
     public static String ID_EXTERNAL_USER = "";
-    public static String ID_PARQUEADERO = "fba0768b-8afc-4338-82aa-92db19b8b620";
+    public static String ID_PARQUEADERO = "";
 
+
+    private GoogleMap googleMapM;
     private GoogleMap mMap;
     private Marker marcador;
     double lat = 0.0;
@@ -134,6 +136,7 @@ public class MapsActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View hView = navigationView.getHeaderView(0);
+
 
 
         nombre = (TextView) hView.findViewById(R.id.txtNombreN);
@@ -199,54 +202,42 @@ public class MapsActivity extends AppCompatActivity
 
     public void Puntos(GoogleMap googleMap) {
         mMap = googleMap;
-        final LatLng parqueaderoSanFrancisco = new LatLng(-4.0086472, -79.2034037);
-        final LatLng parqueoPublico = new LatLng(-4.003510, -79.200831);
-        final LatLng parqueoAzuay = new LatLng(-4.0048335, -79.211932);
-        final LatLng parqueoPublio1 = new LatLng(-4.0040273, -79.202404);
-        final LatLng parqueoPatioVillage = new LatLng(-4.0027127, -79.2114909);
-        final Marker marcador = mMap.addMarker(new MarkerOptions().position(parqueaderoSanFrancisco).title(""));
-        final Marker marcador1 = mMap.addMarker(new MarkerOptions().position(parqueoPublico).title(""));
-        final Marker marcador2 = mMap.addMarker(new MarkerOptions().position(parqueoAzuay).title(""));
-        final Marker marcador3 = mMap.addMarker(new MarkerOptions().position(parqueoPublio1).title(""));
-        final Marker marcador4 = mMap.addMarker(new MarkerOptions().position(parqueoPatioVillage).title(""));
+        final VolleyPeticion<Parqueadero[]> lista = Conexion.parqueaderoListar(
+                this,
+                new Response.Listener<Parqueadero[]>() {
+                    @Override
+                    public void onResponse(Parqueadero[] response) {
+                        for (int i = 0; i < response.length; i++){
+                            double dox = Double.parseDouble(response[i].coordenada_x);
+                            double doy = Double.parseDouble(response[i].coordenada_y);
+                            final  LatLng marcador = new LatLng(dox, doy);
+                            final Marker mard = mMap.addMarker(new MarkerOptions().position(marcador));
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+
+        );
+        requestQueue.add(lista);
 
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
-                double latitu = marcador.getPosition().latitude;
+                double latitu = marker.getPosition().latitude;
                 String latitul = String.valueOf(latitu);
-                double latitud = marcador1.getPosition().latitude;
-                String latitud1 = String.valueOf(latitud);
-                double latitud2 = marcador2.getPosition().latitude;
-                String latitud3 = String.valueOf(latitud2);
-                double latitud4 = marcador3.getPosition().latitude;
-                String latitud5 = String.valueOf(latitud4);
-                double latitud6 = marcador4.getPosition().latitude;
-                String latitud7 = String.valueOf(latitud6);
-                if (marker.equals(marcador)) {
-                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitul);
-                }
-                if (marker.equals(marcador1)) {
-                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitud1);
-                }
-                if (marker.equals(marcador2)) {
-                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitud3);
-                }
-                if (marker.equals(marcador3)) {
-                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitud5);
-                }
-                if (marker.equals(marcador4)) {
-                    consultarWs("7cc8fa2f-c376-40e2-91b1-f5f6a1ac3678", latitud7);
-                }
+                consultarWs(latitul);
                 return false;
             }
         });
     }
 
-    private void consultarWs(String exIdAdmin, String x) {
+    private void consultarWs(String x) {
         VolleyPeticion<Parqueadero> films = Conexion.getParqueaderos(
                 this,
-                exIdAdmin,
                 x,
                 new Response.Listener<Parqueadero>() {
                     @Override
@@ -274,7 +265,7 @@ public class MapsActivity extends AppCompatActivity
                                 if (AccessToken.getCurrentAccessToken() == null) {
                                     goLoginFB();
                                 } else {
-
+                                    ID_PARQUEADERO = response.external_id;
                                     reservacionAdd();
                                 }
                             }
@@ -303,6 +294,7 @@ public class MapsActivity extends AppCompatActivity
         );
         requestQueue.add(films);
     }
+
 
 
     private void ingresarVehiculo() {
@@ -374,6 +366,8 @@ public class MapsActivity extends AppCompatActivity
         }
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        location.getLatitude();
+        location.getLongitude();
         actualizarUbicacion(location);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 10000, 0, locationListener);
@@ -419,15 +413,10 @@ public class MapsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_parqueadero) {
-        } else if (id == R.id.nav_placa) {
+        if (id == R.id.nav_placa) {
             ingresarVehiculo();
         } else if (id == R.id.nav_listar) {
             listaReservacioU();
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_logOut) {
             logOut();
 

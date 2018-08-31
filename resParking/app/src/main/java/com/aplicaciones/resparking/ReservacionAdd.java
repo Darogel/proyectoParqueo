@@ -235,6 +235,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         this.btn_volverR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MapsActivity.ID_PARQUEADERO = "";
                 goToMaps();
             }
         });
