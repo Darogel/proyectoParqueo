@@ -7,13 +7,12 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -27,15 +26,25 @@ import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
 import com.aplicaciones.resparking.modelo.Parqueadero;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.sql.SQLOutput;
 import java.util.HashMap;
 
 public class ParqueaderoAdd extends AppCompatActivity {
 
+    /**
+     * Variable static utiliazada Para almacenar La Ubicacion del Nuevo Parqueadero
+     */
+    public static  LatLng MAKER;
+
+    /**
+     * Variables utilizadas Para Guardar Latitud Longitu del Parquedaro
+     */
     private Double LATITUD;
     private Double LONGITUD;
-    public static  LatLng MAKER;
     private String makr;
+
+    /**
+     * Variables para recibir datos del Layaut activity_parqueadero_add
+     */
     private EditText txt_nombrePar;
     private EditText txt_coordenadaX;
     private EditText txt_precio;
@@ -43,6 +52,9 @@ public class ParqueaderoAdd extends AppCompatActivity {
     private Button btn_guardarPr;
     private Button btn_volver;
 
+    /**
+     * Variable utilizada en enviar recibir datos desde la Base del Servicio
+     */
     private RequestQueue requestQueue;
 
 
@@ -87,6 +99,13 @@ public class ParqueaderoAdd extends AppCompatActivity {
         }
     };
 
+    /**
+     * Metodo implementado para Obtener Ubicacion Actual del Administrador
+     * Teniendo Permisos de Localizacion Establecido en el Manifest
+     * Obtiene la Ubicacion Precisa del Administrador
+     * Utilizada para añadir un parqueadero en ubicacion del Administrador
+     * Asigna Valores en Variable statica y de latitud y longitud
+     */
     private void miUbicacion() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -104,9 +123,17 @@ public class ParqueaderoAdd extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo utilizado para Asignar Actividad que realizara:
+     * btn_Guardar
+     * btn_Volver
+     */
     private void oyente() {
-
-
+        /**
+         * Metodo para Guardar Datos en La Base del Servicio
+         * Comprueba que los Campos no esten vacios
+         * Llama la Peticion registrar Parqueadero Implemtado en Clase Conexion
+         */
         this.btn_guardarPr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +189,9 @@ public class ParqueaderoAdd extends AppCompatActivity {
             }
         });
 
+        /**
+         * Metodo Implementado para Volver a la Actividad De Administrador
+         */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,6 +201,10 @@ public class ParqueaderoAdd extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo implementado para Llamar la actividad Administrado Activity
+     * activity donde el administrador maneja su parqueadero
+     */
     private void goToAdministrar() {
         Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
