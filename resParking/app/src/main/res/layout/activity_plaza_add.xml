@@ -84,6 +84,33 @@
                             android:layout_height="1dp"
                             android:background="#f9d7db" />
 
+                        <TextView
+                            android:id="@+id/txt_parqueadero"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:background="@android:color/transparent"
+                            android:drawableLeft="@android:drawable/ic_lock_idle_lock"
+                            android:drawablePadding="12dp"
+                            android:ems="10"
+                            android:hint="Parqueadero"
+                            android:maxLines="1"
+                            android:padding="8dp"
+                            android:textColorHint="#fff" />
+                        <Spinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/cbx_parq"
+                            android:layout_alignEnd="@+id/txt_parqueadero"
+                            android:layout_alignTop="@+id/txt_parqueadero"
+                            android:layout_alignRight="@+id/txt_parqueadero"
+                            ></Spinner>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#f9d7db" />
+
                         <Button
                             android:id="@+id/btn_guardarPl"
                             style="@style/Base.TextAppearance.AppCompat.Body1"

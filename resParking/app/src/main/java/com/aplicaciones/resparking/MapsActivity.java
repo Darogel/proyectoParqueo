@@ -2,6 +2,7 @@ package com.aplicaciones.resparking;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,25 +10,36 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Bundle;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,13 +53,16 @@ import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
 import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
 import com.aplicaciones.resparking.modelo.Parqueadero;
 import com.aplicaciones.resparking.modelo.Usuario;
+import com.aplicaciones.resparking.modelo.Vehiculo;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+//import com.google.android.gms.common.api.Response;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -55,56 +70,49 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+//import static com.aplicaciones.resparking.R.id.page_content;
 
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
-    /**
-     * Variables Staticas utilizadas para el desarrollo de la aplicacion
-     * Implementadas en metodos De Ingresar, Reservar, Listar
-     */
     public static String TOKEN = "";
     public static String ID_EXTERNAL = "";
     public static String ID_EXTERNAL_USER = "";
     public static String ID_PARQUEADERO = "";
 
-    /**
-     * Variables Utilizadas en Metodos de Geolocalizacion de GoogleMaps
-     * Añadir marcadores y Localización
-     */
+
+    private GoogleMap googleMapM;
     private GoogleMap mMap;
     private Marker marcador;
     double lat = 0.0;
     double lng = 0.0;
 
-    /**
-     * Variables De clases Listar Vehiculo y Listar Parqueadero
-     */
     private ListaVehiculo listaAdaptador;
     private ListaParqueadero listaAdaptadorP;
     private ListView listView;
+
     private List<Parqueadero> dataset;
 
-    /**
-     * Variables implementadas para hacer uso de los layouts
-     * Login con Facebook, Mostrar Informacion de Parqueaderos
-     */
     private TextView nombre;
     private TextView correo;
     private ImageView foto;
-    private AlertDialog dialog;
 
-    /**
-     * Variable utilizada para Utilizacion de base de Datos}
-     */
     private RequestQueue requestQueue;
 
-    /**
-     * Variable Statica para la respuesta de Localizacion
-     */
+    private MarkerOptions marker;
+
+    private AlertDialog dialog;
+
+    private ViewPager mViewPager;
+
+    private TabLayout mTabLayout;
+
+
     private static final int LOCATION_REQUEST = 500;
 
 
@@ -152,18 +160,12 @@ public class MapsActivity extends AppCompatActivity
 
     }
 
-    /**
-     * Metodo Implementado Para Lammar la Actividad ListarReservacion por Usuario
-     */
     private void listaReservacioU() {
         Intent intent = new Intent(this, ListarReservacionU.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    /**
-     * Metodo Utilizado para Permisos de GPS de la aplicacion hacia el Usuario
-     */
     public void permiso() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
@@ -198,11 +200,6 @@ public class MapsActivity extends AppCompatActivity
         }
     }
 
-    /**
-     * Metodo implementado para añadir Los diferentes parqueos Como Marcadores en el mapa
-     * Parqueaderos Recividos desde la Base de Datos del Servicio
-     * @param googleMap  Variable de Googlemap utilizada Para Agregar Marcadores en el Mapa
-     */
     public void Puntos(GoogleMap googleMap) {
         mMap = googleMap;
         final VolleyPeticion<Parqueadero[]> lista = Conexion.parqueaderoListar(
@@ -238,12 +235,6 @@ public class MapsActivity extends AppCompatActivity
         });
     }
 
-
-    /**
-     * Metodo implementado en La busqueda de Informacion del Parqueadero
-     * Seleccionar el Marcador de un Parqueo y Muestra Informacion de denominado Parqueo
-     * @param x Variable Tipo String Que recibe la Coordenada X de del Parqueadero
-     */
     private void consultarWs(String x) {
         VolleyPeticion<Parqueadero> films = Conexion.getParqueaderos(
                 this,
@@ -305,50 +296,31 @@ public class MapsActivity extends AppCompatActivity
     }
 
 
-    /**
-     * Metodo Utilizado para llamar la Actividad de Ingresar Vehiculo
-     */
+
     private void ingresarVehiculo() {
         Intent intent = new Intent(this, IngresarVehiculo.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    /**
-     * Metodo Utilizado para llamar la Actividad de Ingresar Reservacion
-     */
     private void reservacionAdd() {
         Intent intent = new Intent(this, ReservacionAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-
-    /**
-     * Metodo Utilizado para llamar la Actividad de Iniciar Sesion como Administrador
-     */
     private void loginAdmin() {
         Intent intent = new Intent(this, LoginAdministrador.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    /**
-     * Metodo Utilizado para llamar la Actividad de Iniciar Sesion como Usuario
-     * realizado mediante Facebook
-     */
     private void goLoginFB() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-    /**
-     * Metodo implementado para Mover camara hacia Ubicacion Actual
-     * Detecta Localizacion del Usuario y  mueve la camara hacia dicha ubicacion
-     * @param lat Variable tipo Double que recibe la Latitud de Nuestra Ubicacion
-     * @param lng Variable tipo Double que recibe la Longitud de Nuestra Ubicacion
-     */
     private void agregarMarcador(double lat, double lng) {
         LatLng coordenada = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenada, 16);
@@ -356,11 +328,6 @@ public class MapsActivity extends AppCompatActivity
         mMap.animateCamera(miUbicacion);
     }
 
-    /**
-     * Metodo implementado para actualizar la ubicacion del usuario
-     * Cuando el Usuario explora por el Mapa permite mover el Mapa
-     ** @param location Variable de Tipo Location que Recibe Nuestra Ubicacion
-     */
     public void actualizarUbicacion(Location location) {
         if (location != null) {
             lat = location.getLatitude();
@@ -391,12 +358,6 @@ public class MapsActivity extends AppCompatActivity
         }
     };
 
-    /**
-     * Metodo implementado para Obtener Ubicacion Actual del Usuario
-     * Teniendo Permisos de Localizacion Establecido en el Manifest
-     * Obtiene la Ubicacion Precisa del Usuario
-     * Utiliza el metodo ACTUALIZAR UBICACION para mover la camara hacia dicha Ubicacion
-     */
     private void miUbicacion() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -406,7 +367,7 @@ public class MapsActivity extends AppCompatActivity
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        location.getLatitude();
-       // location.getLongitude();
+ //       location.getLongitude();
         actualizarUbicacion(location);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 10000, 0, locationListener);
@@ -466,22 +427,34 @@ public class MapsActivity extends AppCompatActivity
         return true;
     }
 
-    /**
-     * Metodo implementado para Cerrar Sesion del Usuario
-     * Cierra sesion de Facebook  en la  aplicacion
-     */
+
+    private void listarVehiculo(String exID_usuario) {
+        VolleyPeticion<Vehiculo[]> vehiculo = Conexion.listarVehiculo(
+                this, exID_usuario, new Response.Listener<Vehiculo[]>() {
+                    @Override
+                    public void onResponse(Vehiculo[] response) {
+                        listaAdaptador = new ListaVehiculo(Arrays.asList(response), getApplicationContext());
+                        listView.setAdapter(listaAdaptador);
+                        //dialog();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast toast1 = Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.error_busqueda)
+                                , Toast.LENGTH_SHORT);
+                    }
+                }
+        );
+        requestQueue.add(vehiculo);
+    }
+
     private void logOut() {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
     }
 
-    /**
-     * Metodo implementado para Guardar Correo del Usuario en Base de Datos
-     * Cuando el Usario Ingresa mediante facebook se guarda su coorreo en base de datos del servicio
-     * Para Verificar al momento de su nuevo ingreso si esta aun su cesión iniciada
-     * @param correo Variable tipo String que recibe Correo de Facebook del Usuario
-     */
     private void loginRegistrarUsuario(String correo) {
+
         HashMap<String, String> mapa = new HashMap<>();
         mapa.put("correo", correo);
 

@@ -82,6 +82,7 @@ public class LoginAdministrador extends AppCompatActivity {
                                     MapsActivity.TOKEN = response.token;
                                     MapsActivity.ID_EXTERNAL = response.id;
                                     Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
+
                                     goToAdministrar();
                                 }else{
                                     Toast.makeText(getApplicationContext(),"Usuario o Contrasña Incorrecto",Toast.LENGTH_SHORT).show();

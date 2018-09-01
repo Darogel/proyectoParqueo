@@ -29,6 +29,7 @@ import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
 import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
 import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
+import com.aplicaciones.resparking.modelo.Parqueadero;
 import com.aplicaciones.resparking.modelo.Plaza;
 import com.aplicaciones.resparking.modelo.Reservacion;
 import com.aplicaciones.resparking.modelo.Vehiculo;
@@ -330,5 +331,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         );
         requestQueue.add(plaza);
     }
+
+
 
 }

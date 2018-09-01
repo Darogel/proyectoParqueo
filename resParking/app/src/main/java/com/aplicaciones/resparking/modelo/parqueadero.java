@@ -8,4 +8,10 @@ public class Parqueadero {
     public String precio_hora;
     public String numero_plazas;
     public String created_at;
+
+    @Override
+    public String toString(){
+        return nombre;
+    }
+
 }
