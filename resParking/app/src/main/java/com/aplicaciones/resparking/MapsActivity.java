@@ -2,7 +2,6 @@ package com.aplicaciones.resparking;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,11 +9,11 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -32,7 +31,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -45,10 +43,8 @@ import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
 import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
 import com.aplicaciones.resparking.modelo.Parqueadero;
 import com.aplicaciones.resparking.modelo.Usuario;
-import com.aplicaciones.resparking.modelo.Vehiculo;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
-//import com.google.android.gms.common.api.Response;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -59,11 +55,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 

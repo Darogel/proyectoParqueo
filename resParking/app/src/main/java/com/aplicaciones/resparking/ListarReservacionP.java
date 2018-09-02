@@ -22,10 +22,22 @@ import com.aplicaciones.resparking.modelo.Reservacion;
 import java.util.Arrays;
 
 public class ListarReservacionP extends AppCompatActivity {
-    private ListView mi_lista;
-    private ListaReservacion listarReservacion;
-    private RequestQueue requestQueue;
+    /**
+     * Variables para recibir datos del Layout Listar Reservacion
+     */
     private Button btn_volver;
+    private ListView mi_lista;
+
+    /**
+     * Variables de tipo Lista Reservacion
+     */
+    private ListaReservacion listarReservacion;
+
+    /**
+     * Variable implementado para recibir y enviar datos a la base de datos del Host
+     */
+    private RequestQueue requestQueue;
+
 
 
     @Override
@@ -49,7 +61,14 @@ public class ListarReservacionP extends AppCompatActivity {
         oyente();
     }
 
+    /**
+     * Metodo implementado para asignar la actividad que realizara
+     * btn_volver
+     */
     private void oyente() {
+        /**
+         * Metodo para ejecucion de volver a la actividad principal
+         */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +78,10 @@ public class ListarReservacionP extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo implementado para Realizar la lista de Reservaciones por Parqueo
+     * @param extIdAdmin variable Tipo String que recibe el external_id del administrador
+     */
     private void consultarWs(String extIdAdmin) {
         VolleyPeticion<Reservacion[]> menus = Conexion.listarReservacionParq(
                 getApplicationContext(),
@@ -89,6 +112,10 @@ public class ListarReservacionP extends AppCompatActivity {
         requestQueue.add(menus);
     }
 
+    /**
+     * Metodo implementado para llamar la actividad Administrador Activity
+     * activity donde el administrador maneja su parqueadero
+     */
     private void administrador() {
         Intent intent = new Intent(getApplicationContext(), AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

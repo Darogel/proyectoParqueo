@@ -22,10 +22,23 @@ import com.aplicaciones.resparking.modelo.Reservacion;
 import java.util.Arrays;
 
 public class ListarReservacionU extends AppCompatActivity {
-    private ListView mi_lista;
-    private ListaReservacion listarReservacion;
-    private RequestQueue requestQueue;
+
+    /**
+     * Variables para recibir datos del Layout Listar Reservacion
+     */
     private Button btn_volver;
+    private ListView mi_lista;
+
+    /**
+     * Variable de tipo Listar Reservacion
+     */
+    private ListaReservacion listarReservacion;
+
+    /**
+     * Variable implementada para enviar y recibir datos desde la base de datos del Host
+     */
+    private RequestQueue requestQueue;
+
 
 
     @Override
@@ -49,7 +62,14 @@ public class ListarReservacionU extends AppCompatActivity {
         oyente();
     }
 
+    /**
+     * Metodo para asignar la Actividad que realizara
+     * btn_volver
+     */
     private void oyente() {
+        /**
+         * Metodo Utilizado para volver a la actividad del Mapa
+         */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,11 +79,14 @@ public class ListarReservacionU extends AppCompatActivity {
         });
     }
 
-    private void consultarWs(String extIdAdmin) {
+    /**
+     * Metodo Implementado para listar Reservaciones por Usuario
+     * @param extIdUsu variable Tipo String que recibe el external_id del usuario
+     */
+    private void consultarWs(String extIdUsu) {
         VolleyPeticion<Reservacion[]> menus = Conexion.listarReservacionUs(
                 getApplicationContext(),
-                extIdAdmin,
-
+                extIdUsu,
                 new Response.Listener<Reservacion[]>() {
                     @Override
                     public void onResponse(Reservacion[] response) {
@@ -90,6 +113,9 @@ public class ListarReservacionU extends AppCompatActivity {
         requestQueue.add(menus);
     }
 
+    /**
+     * Metodo implementado para regresar a la actividad principal
+     */
     private void goToMaps() {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

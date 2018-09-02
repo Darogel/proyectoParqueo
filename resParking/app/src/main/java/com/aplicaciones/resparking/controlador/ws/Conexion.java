@@ -311,6 +311,14 @@ public class Conexion {
         return request;
     }
 
+    /**
+     * Metodo para realizar una VolleyPeticion del tipo Administrador POST para registrar una nueva plaza
+     * @param context contexto actual
+     * @param mapa HashMap que contiene los datos a enviar en el post
+     * @param responseListener Listener del Tipo Plaza en este se indica que hacer si la peticion es exitosa
+     * @param errorListener en este se indica que hacer si la peticion es erronea
+     * @return
+     */
     public static VolleyPeticion<Plaza> registrarPlaza(
             @NonNull final Context context,
             @NonNull final HashMap mapa,

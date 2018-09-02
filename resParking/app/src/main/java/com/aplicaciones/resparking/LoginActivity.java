@@ -15,7 +15,6 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
-//import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -81,6 +80,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo implementado para LLamar la actividad de Reservacion
+     */
     private void reservacionAdd() {
         Intent intent = new Intent(this, ReservacionAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

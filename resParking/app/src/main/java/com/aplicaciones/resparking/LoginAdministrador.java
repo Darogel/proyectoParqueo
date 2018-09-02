@@ -23,12 +23,22 @@ import java.util.HashMap;
 
 public class LoginAdministrador extends AppCompatActivity {
 
+    /**
+     * Variables Utilizadas para revibir datos del Layout del Login de Administrador
+     */
     private EditText usuario;
     private EditText clave;
     private Button btn_inicio;
     private Button btn_volver;
+
+    /**
+     * Variable utilizada para enviar y revibir datos de la base de datos
+     */
     private RequestQueue requestQueue;
 
+    /**
+     * Metodo implementado para limpiar campo de texto de variables del layout
+     */
     public void limpiarTexto() {
         usuario.getText().clear();
         clave.getText().clear();
@@ -51,8 +61,17 @@ public class LoginAdministrador extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo utilizada para asignar la actividad que realizara:
+     * btn_inicio
+     * btn_volver
+     */
     private void oyente() {
-
+        /**
+         * Metodo implementado para Enviar datos a La Base de Datos
+         * Comprueba si los campos de usuario y clave no esten vacios
+         * Llama la peticion iniciar sesion de administrador
+         */
         btn_inicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +121,9 @@ public class LoginAdministrador extends AppCompatActivity {
             }
         });
 
+        /**
+         * Metodo implementado para Volver a la actividad del Mapa de Google
+         */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,12 +133,20 @@ public class LoginAdministrador extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo implementado para llamar la actividad Maps Activity
+     * activity de inicio
+     */
     private void goToMaps() {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo implementado para llamar la actividad Administrado Activity
+     * activity donde el administrador maneja su parqueadero
+     */
     private void goToAdministrar() {
         Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

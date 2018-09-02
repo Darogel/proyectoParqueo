@@ -42,16 +42,23 @@ import java.util.HashMap;
 
 
 public class ReservacionAdd extends AppCompatActivity implements View.OnClickListener {
+
+    /**
+     * Variables Statica implemetadas para guardar el external_id de Plaza y Vehiculo
+     */
     public static String ID_EXTERNAL_PLAZA = "";
     public static String ID_EXTERNAL_VEHICULO = "";
 
+    /**
+     * Variables de Tipo entero para utilizacion del reloj de Hora entrada y salida
+     */
     private int hora, minutos;
 
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private EditText etxt_hEntrada;
     private EditText etxt_hSalida;
-
-    private EditText plaza;
-    private EditText vehiculo;
 
     private TextView txt_plazaR;
     private TextView txt_vehiculoR;
@@ -64,8 +71,19 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     private Spinner spinnerVehiculo;
     private Spinner spinnerPlaza;
 
+    /**
+     * Variable de tipo listar Vehiculo
+     */
     private ListaVehiculo listaVehiculo;
+
+    /**
+     * Variable de tipo Listar Plaza
+     */
     private ListaPlaza listaPlaza;
+
+    /**
+     * Varible implemtada para enviar y recibir datos desde la base de datos del Host
+     */
     private RequestQueue requestQueue;
 
     @SuppressLint("WrongViewCast")
@@ -122,14 +140,13 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         if (id == R.id.action_eliminar) {
             listaReservacioU();
         }
-        if (id == R.id.action_modificar) {
-
-        }
-
         return super.onOptionsItemSelected(item);
 
     }
 
+    /**
+     * Metodo implementado para llamar la actividad listar Reservacion del Usuario
+     */
     private void listaReservacioU() {
         Intent intent = new Intent(this, ListarReservacionE.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -178,8 +195,17 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    /**
+     * Metodo implementado para asignar la Actividad que realizara
+     * btn_guardarR
+     * btn_volverR
+     */
     private void oyente() {
-
+        /**
+         * Metodo implemtado Registrar un Reservacion
+         * Comprueba que los datos no esten vacios
+         * Llama metodo registrar Reservacion de la Clase Conexion
+         */
         this.btn_guardarR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,20 +242,14 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                         new Response.Listener<Reservacion>() {
                             @Override
                             public void onResponse(Reservacion response) {
-
                                 Toast.makeText(getApplicationContext(), "Se ha añadido Su Reservacion", Toast.LENGTH_SHORT).show();
-
                                 limpiarTexto();
-
-
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-
                                 VolleyTiposError errores = VolleyProcesadorResultado.parseErrorResponse(error);
-
                             }
                         }
                 );
@@ -239,6 +259,10 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
             }
         });
 
+        /**
+         * Metodo implemetado para reiniciar el Id parqueadero
+         * volver a la actividad del Mapa
+         */
         this.btn_volverR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -249,18 +273,28 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    /**
+     * Metodo implementado para Limpiar Texto despues de agregar una Reservacion
+     */
     public void limpiarTexto() {
         etxt_hEntrada.getText().clear();
         etxt_hSalida.getText().clear();
     }
 
+    /**
+     * Metodo implementado para llamar la actividad Maps Activity
+     * activity de inicio
+     */
     private void goToMaps() {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
-
+    /**
+     * Metodo implementado para Llenar el spinner con los diferentes Vehiculos
+     * Llama el metodo Listar Vehiculo de la Clase Conexion
+     */
     private void consultaVehiculo() {
         final VolleyPeticion<Vehiculo[]> vehiculo = Conexion.listarVehiculo(
                 getApplicationContext(),
@@ -300,7 +334,10 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         requestQueue.add(vehiculo);
     }
 
-
+    /**
+     * Metodo implementado para Llenar el spinner con los diferentes Plazas de un Parqueadero
+     * Llama el metodo Listar Plazas de la Clase Conexion
+     */
     private void consultaPlaza() {
         VolleyPeticion<Plaza[]> plaza = Conexion.listarPlazas(
                 getApplicationContext(),

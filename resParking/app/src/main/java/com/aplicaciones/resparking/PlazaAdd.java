@@ -29,17 +29,28 @@ import java.util.HashMap;
 
 public class PlazaAdd extends AppCompatActivity {
 
+    /**
+     * Variable estatica implementada para Obtener  External id del Parqueadero
+     */
     public static String ID_EXTERNAL_PARQUEADERO = "";
 
+    /**
+     * Variables implementadas para recibir datos del Layout activity_plaza_add
+     */
     private Spinner spinner;
     private Spinner spinner1;
-
     private Button btn_guardarPl;
     private Button btn_volverPl;
-
     private Spinner spinnerParqueadero;
 
+    /**
+     * Variable del tipo Lista Parqueadero plaza
+     */
     private ListaParqueaderoPlaza listaParqueaderoPlaza;
+
+    /**
+     * Variable implementada para enviar y revibir datos de la base de datos
+      */
     private RequestQueue requestQueue;
 
     @Override
@@ -69,9 +80,18 @@ public class PlazaAdd extends AppCompatActivity {
         oyente();
     }
 
+    /**
+     * Metodo implementado para asignar la actividad que realizara:
+     * btn_guardarPl
+     * btn_volverPl
+     */
     private void oyente() {
 
-
+        /**
+         * Metodo implementado para guardar los datos en la base de datos del Host
+         * Comprueba que reciba todos los datos
+         * LLama el metodo Registrar plaza implemeentado en la clase Conexion
+         */
         this.btn_guardarPl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +131,9 @@ public class PlazaAdd extends AppCompatActivity {
             }
         });
 
+        /**
+         * Metodo implementado para volver a la Actividad Administrador
+         */
         this.btn_volverPl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,12 +144,20 @@ public class PlazaAdd extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo implementado para llamar la Actividad Administrador¿
+     * activity donde el administrador maneja su parqueo
+     */
     private void administrador() {
         Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo implementado para Realizar una VolleyPeticion de tipo Get Parqueadero
+     * el cual llama al metodo listarParqueadero de la clase Conexion
+     */
     private void consultaParqueadero() {
         final VolleyPeticion<Parqueadero[]> parqueadero = Conexion.listarParqueadero(
                 getApplicationContext(),

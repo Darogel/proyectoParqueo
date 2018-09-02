@@ -17,7 +17,6 @@ public class AdministradorActivity extends AppCompatActivity {
      */
     private ImageButton btn_parqueadero;
     private ImageButton btn_plaza;
-    private ImageButton btn_reservacion;
 
 
     @Override
@@ -30,7 +29,6 @@ public class AdministradorActivity extends AppCompatActivity {
 
         btn_parqueadero = (ImageButton) findViewById(R.id.btn_parqueadero);
         btn_plaza = (ImageButton) findViewById(R.id.btn_plaza);
-        btn_reservacion = (ImageButton) findViewById(R.id.btn_reservacion);
         oyente();
 
     }
@@ -80,16 +78,6 @@ public class AdministradorActivity extends AppCompatActivity {
     }
 
     /**
-     * Metodo implementado en llamar la actividad ListarReservacionP
-     * Permite listar las reservaciones de que se han realizado por administrador
-     */
-    private void listaReservacioP() {
-        Intent intent = new Intent(this, ListarReservacionP.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
-
-    /**
      * Metodo utilizado para asignar actividad que realizara:
      * btn_parqueadero
      * btn_plaza
@@ -114,15 +102,6 @@ public class AdministradorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 plazaAdd();
 
-            }
-        });
-        /**
-         * Metodo utilizado llamar metodo listarReservacionP
-         */
-        this.btn_reservacion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listaReservacioP();
             }
         });
     }

@@ -8,6 +8,10 @@ import android.widget.Button;
 
 
 public class ListarActivity extends AppCompatActivity {
+
+    /**
+     * Variable utilizada para recibir datos del Layout Activity Listar
+     */
     private Button btn_volver;
 
     @Override
@@ -19,8 +23,15 @@ public class ListarActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo implementado para asignar que actividad realizara
+     * btn_volver
+     */
     private void oyente() {
-
+        /**
+         * Metodo implementado para llamar la actividad Administrado Activity
+         * activity donde el administrador maneja su parqueadero
+         */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,6 +41,9 @@ public class ListarActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo implementado para volver a la actividad de Administrador
+     */
     private void administrador() {
         Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

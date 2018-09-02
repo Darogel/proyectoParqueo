@@ -27,11 +27,26 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class ListarReservacionE extends AppCompatActivity {
+    /**
+     * Variable Statica utilizada para guardar el externaL_id de reservacion
+     */
     private static String EXTERNAL_ID_RESERVACION = "";
+
+    /**
+     * Variable utilizad para recivir datos del Layout activity listar reservacion
+     */
     private ListView mi_lista;
-    private ListaReservacion listarReservacion;
-    private RequestQueue requestQueue;
     private Button btn_volver;
+
+    /**
+     * Variable de tipo Listar reservacion del paquete Adaptador
+     */
+    private ListaReservacion listarReservacion;
+
+    /**
+     * Variable utilizada para enviar y recibir daros desde la Base de datos del Host
+     */
+    private RequestQueue requestQueue;
 
 
     @Override
@@ -56,21 +71,29 @@ public class ListarReservacionE extends AppCompatActivity {
         oyente();
     }
 
+    /**
+     * Metodo utilizado para asginar la Actividad qeu realizara btn_volver
+     */
     private void oyente() {
+        /**
+         * Metodo Utilizado para volver a la actividad del Mapa
+         */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 goToMaps();
-
             }
         });
     }
 
-
-    private void consultarWs(String extIdAdmin) {
+    /**
+     * Metodo Implementado para consulta de busqueda de reservaciones de Usuario
+     * @param extIdUsu Varible tipo String que recibe el external_id del usuario
+     */
+    private void consultarWs(String extIdUsu) {
         VolleyPeticion<Reservacion[]> menus = Conexion.listarReservacionUs(
                 getApplicationContext(),
-                extIdAdmin,
+                extIdUsu,
                 new Response.Listener<Reservacion[]>() {
                     @Override
                     public void onResponse(final Reservacion[] response) {
@@ -130,12 +153,19 @@ public class ListarReservacionE extends AppCompatActivity {
         requestQueue.add(menus);
     }
 
+    /**
+     * Metodo implementado para regresar a la actividad principal
+     */
     private void goToMaps() {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo implemetado para la Eliminacion de una reservacion de Usuario
+     * @param idRes Variable tipo String que recibe el external_id de la Reservacion
+     */
     private void consultarWsE(String idRes) {
         HashMap<String, String> mapa = new HashMap<>();
         mapa.put("external_id", idRes);
