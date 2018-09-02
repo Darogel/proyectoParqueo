@@ -1,5 +1,9 @@
 package com.aplicaciones.resparking.modelo;
 
+/**
+ * Clase que maneja la informacion enviada y recibida por el WebService del modelo Parqueadero
+ * Con todos los campos usados
+ */
 public class Parqueadero {
     public String nombre;
     public String external_id;

@@ -24,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 public final class VolleyProcesadorResultado<T> {
 
     /**
-     * Convert a VoleyError object into a more meaningful VolleyTiposError
+     * Convierte un objeto VolleyError a un mas entendible VolleyTiposError
      *
      * @param error VolleyError
      * @return VolleyTiposError

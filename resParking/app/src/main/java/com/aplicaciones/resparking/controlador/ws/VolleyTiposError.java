@@ -8,7 +8,9 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.aplicaciones.resparking.controlador.utilidades.Utilidades;
 
-
+/**
+ * Clase contiene informacion de errores que puedan ocurrir en un VolleyPeticion
+ */
 public class VolleyTiposError implements Parcelable {
     public String errorCode = ERR_UNKNOWN;
     public String errorTitle = "";

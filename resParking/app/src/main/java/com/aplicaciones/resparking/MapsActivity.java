@@ -71,28 +71,44 @@ import java.util.List;
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
+    /**
+     * Variables estaticas utilizadas para el desarrollo de la aplicacion
+     * Implementadas en metodos de ingresar, reservar, listar
+     */
     public static String TOKEN = "";
     public static String ID_EXTERNAL = "";
     public static String ID_EXTERNAL_USER = "";
     public static String ID_PARQUEADERO = "";
 
-
+    /**
+     * Variables utilizadas en metodos de Geolocalizacion de GoogleMaps
+     * Añadir marcadores y localización
+     */
     private GoogleMap googleMapM;
     private GoogleMap mMap;
     private Marker marcador;
     double lat = 0.0;
     double lng = 0.0;
 
+    /**
+     * Variables de clases Listar Vehiculo y Listar Parqueadero
+     */
     private ListaVehiculo listaAdaptador;
     private ListaParqueadero listaAdaptadorP;
     private ListView listView;
 
     private List<Parqueadero> dataset;
-
+    /**
+     * Variables implementadas para hacer uso de los layouts
+     * Login con Facebook, mostrar informacion de parqueaderos
+     */
     private TextView nombre;
     private TextView correo;
     private ImageView foto;
 
+    /**
+     * Variable utilizada en enviar recibir datos desde la base de datos del Host
+     */
     private RequestQueue requestQueue;
 
     private MarkerOptions marker;
@@ -103,7 +119,9 @@ public class MapsActivity extends AppCompatActivity
 
     private TabLayout mTabLayout;
 
-
+    /**
+     * Variable estatica para la respuesta de Localizacion
+     */
     private static final int LOCATION_REQUEST = 500;
 
 
@@ -149,15 +167,20 @@ public class MapsActivity extends AppCompatActivity
         }
 
         FirebaseMessaging.getInstance().subscribeToTopic("cliente");
-     //   System.out.println("TOKEN" + FirebaseInstanceId.getInstance().getToken().toString());
     }
 
-    private void listaReservacioU() {
-        Intent intent = new Intent(this, ListarReservacionU.class);
+    /**
+     * Metodo implementado para llamar la actividad ListarReservacion por usuario
+     */
+    private void listaReservacionE() {
+        Intent intent = new Intent(this, ListarReservacionE.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo utilizado para permisos de GPS de la aplicacion hacia el usuario
+     */
     public void permiso() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
@@ -192,6 +215,11 @@ public class MapsActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Metodo implementado para añadir Los diferentes parqueos como marcadores en el mapa
+     * Parqueaderos recibidos desde la Base de Datos del Host
+     * @param googleMap  Variable de Googlemap utilizada Para agregar marcadores en el mapa
+     */
     public void Puntos(GoogleMap googleMap) {
         mMap = googleMap;
         final VolleyPeticion<Parqueadero[]> lista = Conexion.parqueaderoListar(
@@ -227,6 +255,11 @@ public class MapsActivity extends AppCompatActivity
         });
     }
 
+    /**
+     * Metodo implementado en La busqueda de informacion del parqueadero
+     * Seleccionar el marcador de un parqueo y puestra Informacion de denominado parqueo
+     * @param x Variable Tipo String que recibe la coordenada X de del parqueadero
+     */
     private void consultarWs(String x) {
         VolleyPeticion<Parqueadero> films = Conexion.getParqueaderos(
                 this,
@@ -288,30 +321,49 @@ public class MapsActivity extends AppCompatActivity
     }
 
 
+    /**
+     * Metodo utilizado para llamar la actividad de Ingresar Vehiculo
+     */
     private void ingresarVehiculo() {
         Intent intent = new Intent(this, IngresarVehiculo.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo utilizado para llamar la actividad de Ingresar Reservacion
+     */
     private void reservacionAdd() {
         Intent intent = new Intent(this, ReservacionAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo utilizado para llamar la actividad de Iniciar Sesion como administrador
+     */
     private void loginAdmin() {
         Intent intent = new Intent(this, LoginAdministrador.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo utilizado para llamar la actividad de Iniciar Sesion como usuario
+     * Realizado mediante Facebook
+     */
     private void goLoginFB() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo implementado para mover camara hacia ubicacion actual
+     * Detecta Localizacion del usuario y  mueve la camara hacia dicha ubicacion
+     * @param lat Variable tipo Double que recibe la Latitud de nuestra ubicacion
+     * @param lng Variable tipo Double que recibe la Longitud de nuestra ubicacion
+     */
     private void agregarMarcador(double lat, double lng) {
         LatLng coordenada = new LatLng(lat, lng);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(coordenada, 16);
@@ -319,6 +371,11 @@ public class MapsActivity extends AppCompatActivity
         mMap.animateCamera(miUbicacion);
     }
 
+    /**
+     * Metodo implementado para actualizar la ubicacion del usuario
+     * Cuando el usuario explora por el mapa permite mover el mapa
+     ** @param location Variable de Tipo Location que recibe nuestra ubicacion
+     */
     public void actualizarUbicacion(Location location) {
         if (location != null) {
             lat = location.getLatitude();
@@ -349,6 +406,12 @@ public class MapsActivity extends AppCompatActivity
         }
     };
 
+    /**
+     * Metodo implementado para obtener ubicacion actual del usuario
+     * Teniendo Ppermisos de localizacion establecido en el Manifest
+     * Obtiene la ubicacion precisa del usuario
+     * Utiliza el metodo ACTUALIZAR UBICACION para mover la camara hacia dicha ubicacion
+     */
     private void miUbicacion() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -407,7 +470,7 @@ public class MapsActivity extends AppCompatActivity
         if (id == R.id.nav_placa) {
             ingresarVehiculo();
         } else if (id == R.id.nav_listar) {
-            listaReservacioU();
+            listaReservacionE();
         } else if (id == R.id.nav_logOut) {
             logOut();
 
@@ -418,32 +481,21 @@ public class MapsActivity extends AppCompatActivity
         return true;
     }
 
-
-    private void listarVehiculo(String exID_usuario) {
-        VolleyPeticion<Vehiculo[]> vehiculo = Conexion.listarVehiculo(
-                this, exID_usuario, new Response.Listener<Vehiculo[]>() {
-                    @Override
-                    public void onResponse(Vehiculo[] response) {
-                        listaAdaptador = new ListaVehiculo(Arrays.asList(response), getApplicationContext());
-                        listView.setAdapter(listaAdaptador);
-                        //dialog();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast toast1 = Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.error_busqueda)
-                                , Toast.LENGTH_SHORT);
-                    }
-                }
-        );
-        requestQueue.add(vehiculo);
-    }
-
+    /**
+     * Metodo implementado para cerrar sesion del usuario
+     * Cierra sesion de Facebook  en la  aplicacion
+     */
     private void logOut() {
         FirebaseAuth.getInstance().signOut();
         LoginManager.getInstance().logOut();
     }
 
+    /**
+     * Metodo implementado para guardar gorreo del gsuario en Base de Datos
+     * Cuando el usuario ingresa mediante facebook se guarda su coorreo en base de datos del servicio
+     * Para verificar al momento de su nuevo ingreso si esta aun su cesión iniciada
+     * @param correo variable tipo String que recibe correo de Facebook del usuario
+     */
     private void loginRegistrarUsuario(String correo) {
 
         HashMap<String, String> mapa = new HashMap<>();

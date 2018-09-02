@@ -16,7 +16,9 @@ import com.google.firebase.messaging.RemoteMessage;
 
 
 public class MiFirebaseMessagingService extends FirebaseMessagingService {
-
+    /**
+     * Variable TAG para la obtencion de datos enviados por FCM
+     */
     public static final String TAG = "NOTICIAS";
 
     @Override
@@ -38,6 +40,11 @@ public class MiFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
+    /**
+     * Metodo implementado para creacion y presentacion de notificaciones
+     * @param title titulo obtenido del response a la peticion enviada a FCM
+     * @param body cuerpo obtenido del response a la peticion enviada a FCM
+     */
     private void mostrarNotificacion(String title, String body) {
 
         Intent intent = new Intent(this, MapsActivity.class);

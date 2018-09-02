@@ -18,12 +18,23 @@ public class ListaParqueaderoPlaza extends ArrayAdapter<Parqueadero> {
     private List<Parqueadero> dataSet;
     Context mContext;
 
+    /**
+     * Constructor de la clase
+     *
+     * @param data    Lista de parqueaderos del servicio actual
+     * @param context el contexto actual
+     */
     public ListaParqueaderoPlaza(List<Parqueadero> data, Context context) {
         super(context, R.layout.item_lista_parqueadero, data);
         this.dataSet = data;
         this.mContext = context;
     }
 
+    /**
+     * Constructor de la clase
+     *
+     * @param context el contexto actual
+     */
     public ListaParqueaderoPlaza(Context context) {
         super(context, R.layout.lista_vacia, new ArrayList<Parqueadero>());
 

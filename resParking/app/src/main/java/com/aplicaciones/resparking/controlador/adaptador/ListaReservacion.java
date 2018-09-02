@@ -17,6 +17,12 @@ public class ListaReservacion extends ArrayAdapter<Reservacion> {
     private List<Reservacion> dataSet;
     Context mContext;
 
+    /**
+     * Constructor de la clase
+     *
+     * @param data    Lista de reservaciones del servicio actual
+     * @param context el contexto actual
+     */
     public ListaReservacion(List<Reservacion> data, Context context) {
         super(context, R.layout.informacion_destinos, data);
 
@@ -24,6 +30,11 @@ public class ListaReservacion extends ArrayAdapter<Reservacion> {
         this.mContext = context;
     }
 
+    /**
+     * Constructor de la clase
+     *
+     * @param context el contexto actual
+     */
     public ListaReservacion(Context context) {
         super(context, R.layout.lista_vacia, new ArrayList<Reservacion>());
 

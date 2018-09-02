@@ -84,6 +84,7 @@ public class PlazaAdd extends AppCompatActivity {
                         MapsActivity.ID_EXTERNAL);
                 mapa.put("tipo", tipo);
                 mapa.put("numero", numero_p);
+                mapa.put("idP",ID_EXTERNAL_PARQUEADERO);
 
 
                 VolleyPeticion<Plaza> regPlaz = Conexion.registrarPlaza(

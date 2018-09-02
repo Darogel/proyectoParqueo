@@ -17,12 +17,23 @@ public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
     private List<Vehiculo> dataSet;
     Context mContext;
 
+    /**
+     * Constructor de la clase
+     *
+     * @param data    Lista de vehiculos del servicio actual
+     * @param context el contexto actual
+     */
     public ListaVehiculo(List<Vehiculo> data, Context context) {
         super(context, R.layout.item_lista, data);
         this.dataSet = data;
         this.mContext = context;
     }
 
+    /**
+     * Constructor de la clase
+     *
+     * @param context el contexto actual
+     */
     public ListaVehiculo(Context context) {
         super(context, R.layout.lista_vacia, new ArrayList<Vehiculo>());
 

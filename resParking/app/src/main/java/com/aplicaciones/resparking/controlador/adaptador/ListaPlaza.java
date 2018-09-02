@@ -17,13 +17,23 @@ public class ListaPlaza extends ArrayAdapter<Plaza> {
     private List<Plaza> dataSet;
     Context mContext;
 
-
+    /**
+     * Constructor de la clase
+     *
+     * @param data    Lista de plazas del servicio actual
+     * @param context el contexto actual
+     */
     public ListaPlaza(List<Plaza> data, Context context) {
         super(context, R.layout.item_lista_plaza, data);
         this.dataSet = data;
         this.mContext = context;
     }
 
+    /**
+     * Constructor de la clase
+     *
+     * @param context el contexto actual
+     */
     public ListaPlaza(Context context) {
         super(context, R.layout.lista_vacia, new ArrayList<Plaza>());
         this.dataSet = new ArrayList<Plaza>();

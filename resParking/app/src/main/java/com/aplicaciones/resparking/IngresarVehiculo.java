@@ -23,10 +23,16 @@ import java.util.HashMap;
 
 public class IngresarVehiculo extends AppCompatActivity {
 
+    /**
+     * Variables para recibir datos del layout activity_ingresar_vehiculo
+     */
     private EditText txt_nPlaca;
     private Button btn_guardarPr;
     private Button btn_volver;
 
+    /**
+     * Variable utilizada en enviar recibir datos desde la base de datos del Host
+     */
     private RequestQueue requestQueue;
 
     @Override
@@ -40,10 +46,18 @@ public class IngresarVehiculo extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(getApplicationContext());
         oyente();
     }
-
+    /**
+     * Metodo utilizado para asignar la actividad que realizara:
+     * btn_guardarPr
+     * btn_volver
+     */
     private void oyente() {
 
-
+        /**
+         * Metodo para guardar datos en La base de datos del Host
+         * Comprueba que los campos no esten vacios
+         * Llama la peticion registrarVehiculo implementado en la clase Conexion
+         */
         this.btn_guardarPr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +96,9 @@ public class IngresarVehiculo extends AppCompatActivity {
 
             }
         });
-
+        /**
+         * Metodo para ejecucion de volver a la actividad principal
+         */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,10 +108,16 @@ public class IngresarVehiculo extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo implementado para resetear txt_nPlaca
+     */
     public void limpiarTexto() {
         txt_nPlaca.getText().clear();
     }
 
+    /**
+     * Metodo implementado para regresar a la actividad principal
+     */
     private void goToMap() {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

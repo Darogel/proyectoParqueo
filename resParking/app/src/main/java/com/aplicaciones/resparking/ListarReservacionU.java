@@ -70,6 +70,7 @@ public class ListarReservacionU extends AppCompatActivity {
 
                         listarReservacion = new ListaReservacion(Arrays.asList(response), getApplicationContext());
                         mi_lista.setAdapter(listarReservacion);
+
                     }
                 },
                 new Response.ErrorListener() {

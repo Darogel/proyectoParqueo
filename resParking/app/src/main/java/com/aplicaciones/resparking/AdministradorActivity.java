@@ -12,6 +12,9 @@ import android.widget.Toast;
 
 
 public class AdministradorActivity extends AppCompatActivity {
+    /**
+     * Variables utilizadas para utilizar datos del Layout activity_administrador
+     */
     private ImageButton btn_parqueadero;
     private ImageButton btn_plaza;
     private ImageButton btn_reservacion;
@@ -55,12 +58,20 @@ public class AdministradorActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo implementado en llamar la actividad ParqueaderoAdd
+     * Permite registrar un nuevo parqueadero al administrador
+     */
     private void parqueaderoAdd() {
         Intent intent = new Intent(this, ParqueaderoAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo implementado en llamar la actividad PlazaAdd
+     * Permite registrar un nueva plaza a un parqueadero del administrador
+     */
     private void plazaAdd() {
         Intent intent = new Intent(this, PlazaAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -68,14 +79,26 @@ public class AdministradorActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo implementado en llamar la actividad ListarReservacionP
+     * Permite listar las reservaciones de que se han realizado por administrador
+     */
     private void listaReservacioP() {
         Intent intent = new Intent(this, ListarReservacionP.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo utilizado para asignar actividad que realizara:
+     * btn_parqueadero
+     * btn_plaza
+     * btn_reservacion
+     */
     private void oyente() {
-
+        /**
+         * Metodo utilizado llamar metodo parqueaderoAdd
+         */
         this.btn_parqueadero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +106,9 @@ public class AdministradorActivity extends AppCompatActivity {
 
             }
         });
-
+        /**
+         * Metodo utilizado llamar metodo plazaAdd
+         */
         this.btn_plaza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +116,9 @@ public class AdministradorActivity extends AppCompatActivity {
 
             }
         });
+        /**
+         * Metodo utilizado llamar metodo listarReservacionP
+         */
         this.btn_reservacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +126,11 @@ public class AdministradorActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Metodo implementado para que administrador cierre sesion
+     * Se declaran como vacias las variables staticas
+     * Se llama la actividad LoginAdministrador
+     */
     private void cerrarSesion() {
         Toast toast1 = Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.error_busqueda)
                 , Toast.LENGTH_SHORT);
@@ -109,6 +141,9 @@ public class AdministradorActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Metodo implementado para regresar a la actividad principal
+     */
     private void goToMaps() {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

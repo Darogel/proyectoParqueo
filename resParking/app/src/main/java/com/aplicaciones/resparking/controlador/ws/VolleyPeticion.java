@@ -20,6 +20,9 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Clase contiene constructores para los diferentes tipos de VoleyPeticion que se pueden realizar
+ */
 public class VolleyPeticion<T> extends Request<T> {
 
     private static final String PROTOCOL_CHARSET = "utf-8";

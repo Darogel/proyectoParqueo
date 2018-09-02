@@ -36,10 +36,19 @@ import java.util.Map;
 
 public class ParqueaderoAdd extends AppCompatActivity {
 
+    /**
+     * Variables utilizadas Para guardar Latitud y Longitud del parquedero
+     */
     private Double LATITUD;
     private Double LONGITUD;
+    /**
+     * Variable static utilizada para almacenar La ubicacion del nuevo parqueadero
+     */
     public static LatLng MAKER;
     private String makr;
+    /**
+     * Variables para recibir datos del Layaut activity_parqueadero_add
+     */
     private EditText txt_nombrePar;
     private EditText txt_coordenadaX;
     private EditText txt_precio;
@@ -47,6 +56,9 @@ public class ParqueaderoAdd extends AppCompatActivity {
     private Button btn_guardarPr;
     private Button btn_volver;
 
+    /**
+     * Variable utilizada en enviar recibir datos desde la Base de datos del Host
+     */
     private RequestQueue requestQueue;
 
 
@@ -91,6 +103,13 @@ public class ParqueaderoAdd extends AppCompatActivity {
         }
     };
 
+    /**
+     * Metodo implementado para obtener ubicacion actual del administrador
+     * Teniendo permisos de localizacion establecido en el Manifest
+     * Obtiene la ubicacion precisa del administrador
+     * Utilizada para añadir un parqueadero en ubicacion del administrador
+     * Asigna valores en variable estatica y, de latitud y longitud
+     */
     private void miUbicacion() {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -108,9 +127,18 @@ public class ParqueaderoAdd extends AppCompatActivity {
 
     }
 
+    /**
+     * Metodo utilizado para asignar actividad que realizara:
+     * btn_Guardar
+     * btn_Volver
+     */
     private void oyente() {
 
-
+        /**
+         * Metodo para guardar datos en La Base de datos del Host
+         * Comprueba que los campos no esten vacios
+         * Llama la peticion registrar Parqueadero Implementado en clase Conexion
+         */
         this.btn_guardarPr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,6 +199,9 @@ public class ParqueaderoAdd extends AppCompatActivity {
             }
         });
 
+        /**
+         * Metodo implementado para volver a la actividad de Administrador
+         */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,12 +211,22 @@ public class ParqueaderoAdd extends AppCompatActivity {
         });
     }
 
+    /**
+     * Metodo implementado para llamar la actividad Administrado Activity
+     * activity donde el administrador maneja su parqueadero
+     */
     private void goToAdministrar() {
         Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Metodo implementado para llamar la notificacion desde Firebase Cloud Messaging
+     * enviando una peticion al servicio de FCM
+     * La peticion cuenta con un JSONObject que posee la informacion y headers a usarse en FCM
+     * Es ejecutado al momento de realizarse correctamente el ingreso de un parqueadero
+     */
     private void llamarNotificacion() throws JSONException {
         String url = "https://fcm.googleapis.com/fcm/send";
         JSONObject jsonBody = new JSONObject("{\n" +
