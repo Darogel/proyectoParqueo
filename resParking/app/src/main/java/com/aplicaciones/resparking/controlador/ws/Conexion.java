@@ -12,6 +12,8 @@ import com.aplicaciones.resparking.modelo.Reservacion;
 import com.aplicaciones.resparking.modelo.Usuario;
 import com.aplicaciones.resparking.modelo.Vehiculo;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 public class Conexion {
@@ -236,6 +238,25 @@ public class Conexion {
                 String.class,
                 responseListener,errorListener);
         request.setResponseClass(Plaza.class);
+        return request;
+    }
+
+
+    public static VolleyPeticion<JSONObject> enviarnotificacion(
+            @NonNull final Context context,
+            @NonNull final HashMap mapa,
+            @NonNull final Response.Listener<JSONObject> responseListener,
+            @NonNull Response.ErrorListener errorListener){
+        final String url = "https://fcm.googleapis.com/fcm/send";
+        VolleyPeticion request = new VolleyPeticion(
+                context,
+                Request.Method.POST,
+                url,
+                mapa,
+                HashMap.class,
+                String.class,
+                responseListener,errorListener);
+        request.setResponseClass(JSONObject.class);
         return request;
     }
 }

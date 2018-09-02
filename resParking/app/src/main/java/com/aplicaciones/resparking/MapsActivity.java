@@ -68,6 +68,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -158,6 +160,8 @@ public class MapsActivity extends AppCompatActivity
             correo.setText("Correo");
         }
 
+        FirebaseMessaging.getInstance().subscribeToTopic("cliente");
+        System.out.println("TOKEN"+FirebaseInstanceId.getInstance().getToken().toString());
     }
 
     private void listaReservacioU() {

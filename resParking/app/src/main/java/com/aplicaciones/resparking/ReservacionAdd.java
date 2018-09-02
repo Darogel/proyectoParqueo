@@ -19,9 +19,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.aplicaciones.resparking.controlador.adaptador.ListaPlaza;
 import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
@@ -33,10 +35,15 @@ import com.aplicaciones.resparking.modelo.Parqueadero;
 import com.aplicaciones.resparking.modelo.Plaza;
 import com.aplicaciones.resparking.modelo.Reservacion;
 import com.aplicaciones.resparking.modelo.Vehiculo;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ReservacionAdd extends AppCompatActivity implements View.OnClickListener {
     public static String ID_EXTERNAL_PLAZA = "";
@@ -94,6 +101,11 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
         consultaPlaza();
         consultaVehiculo();
+        try {
+            llamarNotificacion();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         oyente();
 
@@ -216,6 +228,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                                 Toast.makeText(getApplicationContext(),"Se ha añadido Su Reservacion",Toast.LENGTH_SHORT).show();
 
                                 limpiarTexto();
+
+
                             }
                         },
                         new Response.ErrorListener() {
@@ -242,6 +256,9 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         });
 
     }
+
+
+
     public void limpiarTexto(){
         etxt_hEntrada.getText().clear();
         etxt_hSalida.getText().clear();
@@ -330,6 +347,62 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                 }
         );
         requestQueue.add(plaza);
+    }
+
+    private void llamarNotificacion() throws JSONException {
+     /*   HashMap<String,String> mapa= new HashMap<>();
+        HashMap<String,Object> mapa1= new HashMap<>();
+        mapa.put("body","correcto");
+        mapa.put("title","notificacion");
+        mapa1.put("notification",mapa);
+        mapa1.put("to",(Object)"/topics/cliente");
+
+        VolleyPeticion<JSONObject>notificacion=Conexion.enviarnotificacion(getApplicationContext(),
+                mapa1, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(),"Notificacion enviada",Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+
+                    }
+                }
+                );
+        requestQueue.add(notificacion);*/
+        String url = "https://fcm.googleapis.com/fcm/send";
+        JSONObject jsonBody = new JSONObject("{\n" +
+                "  \"to\": \"/topics/cliente\",\n" +
+                "  \"notification\": {\n" +
+                "    \"title\": \"ejemplo1\",\n" +
+                "    \"body\":\"cuerpo ejemplo1\"\n" +
+                "   }\n" +
+                "}\n");
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                Toast.makeText(getApplicationContext(),"Notificacion enviada",Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "key=AAAAXGI0jYg:APA91bEk72N8kzpnNxY3_WG3-Swg4VLRainu5BOMDGoDLjZI_hsHzbP5S4v2Klg5GO8jOAxALdh0XmSdljwve_gOFdEAdB8pOEVzQAtNJxWi6I71hr8wHw0amAweK44zADwAlvBULGaeKZ_b35t5ji__i34Dbey2qQ");
+                params.put("content-type", "application/json");
+                return params;
+            }
+        };
+
+requestQueue.add(jsonRequest);
+
     }
 
 
