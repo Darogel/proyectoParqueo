@@ -35,16 +35,17 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
 
     private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        progressBar=(ProgressBar) findViewById(R.id.progressbar_login);
-        callbackManager=CallbackManager.Factory.create();
+        progressBar = (ProgressBar) findViewById(R.id.progressbar_login);
+        callbackManager = CallbackManager.Factory.create();
 
 
-        loginButton=(LoginButton)findViewById(R.id.loginButton);
+        loginButton = (LoginButton) findViewById(R.id.loginButton);
         loginButton.setReadPermissions(Arrays.asList("email"));
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -56,22 +57,22 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-                Toast.makeText(getApplicationContext(),"Cancelado",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Cancelado", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(),R.string.error_login, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.error_login, Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        firebaseAuth= FirebaseAuth.getInstance();
-        firebaseAuthListener= new FirebaseAuth.AuthStateListener() {
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user!=null){
+                if (user != null) {
                     reservacionAdd();
 
                 }
@@ -81,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void reservacionAdd() {
-        Intent intent=new Intent(this,ReservacionAdd.class);
+        Intent intent = new Intent(this, ReservacionAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -90,12 +91,12 @@ public class LoginActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         loginButton.setVisibility(View.GONE);
 
-        AuthCredential credential= FacebookAuthProvider.getCredential(accessToken.getToken());
+        AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()){
-                  Toast.makeText(getApplicationContext(),R.string.error_login_firebase,Toast.LENGTH_LONG).show();
+                if (!task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), R.string.error_login_firebase, Toast.LENGTH_LONG).show();
                 }
                 progressBar.setVisibility(View.GONE);
                 loginButton.setVisibility(View.VISIBLE);

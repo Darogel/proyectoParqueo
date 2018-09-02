@@ -17,13 +17,13 @@ public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
     private List<Vehiculo> dataSet;
     Context mContext;
 
-    public ListaVehiculo(List<Vehiculo> data, Context context){
-        super(context, R.layout.item_lista,data);
-        this.dataSet=data;
-        this.mContext=context;
+    public ListaVehiculo(List<Vehiculo> data, Context context) {
+        super(context, R.layout.item_lista, data);
+        this.dataSet = data;
+        this.mContext = context;
     }
 
-    public ListaVehiculo(Context context){
+    public ListaVehiculo(Context context) {
         super(context, R.layout.lista_vacia, new ArrayList<Vehiculo>());
 
         this.dataSet = new ArrayList<Vehiculo>();
@@ -34,13 +34,13 @@ public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View item = null;
-        if (dataSet.isEmpty()){
-            item=inflater.inflate(R.layout.lista_vacia,null);
-        }else {
-            item=inflater.inflate(R.layout.item_lista,null);
+        if (dataSet.isEmpty()) {
+            item = inflater.inflate(R.layout.lista_vacia, null);
+        } else {
+            item = inflater.inflate(R.layout.item_lista, null);
         }
 
-        TextView placa=(TextView)item.findViewById(R.id.vPlaca);
+        TextView placa = (TextView) item.findViewById(R.id.vPlaca);
         placa.setText(dataSet.get(position).placa);
 
 

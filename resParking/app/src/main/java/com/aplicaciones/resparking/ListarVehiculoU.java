@@ -41,7 +41,7 @@ public class ListarVehiculoU extends AppCompatActivity {
 
         TextView mensaje = (TextView) findViewById(R.id.reserva);
         mensaje.setText("Listado de Vehiculos");
-        btn_volver = (Button)findViewById(R.id.btn_volver);
+        btn_volver = (Button) findViewById(R.id.btn_volver);
 
 
         requestQueue = Volley.newRequestQueue(this);
@@ -92,7 +92,7 @@ public class ListarVehiculoU extends AppCompatActivity {
     }
 
     private void goToMaps() {
-        Intent intent=new Intent(this,MapsActivity.class);
+        Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

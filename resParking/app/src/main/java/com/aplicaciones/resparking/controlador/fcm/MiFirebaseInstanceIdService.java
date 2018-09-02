@@ -17,10 +17,6 @@ public class MiFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
         Log.d(TAG, "Token: " + token);
 
-        enviarTokenAlServidor(token);
     }
 
-    private void enviarTokenAlServidor(String token) {
-        // Enviar token al servidor
-    }
 }

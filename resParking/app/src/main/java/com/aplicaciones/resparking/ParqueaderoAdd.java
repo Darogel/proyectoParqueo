@@ -13,12 +13,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
@@ -27,14 +28,17 @@ import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
 import com.aplicaciones.resparking.modelo.Parqueadero;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.sql.SQLOutput;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class ParqueaderoAdd extends AppCompatActivity {
 
     private Double LATITUD;
     private Double LONGITUD;
-    public static  LatLng MAKER;
+    public static LatLng MAKER;
     private String makr;
     private EditText txt_nombrePar;
     private EditText txt_coordenadaX;
@@ -95,7 +99,7 @@ public class ParqueaderoAdd extends AppCompatActivity {
         }
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        MAKER = new  LatLng(location.getLatitude(),location.getLongitude());
+        MAKER = new LatLng(location.getLatitude(), location.getLongitude());
         LATITUD = location.getLatitude();
         LONGITUD = location.getLongitude();
         makr = String.valueOf(MAKER);
@@ -134,7 +138,7 @@ public class ParqueaderoAdd extends AppCompatActivity {
                 mapa.put("clave", external);
                 mapa.put("nombre", nombre);
                 mapa.put("coordenada_x", lat);
-                mapa.put("coordenada_y",lon);
+                mapa.put("coordenada_y", lon);
                 mapa.put("precio", precio);
                 mapa.put("plazas", nPlazas);
 
@@ -146,8 +150,13 @@ public class ParqueaderoAdd extends AppCompatActivity {
                             public void onResponse(Parqueadero response) {
 
                                 Toast.makeText(getApplicationContext(), "Parqueadero guardado correctamente", Toast.LENGTH_SHORT).show();
-
+                                try {
+                                    llamarNotificacion();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 goToAdministrar();
+
                             }
                         },
                         new Response.ErrorListener() {
@@ -175,5 +184,39 @@ public class ParqueaderoAdd extends AppCompatActivity {
         Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private void llamarNotificacion() throws JSONException {
+        String url = "https://fcm.googleapis.com/fcm/send";
+        JSONObject jsonBody = new JSONObject("{\n" +
+                "  \"to\": \"/topics/cliente\",\n" +
+                "  \"notification\": {\n" +
+                "    \"title\": \"Parqueadero nuevo\",\n" +
+                "    \"body\":\"Se ha ingresado un parqueadero nuevo. Pulse para actualizar\"\n" +
+                "   }\n" +
+                "}\n");
+        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+               // Toast.makeText(getApplicationContext(), "Notificacion enviada", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyTiposError errores = VolleyProcesadorResultado.parseErrorResponse(error);
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", "key=AAAAXGI0jYg:APA91bEk72N8kzpnNxY3_WG3-Swg4VLRainu5BOMDGoDLjZI_hsHzbP5S4v2Klg5GO8jOAxALdh0XmSdljwve_gOFdEAdB8pOEVzQAtNJxWi6I71hr8wHw0amAweK44zADwAlvBULGaeKZ_b35t5ji__i34Dbey2qQ");
+                params.put("content-type", "application/json");
+                return params;
+            }
+        };
+
+        requestQueue.add(jsonRequest);
+
     }
 }

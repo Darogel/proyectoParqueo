@@ -2,7 +2,7 @@ package com.aplicaciones.resparking;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,15 +10,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -28,12 +23,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -62,7 +54,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -72,12 +63,10 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-//import static com.aplicaciones.resparking.R.id.page_content;
 
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
@@ -140,7 +129,6 @@ public class MapsActivity extends AppCompatActivity
         View hView = navigationView.getHeaderView(0);
 
 
-
         nombre = (TextView) hView.findViewById(R.id.txtNombreN);
         correo = (TextView) hView.findViewById(R.id.txtCorreoN);
         foto = (ImageView) hView.findViewById(R.id.imageViewN);
@@ -161,7 +149,7 @@ public class MapsActivity extends AppCompatActivity
         }
 
         FirebaseMessaging.getInstance().subscribeToTopic("cliente");
-        System.out.println("TOKEN"+FirebaseInstanceId.getInstance().getToken().toString());
+     //   System.out.println("TOKEN" + FirebaseInstanceId.getInstance().getToken().toString());
     }
 
     private void listaReservacioU() {
@@ -211,10 +199,10 @@ public class MapsActivity extends AppCompatActivity
                 new Response.Listener<Parqueadero[]>() {
                     @Override
                     public void onResponse(Parqueadero[] response) {
-                        for (int i = 0; i < response.length; i++){
+                        for (int i = 0; i < response.length; i++) {
                             double dox = Double.parseDouble(response[i].coordenada_x);
                             double doy = Double.parseDouble(response[i].coordenada_y);
-                            final  LatLng marcador = new LatLng(dox, doy);
+                            final LatLng marcador = new LatLng(dox, doy);
                             final Marker mard = mMap.addMarker(new MarkerOptions().position(marcador));
                         }
                     }
@@ -300,7 +288,6 @@ public class MapsActivity extends AppCompatActivity
     }
 
 
-
     private void ingresarVehiculo() {
         Intent intent = new Intent(this, IngresarVehiculo.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -371,7 +358,7 @@ public class MapsActivity extends AppCompatActivity
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 //        location.getLatitude();
- //       location.getLongitude();
+        //       location.getLongitude();
         actualizarUbicacion(location);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 10000, 0, locationListener);

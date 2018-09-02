@@ -26,7 +26,7 @@ import com.aplicaciones.resparking.modelo.Reservacion;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class ListarReservacionE extends AppCompatActivity{
+public class ListarReservacionE extends AppCompatActivity {
     private static String EXTERNAL_ID_RESERVACION = "";
     private ListView mi_lista;
     private ListaReservacion listarReservacion;

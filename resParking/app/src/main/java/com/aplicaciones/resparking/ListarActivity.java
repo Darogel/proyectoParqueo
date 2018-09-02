@@ -5,18 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
-import com.aplicaciones.resparking.controlador.ws.Conexion;
-import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
-import com.aplicaciones.resparking.modelo.Vehiculo;
-
-import java.util.Arrays;
 
 public class ListarActivity extends AppCompatActivity {
     private Button btn_volver;
@@ -29,6 +18,7 @@ public class ListarActivity extends AppCompatActivity {
         oyente();
 
     }
+
     private void oyente() {
 
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +31,7 @@ public class ListarActivity extends AppCompatActivity {
     }
 
     private void administrador() {
-        Intent intent=new Intent(this,AdministradorActivity.class);
+        Intent intent = new Intent(this, AdministradorActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

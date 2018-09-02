@@ -12,7 +12,6 @@ import com.aplicaciones.resparking.modelo.Reservacion;
 import com.aplicaciones.resparking.modelo.Usuario;
 import com.aplicaciones.resparking.modelo.Vehiculo;
 
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -24,23 +23,23 @@ public class Conexion {
             @NonNull String exIdUsuario,
             @NonNull Response.Listener<Vehiculo[]> responseListener,
             @NonNull Response.ErrorListener errorListener
-    ){
-        exIdUsuario= exIdUsuario.replace(" ","+");
-        final String url = APi_URL +"vehiculo/listar/"+exIdUsuario;
-        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+    ) {
+        exIdUsuario = exIdUsuario.replace(" ", "+");
+        final String url = APi_URL + "vehiculo/listar/" + exIdUsuario;
+        VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET, url, responseListener, errorListener);
         peticion.setResponseClass(Vehiculo[].class);
         return peticion;
     }
 
-    public static  VolleyPeticion<Parqueadero[]> listarParqueadero(
+    public static VolleyPeticion<Parqueadero[]> listarParqueadero(
             @NonNull final Context context,
             @NonNull String exIdAdmin,
             @NonNull Response.Listener<Parqueadero[]> responseListener,
             @NonNull Response.ErrorListener errorListener
-    ){
-        exIdAdmin= exIdAdmin.replace(" ","+");
-        final String url = APi_URL +"parqueadero/listar/"+exIdAdmin;
-        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+    ) {
+        exIdAdmin = exIdAdmin.replace(" ", "+");
+        final String url = APi_URL + "parqueadero/listar/" + exIdAdmin;
+        VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET, url, responseListener, errorListener);
         peticion.setResponseClass(Parqueadero[].class);
         return peticion;
     }
@@ -50,9 +49,9 @@ public class Conexion {
             @NonNull String x,
             @NonNull Response.Listener<Parqueadero> responseListener,
             @NonNull Response.ErrorListener errorListener
-    ){
+    ) {
         //id = id.replace( " ", "+");
-        final String url = APi_URL + "parqueadero/listar/buscar/"+ x;
+        final String url = APi_URL + "parqueadero/listar/buscar/" + x;
         VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET,
                 url,
                 responseListener,
@@ -66,10 +65,10 @@ public class Conexion {
             @NonNull String exIdParqueadero,
             @NonNull Response.Listener<Plaza[]> responseListener,
             @NonNull Response.ErrorListener errorListener
-    ){
-        exIdParqueadero= exIdParqueadero.replace(" ","+");
-        final String url = APi_URL +"plaza/listar/"+exIdParqueadero;
-        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+    ) {
+        exIdParqueadero = exIdParqueadero.replace(" ", "+");
+        final String url = APi_URL + "plaza/listar/" + exIdParqueadero;
+        VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET, url, responseListener, errorListener);
         peticion.setResponseClass(Plaza[].class);
         return peticion;
     }
@@ -79,10 +78,10 @@ public class Conexion {
             @NonNull String exIdParqueadero,
             @NonNull Response.Listener<Reservacion[]> responseListener,
             @NonNull Response.ErrorListener errorListener
-    ){
-        exIdParqueadero= exIdParqueadero.replace(" ","+");
-        final String url = APi_URL +"reservacion/listarParq/"+exIdParqueadero;
-        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+    ) {
+        exIdParqueadero = exIdParqueadero.replace(" ", "+");
+        final String url = APi_URL + "reservacion/listarParq/" + exIdParqueadero;
+        VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET, url, responseListener, errorListener);
         peticion.setResponseClass(Reservacion[].class);
         return peticion;
     }
@@ -91,13 +90,12 @@ public class Conexion {
             @NonNull final Context context,
             @NonNull Response.Listener<Parqueadero[]> responseListener,
             @NonNull Response.ErrorListener errorListener
-    ){
-        final String url = APi_URL +"parqueadero/listar";
-        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+    ) {
+        final String url = APi_URL + "parqueadero/listar";
+        VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET, url, responseListener, errorListener);
         peticion.setResponseClass(Parqueadero[].class);
         return peticion;
     }
-
 
 
     public static VolleyPeticion<Reservacion[]> listarReservacionUs(
@@ -105,23 +103,21 @@ public class Conexion {
             @NonNull String exIdUsuario,
             @NonNull Response.Listener<Reservacion[]> responseListener,
             @NonNull Response.ErrorListener errorListener
-    ){
-        exIdUsuario= exIdUsuario.replace(" ","+");
-        final String url = APi_URL +"reservacion/listarUs/"+exIdUsuario;
-        VolleyPeticion peticion= new VolleyPeticion(context, Request.Method.GET,url,responseListener,errorListener);
+    ) {
+        exIdUsuario = exIdUsuario.replace(" ", "+");
+        final String url = APi_URL + "reservacion/listarUs/" + exIdUsuario;
+        VolleyPeticion peticion = new VolleyPeticion(context, Request.Method.GET, url, responseListener, errorListener);
         peticion.setResponseClass(Reservacion[].class);
         return peticion;
     }
-
-
 
 
     public static VolleyPeticion<Administrador> iniciarSesion(
             @NonNull final Context context,
             @NonNull final HashMap mapa,
             @NonNull final Response.Listener<Administrador> responseListener,
-            @NonNull Response.ErrorListener errorListener){
-        final String url = APi_URL+"admin/login";
+            @NonNull Response.ErrorListener errorListener) {
+        final String url = APi_URL + "admin/login";
         VolleyPeticion request = new VolleyPeticion(
                 context,
                 Request.Method.POST,
@@ -129,7 +125,7 @@ public class Conexion {
                 mapa,
                 HashMap.class,
                 String.class,
-                responseListener,errorListener);
+                responseListener, errorListener);
         request.setResponseClass(Administrador.class);
         return request;
     }
@@ -138,8 +134,8 @@ public class Conexion {
             @NonNull final Context context,
             @NonNull final HashMap mapa,
             @NonNull final Response.Listener<Reservacion> responseListener,
-            @NonNull Response.ErrorListener errorListener){
-        final String url = APi_URL+"reservacion/eliminar";
+            @NonNull Response.ErrorListener errorListener) {
+        final String url = APi_URL + "reservacion/eliminar";
         VolleyPeticion request = new VolleyPeticion(
                 context,
                 Request.Method.POST,
@@ -147,16 +143,17 @@ public class Conexion {
                 mapa,
                 HashMap.class,
                 String.class,
-                responseListener,errorListener);
+                responseListener, errorListener);
         request.setResponseClass(Reservacion.class);
         return request;
     }
+
     public static VolleyPeticion<Parqueadero> registrarParqueadero(
             @NonNull final Context context,
             @NonNull final HashMap mapa,
             @NonNull final Response.Listener<Parqueadero> responseListener,
-            @NonNull Response.ErrorListener errorListener){
-        final String url = APi_URL+"parqueadero/registrar";
+            @NonNull Response.ErrorListener errorListener) {
+        final String url = APi_URL + "parqueadero/registrar";
         VolleyPeticion request = new VolleyPeticion(
                 context,
                 Request.Method.POST,
@@ -164,7 +161,7 @@ public class Conexion {
                 mapa,
                 HashMap.class,
                 String.class,
-                responseListener,errorListener);
+                responseListener, errorListener);
         request.setResponseClass(Parqueadero.class);
         return request;
     }
@@ -173,8 +170,8 @@ public class Conexion {
             @NonNull final Context context,
             @NonNull final HashMap mapa,
             @NonNull final Response.Listener<Vehiculo> responseListener,
-            @NonNull Response.ErrorListener errorListener){
-        final String url = APi_URL+"vehiculo/registrar";
+            @NonNull Response.ErrorListener errorListener) {
+        final String url = APi_URL + "vehiculo/registrar";
         VolleyPeticion request = new VolleyPeticion(
                 context,
                 Request.Method.POST,
@@ -182,7 +179,7 @@ public class Conexion {
                 mapa,
                 HashMap.class,
                 String.class,
-                responseListener,errorListener);
+                responseListener, errorListener);
         request.setResponseClass(Vehiculo.class);
         return request;
     }
@@ -191,8 +188,8 @@ public class Conexion {
             @NonNull final Context context,
             @NonNull final HashMap mapa,
             @NonNull final Response.Listener<Reservacion> responseListener,
-            @NonNull Response.ErrorListener errorListener){
-        final String url = APi_URL+"reservacion/registrar";
+            @NonNull Response.ErrorListener errorListener) {
+        final String url = APi_URL + "reservacion/registrar";
         VolleyPeticion request = new VolleyPeticion(
                 context,
                 Request.Method.POST,
@@ -200,7 +197,7 @@ public class Conexion {
                 mapa,
                 HashMap.class,
                 String.class,
-                responseListener,errorListener);
+                responseListener, errorListener);
         request.setResponseClass(Reservacion.class);
         return request;
     }
@@ -209,8 +206,8 @@ public class Conexion {
             @NonNull final Context context,
             @NonNull final HashMap mapa,
             @NonNull final Response.Listener<Usuario> responseListener,
-            @NonNull Response.ErrorListener errorListener){
-        final String url = APi_URL+"usuario/loginReg";
+            @NonNull Response.ErrorListener errorListener) {
+        final String url = APi_URL + "usuario/loginReg";
         VolleyPeticion request = new VolleyPeticion(
                 context,
                 Request.Method.POST,
@@ -218,7 +215,7 @@ public class Conexion {
                 mapa,
                 HashMap.class,
                 String.class,
-                responseListener,errorListener);
+                responseListener, errorListener);
         request.setResponseClass(Usuario.class);
         return request;
     }
@@ -227,8 +224,8 @@ public class Conexion {
             @NonNull final Context context,
             @NonNull final HashMap mapa,
             @NonNull final Response.Listener<Plaza> responseListener,
-            @NonNull Response.ErrorListener errorListener){
-        final String url = APi_URL+"plaza/registrar";
+            @NonNull Response.ErrorListener errorListener) {
+        final String url = APi_URL + "plaza/registrar";
         VolleyPeticion request = new VolleyPeticion(
                 context,
                 Request.Method.POST,
@@ -236,27 +233,9 @@ public class Conexion {
                 mapa,
                 HashMap.class,
                 String.class,
-                responseListener,errorListener);
+                responseListener, errorListener);
         request.setResponseClass(Plaza.class);
         return request;
     }
 
-
-    public static VolleyPeticion<JSONObject> enviarnotificacion(
-            @NonNull final Context context,
-            @NonNull final HashMap mapa,
-            @NonNull final Response.Listener<JSONObject> responseListener,
-            @NonNull Response.ErrorListener errorListener){
-        final String url = "https://fcm.googleapis.com/fcm/send";
-        VolleyPeticion request = new VolleyPeticion(
-                context,
-                Request.Method.POST,
-                url,
-                mapa,
-                HashMap.class,
-                String.class,
-                responseListener,errorListener);
-        request.setResponseClass(JSONObject.class);
-        return request;
-    }
 }

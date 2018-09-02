@@ -52,6 +52,7 @@ public class VolleyTiposError implements Parcelable {
 
     /**
      * Error de conexion
+     *
      * @return VolleyTiposError
      */
     public static VolleyTiposError createVolleyErrorNoNetwork() {
@@ -64,7 +65,8 @@ public class VolleyTiposError implements Parcelable {
 
     /**
      * Error en la aplicacion
-     * @param msgTitle Titulo del error
+     *
+     * @param msgTitle   Titulo del error
      * @param msgContent Mensaje de error
      * @return
      */

@@ -30,6 +30,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDNSvK492cym2CahM1EatJnDJpiWPILaQ8" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/car" />
+
 
         <activity android:name=".LoginActivity" />
         <activity

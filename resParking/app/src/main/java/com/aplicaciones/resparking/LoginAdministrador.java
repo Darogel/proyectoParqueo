@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -30,7 +29,7 @@ public class LoginAdministrador extends AppCompatActivity {
     private Button btn_volver;
     private RequestQueue requestQueue;
 
-    public void limpiarTexto(){
+    public void limpiarTexto() {
         usuario.getText().clear();
         clave.getText().clear();
     }
@@ -78,14 +77,14 @@ public class LoginAdministrador extends AppCompatActivity {
                         new Response.Listener<Administrador>() {
                             @Override
                             public void onResponse(Administrador response) {
-                                if(response != null){
+                                if (response != null) {
                                     MapsActivity.TOKEN = response.token;
                                     MapsActivity.ID_EXTERNAL = response.id;
                                     Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
 
                                     goToAdministrar();
-                                }else{
-                                    Toast.makeText(getApplicationContext(),"Usuario o Contrasña Incorrecto",Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Usuario o Contrasña Incorrecto", Toast.LENGTH_SHORT).show();
                                     limpiarTexto();
                                 }
                             }
@@ -93,7 +92,7 @@ public class LoginAdministrador extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+                                VolleyTiposError errores = VolleyProcesadorResultado.parseErrorResponse(error);
 
 
                             }

@@ -106,8 +106,8 @@ public final class VolleyProcesadorResultado<T> {
 
         try {
             String datos = new String(response.data);
-            if(datos.contains("{\"Search\":")) {
-                datos = datos.replace("{\"Search\":","");
+            if (datos.contains("{\"Search\":")) {
+                datos = datos.replace("{\"Search\":", "");
                 String[] aux = datos.split("],");
                 datos = aux[0] + "]";
 

@@ -24,31 +24,32 @@ public class ListaReservacion extends ArrayAdapter<Reservacion> {
         this.mContext = context;
     }
 
-    public ListaReservacion(Context context){
+    public ListaReservacion(Context context) {
         super(context, R.layout.lista_vacia, new ArrayList<Reservacion>());
 
         this.dataSet = new ArrayList<Reservacion>();
         this.mContext = context;
     }
+
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
         View item = null;
-        if(dataSet.isEmpty()){
-            item = inflater.inflate(R.layout.lista_vacia,null);
-        }else{
+        if (dataSet.isEmpty()) {
+            item = inflater.inflate(R.layout.lista_vacia, null);
+        } else {
             item = inflater.inflate(R.layout.informacion_destinos, null);
 
         }
 
-        TextView vehiculo=(TextView)item.findViewById(R.id.txt_vehiculoL);
+        TextView vehiculo = (TextView) item.findViewById(R.id.txt_vehiculoL);
         vehiculo.setText(dataSet.get(position).vehiculo);
 
-        TextView hora_e=(TextView)item.findViewById(R.id.txt_eHoraL);
+        TextView hora_e = (TextView) item.findViewById(R.id.txt_eHoraL);
         hora_e.setText(dataSet.get(position).hora_entrada);
 
-        TextView hora_s=(TextView)item.findViewById(R.id.txt_sHoraL);
+        TextView hora_s = (TextView) item.findViewById(R.id.txt_sHoraL);
         hora_s.setText(dataSet.get(position).hora_salida);
 
 

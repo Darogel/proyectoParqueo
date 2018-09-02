@@ -19,11 +19,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+
 import com.android.volley.toolbox.Volley;
 import com.aplicaciones.resparking.controlador.adaptador.ListaPlaza;
 import com.aplicaciones.resparking.controlador.adaptador.ListaVehiculo;
@@ -31,19 +30,16 @@ import com.aplicaciones.resparking.controlador.ws.Conexion;
 import com.aplicaciones.resparking.controlador.ws.VolleyPeticion;
 import com.aplicaciones.resparking.controlador.ws.VolleyProcesadorResultado;
 import com.aplicaciones.resparking.controlador.ws.VolleyTiposError;
-import com.aplicaciones.resparking.modelo.Parqueadero;
+
 import com.aplicaciones.resparking.modelo.Plaza;
 import com.aplicaciones.resparking.modelo.Reservacion;
 import com.aplicaciones.resparking.modelo.Vehiculo;
-import com.google.gson.JsonObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class ReservacionAdd extends AppCompatActivity implements View.OnClickListener {
     public static String ID_EXTERNAL_PLAZA = "";
@@ -101,11 +97,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
         consultaPlaza();
         consultaVehiculo();
-        try {
-            llamarNotificacion();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
         oyente();
 
@@ -191,41 +183,41 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         this.btn_guardarR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String external=MapsActivity.ID_EXTERNAL;
-                String entrada=etxt_hEntrada.getText().toString();
-                String salida=etxt_hSalida.getText().toString();
-                String plaza=ID_EXTERNAL_PLAZA;
-                String vehiculo=ID_EXTERNAL_VEHICULO;
-                if (entrada.trim().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Este Campo No Puede estar Vacio",Toast.LENGTH_SHORT).show();
+                String external = MapsActivity.ID_EXTERNAL;
+                String entrada = etxt_hEntrada.getText().toString();
+                String salida = etxt_hSalida.getText().toString();
+                String plaza = ID_EXTERNAL_PLAZA;
+                String vehiculo = ID_EXTERNAL_VEHICULO;
+                if (entrada.trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Este Campo No Puede estar Vacio", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (salida.trim().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Este Campo No Puede estar Vacio",Toast.LENGTH_SHORT).show();
+                if (salida.trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Este Campo No Puede estar Vacio", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (plaza.trim().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Este Campo No Puede estar Vacio",Toast.LENGTH_SHORT).show();
+                if (plaza.trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Este Campo No Puede estar Vacio", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (vehiculo.trim().isEmpty()){
-                    Toast.makeText(getApplicationContext(),"Este Campo No Puede estar Vacio",Toast.LENGTH_SHORT).show();
+                if (vehiculo.trim().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Este Campo No Puede estar Vacio", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                HashMap<String,String> mapa= new HashMap<>();
-                mapa.put("idP",plaza);
-                mapa.put("idV",vehiculo);
-                mapa.put("entrada",entrada);
-                mapa.put("salida",salida);
+                HashMap<String, String> mapa = new HashMap<>();
+                mapa.put("idP", plaza);
+                mapa.put("idV", vehiculo);
+                mapa.put("entrada", entrada);
+                mapa.put("salida", salida);
 
-                VolleyPeticion<Reservacion> regPar= Conexion.registrarReservacion(
+                VolleyPeticion<Reservacion> regPar = Conexion.registrarReservacion(
                         getApplicationContext(),
                         mapa,
                         new Response.Listener<Reservacion>() {
                             @Override
                             public void onResponse(Reservacion response) {
 
-                                Toast.makeText(getApplicationContext(),"Se ha añadido Su Reservacion",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Se ha añadido Su Reservacion", Toast.LENGTH_SHORT).show();
 
                                 limpiarTexto();
 
@@ -236,7 +228,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onErrorResponse(VolleyError error) {
 
-                                VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
+                                VolleyTiposError errores = VolleyProcesadorResultado.parseErrorResponse(error);
 
                             }
                         }
@@ -257,9 +249,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
 
     }
 
-
-
-    public void limpiarTexto(){
+    public void limpiarTexto() {
         etxt_hEntrada.getText().clear();
         etxt_hSalida.getText().clear();
     }
@@ -286,8 +276,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                                Vehiculo vehiculo= (Vehiculo) adapterView.getItemAtPosition(i);
-                                ID_EXTERNAL_VEHICULO=vehiculo.external_id;
+                                Vehiculo vehiculo = (Vehiculo) adapterView.getItemAtPosition(i);
+                                ID_EXTERNAL_VEHICULO = vehiculo.external_id;
                             }
 
                             @Override
@@ -325,8 +315,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                                Plaza plaza= (Plaza) adapterView.getItemAtPosition(i);
-                                ID_EXTERNAL_PLAZA=plaza.external_id;
+                                Plaza plaza = (Plaza) adapterView.getItemAtPosition(i);
+                                ID_EXTERNAL_PLAZA = plaza.external_id;
                             }
 
                             @Override
@@ -348,63 +338,5 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         );
         requestQueue.add(plaza);
     }
-
-    private void llamarNotificacion() throws JSONException {
-     /*   HashMap<String,String> mapa= new HashMap<>();
-        HashMap<String,Object> mapa1= new HashMap<>();
-        mapa.put("body","correcto");
-        mapa.put("title","notificacion");
-        mapa1.put("notification",mapa);
-        mapa1.put("to",(Object)"/topics/cliente");
-
-        VolleyPeticion<JSONObject>notificacion=Conexion.enviarnotificacion(getApplicationContext(),
-                mapa1, new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(),"Notificacion enviada",Toast.LENGTH_SHORT).show();
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
-
-                    }
-                }
-                );
-        requestQueue.add(notificacion);*/
-        String url = "https://fcm.googleapis.com/fcm/send";
-        JSONObject jsonBody = new JSONObject("{\n" +
-                "  \"to\": \"/topics/cliente\",\n" +
-                "  \"notification\": {\n" +
-                "    \"title\": \"ejemplo1\",\n" +
-                "    \"body\":\"cuerpo ejemplo1\"\n" +
-                "   }\n" +
-                "}\n");
-        JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-
-                Toast.makeText(getApplicationContext(),"Notificacion enviada",Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyTiposError errores= VolleyProcesadorResultado.parseErrorResponse(error);
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", "key=AAAAXGI0jYg:APA91bEk72N8kzpnNxY3_WG3-Swg4VLRainu5BOMDGoDLjZI_hsHzbP5S4v2Klg5GO8jOAxALdh0XmSdljwve_gOFdEAdB8pOEVzQAtNJxWi6I71hr8wHw0amAweK44zADwAlvBULGaeKZ_b35t5ji__i34Dbey2qQ");
-                params.put("content-type", "application/json");
-                return params;
-            }
-        };
-
-requestQueue.add(jsonRequest);
-
-    }
-
-
 
 }
