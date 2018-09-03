@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">resParking</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">ResParking</string>
+    <string name="title_activity_maps">ResParking</string>
     <string name="facebook_app_id">2151823018396409</string>
     <string name="fb_login_protocol_scheme">fb2151823018396409</string>
     <string name="error_login">Error al ingresar</string>
