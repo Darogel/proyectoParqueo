@@ -22,33 +22,33 @@ import com.aplicaciones.resparking.modelo.Vehiculo;
 import java.util.HashMap;
 
 /**
- * Clase implementada para ingreso de Vehiculo por parte del Usuario
- * Extendible de la Super Clase AppCompatActivity
+ * Clase implementada para ingreso de vehiculo por parte del usuario
+ * Extendible de la super clase AppCompatActivity
  */
 public class IngresarVehiculo extends AppCompatActivity {
 
     /**
-     * Variable implentada para recibir datos del layout activity_ingresar_vehiculo
+     * Variable implementada para recibir datos del layout activity_ingresar_vehiculo
      */
     private EditText txt_nPlaca;
     /**
-     * Variable implentada para recibir datos del layout activity_ingresar_vehiculo
+     * Variable implementada para recibir datos del layout activity_ingresar_vehiculo
      */
     private Button btn_guardarPr;
     /**
-     * Variable implentada para recibir datos del layout activity_ingresar_vehiculo
+     * Variable implementada para recibir datos del layout activity_ingresar_vehiculo
      */
     private Button btn_volver;
 
     /**
-     * Variable utilizada en enviar recibir datos desde la base de datos del Host
+     * Variable utilizada para crear una cola de peticiones hacia la base de datos del Host
      */
     private RequestQueue requestQueue;
 
     /**
-     * Metodo implementado para inicio de la Actividad
-     * Se Llama un recurso de Diseño que define su UI
-     * Recupera  widgets del Layout activity_ingresar_vehiculo
+     * Metodo implementado para inicio de la actividad
+     * Se llama un recurso de diseño que define su UI
+     * Recupera  widgets del layout activity_ingresar_vehiculo
      * @param savedInstanceState Guarda el estado de la aplicacion
      */
     @Override

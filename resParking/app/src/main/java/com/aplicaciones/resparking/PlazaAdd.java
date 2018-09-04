@@ -29,33 +29,33 @@ import java.util.HashMap;
 
 /**
  * Clase implementada para agregar una nueva plaza a un parqueadero
- * Extendible de la Super Clase AppCompatActivity
+ * Extendible de la super clase AppCompatActivity
  */
 public class PlazaAdd extends AppCompatActivity {
 
     /**
-     * Variable estatica implementada para Obtener  External id del Parqueadero
+     * Variable estatica implementada para obtener  external id del parqueadero
      */
     public static String ID_EXTERNAL_PARQUEADERO = "";
 
     /**
-     * Variable implementada para recibir datos del Layout activity_plaza_add
+     * Variable implementada para recibir datos del layout activity_plaza_add
      */
     private Spinner spinner;
     /**
-     * Variable implementada para recibir datos del Layout activity_plaza_add
+     * Variable implementada para recibir datos del layout activity_plaza_add
      */
     private Spinner spinner1;
     /**
-     * Variable implementada para recibir datos del Layout activity_plaza_add
+     * Variable implementada para recibir datos del layout activity_plaza_add
      */
     private Button btn_guardarPl;
     /**
-     * Variable implementada para recibir datos del Layout activity_plaza_add
+     * Variable implementada para recibir datos del layout activity_plaza_add
      */
     private Button btn_volverPl;
     /**
-     * Variable implementada para recibir datos del Layout activity_plaza_add
+     * Variable implementada para recibir datos del layout activity_plaza_add
      */
     private Spinner spinnerParqueadero;
 
@@ -65,14 +65,14 @@ public class PlazaAdd extends AppCompatActivity {
     private ListaParqueaderoPlaza listaParqueaderoPlaza;
 
     /**
-     * Variable implementada para enviar y revibir datos de la base de datos del Host
+     * Variable utilizada para crear una cola de peticiones hacia la base de datos del Host
       */
     private RequestQueue requestQueue;
 
     /**
-     * Metodo implementado para inicio de la Actividad
-     * Se Llama un recurso de Diseño que define su UI
-     * Recupera  widgets del Layout activity_plaza_add
+     * Metodo implementado para inicio de la actividad
+     * Se llama un recurso de diseño que define su UI
+     * Recupera  widgets del layout activity_plaza_add
      * @param savedInstanceState Guarda el estado de la aplicacion
      */
     @Override
@@ -154,7 +154,7 @@ public class PlazaAdd extends AppCompatActivity {
         });
 
         /**
-         * Metodo implementado para volver a la Actividad Administrador
+         * Metodo implementado para volver a la actividad Administrador
          */
         this.btn_volverPl.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +168,7 @@ public class PlazaAdd extends AppCompatActivity {
 
     /**
      * Metodo implementado para llamar la Actividad Administrador¿
-     * activity donde el administrador maneja su parqueo
+     * Activity donde el administrador maneja su parqueo
      */
     private void administrador() {
         Intent intent = new Intent(this, AdministradorActivity.class);
@@ -178,7 +178,7 @@ public class PlazaAdd extends AppCompatActivity {
 
     /**
      * Metodo implementado para Realizar una VolleyPeticion de tipo Get Parqueadero
-     * el cual llama al metodo listarParqueadero de la clase Conexion
+     * El cual llama al metodo listarParqueadero de la clase Conexion
      */
     private void consultaParqueadero() {
         final VolleyPeticion<Parqueadero[]> parqueadero = Conexion.listarParqueadero(

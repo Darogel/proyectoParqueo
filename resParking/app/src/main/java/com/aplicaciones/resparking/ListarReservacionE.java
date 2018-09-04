@@ -27,32 +27,32 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * Clase implemetada para Listar Reservaciones de Parqueos por parte del Usuario
- * Eliminacion de las Reservaciones Por Parte del Usuario
- * Extendible de la Super Clase AppComparActivity
+ * Clase implemetada para listar reservaciones de parqueaderos por parte del usuario
+ * Eliminacion de las reservaciones por parte del usuario
+ * Extendible de la Super clase AppCompatActivity
  */
 public class ListarReservacionE extends AppCompatActivity {
     /**
-     * Variable Statica utilizada para guardar el externaL_id de reservacion
+     * Variable estatica utilizada para guardar el externaL_id de reservacion
      */
     private static String EXTERNAL_ID_RESERVACION = "";
 
     /**
-     * Variable utilizada para recivir datos del Layout activity listar reservacion
+     * Variable utilizada para recibir datos del layout activity listar reservacion
      */
     private ListView mi_lista;
     /**
-     * Variable utilizada para recivir datos del Layout activity listar reservacion
+     * Variable utilizada para recibir datos del layout activity listar reservacion
      */
     private Button btn_volver;
 
     /**
-     * Variable de tipo Listar reservacion del paquete Adaptador
+     * Variable de tipo listarReservacion del paquete Adaptador
      */
     private ListaReservacion listarReservacion;
 
     /**
-     * Variable utilizada para enviar y recibir daros desde la Base de datos del Host
+     * Variable utilizada para crear una cola de peticiones hacia la base de datos del Host
      */
     private RequestQueue requestQueue;
 
@@ -85,11 +85,11 @@ public class ListarReservacionE extends AppCompatActivity {
     }
 
     /**
-     * Metodo utilizado para asginar la Actividad qeu realizara btn_volver
+     * Metodo utilizado para asginar la actividad qeu realizara btn_volver
      */
     private void oyente() {
         /**
-         * Metodo Utilizado para volver a la actividad del Mapa
+         * Metodo Utilizado para volver a la actividad del principal
          */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +100,8 @@ public class ListarReservacionE extends AppCompatActivity {
     }
 
     /**
-     * Metodo Implementado para consulta de busqueda de reservaciones de Usuario
-     * @param extIdUsu Varible tipo String que recibe el external_id del usuario
+     * Metodo implementado para consulta de busqueda de reservaciones de usuario
+     * @param extIdUsu Varible tipo string que recibe el external_id del usuario
      */
     private void consultarWs(String extIdUsu) {
         VolleyPeticion<Reservacion[]> menus = Conexion.listarReservacionUs(
@@ -176,8 +176,8 @@ public class ListarReservacionE extends AppCompatActivity {
     }
 
     /**
-     * Metodo implemetado para la Eliminacion de una reservacion de Usuario
-     * @param idRes Variable tipo String que recibe el external_id de la Reservacion
+     * Metodo implemetado para la eliminacion de una reservacion de usuario
+     * @param idRes Variable tipo string que recibe el external_id de la reservacion
      */
     private void consultarWsE(String idRes) {
         HashMap<String, String> mapa = new HashMap<>();

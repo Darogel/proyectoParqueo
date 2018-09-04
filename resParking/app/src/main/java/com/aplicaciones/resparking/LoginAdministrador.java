@@ -22,30 +22,30 @@ import com.aplicaciones.resparking.modelo.Administrador;
 import java.util.HashMap;
 
 /**
- * Clase implementada para Autenticar un Administrador registrado en la aplicacion
- * Extendible de la Super Clase AppCompatActivity
+ * Clase implementada para autenticar un administrador registrado en la aplicacion
+ * Extendible de la super clase AppCompatActivity
  */
 public class LoginAdministrador extends AppCompatActivity {
 
     /**
-     * Variable Utilizada para recibir datos del Layout del Login de Administrador
+     * Variable utilizada para recibir datos del layout del login de administrador
      */
     private EditText usuario;
     /**
-     * Variable Utilizada para recibir datos del Layout del Login de Administrador
+     * Variable utilizada para recibir datos del layout del login de administrador
      */
     private EditText clave;
     /**
-     * Variable Utilizadaa para recibir datos del Layout del Login de Administrador
+     * Variable utilizada para recibir datos del layout del login de administrador
      */
     private Button btn_inicio;
     /**
-     * Variable Utilizada para recibir datos del Layout del Login de Administrador
+     * Variable utilizada para recibir datos del layout del login de administrador
      */
     private Button btn_volver;
 
     /**
-     * Variable utilizada para enviar y revibir datos de la base de datos
+     * Variable utilizada para crear una cola de peticiones hacia la base de datos del Host
      */
     private RequestQueue requestQueue;
 
@@ -58,9 +58,9 @@ public class LoginAdministrador extends AppCompatActivity {
     }
 
     /**
-     * Metodo implementado para inicio de la Actividad
-     * Se Llama un recurso de Diseño que define su UI
-     * Recupera  widgets del Layout activity_login_administrador
+     * Metodo implementado para inicio de la actividad
+     * Se llama un recurso de diseño que define su UI
+     * Recupera  widgets del layout activity_login_administrador
      * @param savedInstanceState Guarda el estado de la aplicacion
      */
     @Override
@@ -81,13 +81,13 @@ public class LoginAdministrador extends AppCompatActivity {
     }
 
     /**
-     * Metodo utilizada para asignar la actividad que realizara:
+     * Metodo utilizado para asignar la actividad que realizara:
      * btn_inicio
      * btn_volver
      */
     private void oyente() {
         /**
-         * Metodo implementado para Enviar datos a La Base de Datos
+         * Metodo implementado para enviar datos a La Base de Datos
          * Comprueba si los campos de usuario y clave no esten vacios
          * Llama la peticion iniciar sesion de administrador
          */
@@ -141,7 +141,7 @@ public class LoginAdministrador extends AppCompatActivity {
         });
 
         /**
-         * Metodo implementado para Volver a la actividad del Mapa de Google
+         * Metodo implementado para volver a la actividad principal
          */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,8 +153,8 @@ public class LoginAdministrador extends AppCompatActivity {
     }
 
     /**
-     * Metodo implementado para llamar la actividad Maps Activity
-     * activity de inicio
+     * Metodo implementado para llamar la actividad MapsActivity
+     * Activity de inicio
      */
     private void goToMaps() {
         Intent intent = new Intent(this, MapsActivity.class);
@@ -163,8 +163,8 @@ public class LoginAdministrador extends AppCompatActivity {
     }
 
     /**
-     * Metodo implementado para llamar la actividad Administrado Activity
-     * activity donde el administrador maneja su parqueadero
+     * Metodo implementado para llamar la actividad AdministradorActivity
+     * Activity donde el administrador maneja su parqueadero
      */
     private void goToAdministrar() {
         Intent intent = new Intent(this, AdministradorActivity.class);

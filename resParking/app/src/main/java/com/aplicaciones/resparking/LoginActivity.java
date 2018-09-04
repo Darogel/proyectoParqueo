@@ -24,17 +24,41 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Arrays;
-
+/**
+ * Clase implementada para autenticar usuario mediante Facebook y Firebase
+ * Extendible de la super clase AppCompatActivity
+ */
 public class LoginActivity extends AppCompatActivity {
 
+    /**
+     * Variable tipo LoginButton de facebook para manejar acciones de autenticacion
+     */
     private LoginButton loginButton;
+    /**
+     * Variable CallbackManager encargado de manejar el resultado del inicio de sesion de facebook
+     */
     private CallbackManager callbackManager;
-
+    /**
+     * Variable del tipo firebaseAuth de Firebase usada para logear mediante Firebase
+     */
     private FirebaseAuth firebaseAuth;
+    /**
+     * Variable del tipo firebaseAuth.AuthStateListener de Firebase usada para escuchar el inicio de sesion con firebase
+     */
     private FirebaseAuth.AuthStateListener firebaseAuthListener;
-
+    /**
+     * Variable tipo progressBar para presentarse en el layout de inicio de sesion
+     */
     private ProgressBar progressBar;
 
+    /**
+     * Metodo implementado para inicio de la actividad
+     * Se llama un recurso de diseño que define su UI
+     * Recupera  widgets del layout activity_login
+     * El boton loginButton lee el permiso de correo electronico, especifica las acciones a seguirse en caso satisfactorio o de error
+     * FirebaseAuthListener comprueba si un usuario se encuentra logeado para ejecutar el metodo reservacionAdd
+     * @param savedInstanceState Guarda el estado de la aplicacion
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,14 +105,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Metodo implementado para LLamar la actividad de Reservacion
+     * Metodo implementado para llamar la actividad de reservacion
      */
     private void reservacionAdd() {
         Intent intent = new Intent(this, ReservacionAdd.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
+    /**
+     * Metodo que utiliza el token obtenido de un logeo exitoso de facebook
+     * Crea una credencial con dicho token que es enviado a Firebase
+     * @param accessToken Guarda el estado de la aplicacion
+     */
     private void handleFacebookAccessToken(AccessToken accessToken) {
         progressBar.setVisibility(View.VISIBLE);
         loginButton.setVisibility(View.GONE);
@@ -113,13 +141,17 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-
+    /**
+     * Metodo que añade un AuthStateListener al empezar para que empiece a escuchar
+     */
     @Override
     protected void onStart() {
         super.onStart();
         firebaseAuth.addAuthStateListener(firebaseAuthListener);
     }
-
+    /**
+     * Metodo que remueve un AuthStateListener al terminar para que deje de escuchar
+     */
     @Override
     protected void onStop() {
         super.onStop();

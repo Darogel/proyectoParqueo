@@ -36,60 +36,60 @@ import java.util.Map;
 
 /**
  * Clase implementada para agregar un nuevo parqueadero por parte de un administrador
- * Extendible de la Super Clase AppCompatActivity
+ * Extendible de la super clase AppCompatActivity
  */
 public class ParqueaderoAdd extends AppCompatActivity {
 
     /**
-     * Variables utilizada Para guardar Latitud del parquedero
+     * Variable utilizada para guardar Latitud del parquedero
      */
     private Double LATITUD;
     /**
-     * Variable utilizada Para guardar  Longitud del parquedero
+     * Variable utilizada para guardar  Longitud del parquedero
      */
     private Double LONGITUD;
     /**
-     * Variable static utilizada para almacenar La ubicacion del nuevo parqueadero
+     * Variable estatica utilizada para almacenar La ubicacion del nuevo parqueadero
      */
     public static LatLng MAKER;
     /**
-     * Variable Tipo String utilizada para almacenar La ubicacion del nuevo parqueadero
+     * Variable tipo string utilizada para almacenar La ubicacion del nuevo parqueadero
      */
     private String makr;
     /**
-     * Variable para recibir datos del Layaut activity_parqueadero_add
+     * Variable para recibir datos del layout activity_parqueadero_add
      */
     private EditText txt_nombrePar;
     /**
-     * Variable para recibir datos del Layaut activity_parqueadero_add
+     * Variable para recibir datos del layout activity_parqueadero_add
      */
     private EditText txt_coordenadaX;
     /**
-     * Variable para recibir datos del Layaut activity_parqueadero_add
+     * Variable para recibir datos del layout activity_parqueadero_add
      */
     private EditText txt_precio;
     /**
-     * Variable para recibir datos del Layaut activity_parqueadero_add
+     * Variable para recibir datos del layout activity_parqueadero_add
      */
     private EditText txt_nPlazas;
     /**
-     * Variable para recibir datos del Layaut activity_parqueadero_add
+     * Variable para recibir datos del layout activity_parqueadero_add
      */
     private Button btn_guardarPr;
     /**
-     * Variable para recibir datos del Layaut activity_parqueadero_add
+     * Variable para recibir datos del layout activity_parqueadero_add
      */
     private Button btn_volver;
 
     /**
-     * Variable utilizada en enviar recibir datos desde la Base de datos del Host
+     * Variable utilizada para crear una cola de peticiones hacia la base de datos del Host
      */
     private RequestQueue requestQueue;
 
     /**
-     * Metodo implementado para inicio de la Actividad
-     * Se Llama un recurso de Diseño que define su UI
-     * Recupera  widgets del Layout activity_parqueadero_add
+     * Metodo implementado para inicio de la actividad
+     * Se llama un recurso de diseño que define su UI
+     * Recupera  widgets del layout activity_parqueadero_add
      * @param savedInstanceState Guarda el estado de la aplicacion
      */
     @Override
@@ -165,9 +165,9 @@ public class ParqueaderoAdd extends AppCompatActivity {
     private void oyente() {
 
         /**
-         * Metodo para guardar datos en La Base de datos del Host
+         * Metodo para guardar datos en la base de datos del Host
          * Comprueba que los campos no esten vacios
-         * Llama la peticion registrar Parqueadero Implementado en clase Conexion
+         * Llama la peticion registrar Parqueadero implementado en clase Conexion
          */
         this.btn_guardarPr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,7 +230,7 @@ public class ParqueaderoAdd extends AppCompatActivity {
         });
 
         /**
-         * Metodo implementado para volver a la actividad de Administrador
+         * Metodo implementado para volver a la actividad de administrador
          */
         this.btn_volver.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -242,8 +242,8 @@ public class ParqueaderoAdd extends AppCompatActivity {
     }
 
     /**
-     * Metodo implementado para llamar la actividad Administrado Activity
-     * activity donde el administrador maneja su parqueadero
+     * Metodo implementado para llamar la actividad AdministradorActivity
+     * Activity donde el administrador maneja su parqueadero
      */
     private void goToAdministrar() {
         Intent intent = new Intent(this, AdministradorActivity.class);
@@ -253,7 +253,7 @@ public class ParqueaderoAdd extends AppCompatActivity {
 
     /**
      * Metodo implementado para llamar la notificacion desde Firebase Cloud Messaging
-     * enviando una peticion al servicio de FCM
+     * Enviando una peticion al servicio de FCM
      * La peticion cuenta con un JSONObject que posee la informacion y headers a usarse en FCM
      * Es ejecutado al momento de realizarse correctamente el ingreso de un parqueadero
      */

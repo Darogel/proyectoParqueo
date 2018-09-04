@@ -14,7 +14,10 @@ import com.aplicaciones.resparking.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-
+/**
+ * Clase extendida de FirebaseMessagingService que maneja la informacion recibida de FCM
+ * Mediante una variable TAG
+ */
 public class MiFirebaseMessagingService extends FirebaseMessagingService {
     /**
      * Variable TAG para la obtencion de datos enviados por FCM
@@ -22,7 +25,8 @@ public class MiFirebaseMessagingService extends FirebaseMessagingService {
     public static final String TAG = "NOTICIAS";
 
     /**
-     *
+     *Metodo sobreescrito para que obtener la informacion del mensaje enviado por FCM y presentado en el TAG
+     * Ejecuta el metodo mostarNotificacion
      * @param remoteMessage
      */
     @Override

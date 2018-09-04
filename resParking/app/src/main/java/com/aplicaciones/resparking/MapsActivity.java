@@ -66,52 +66,51 @@ public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
     /**
-     * Variables estaticas utilizadas para el desarrollo de la aplicacion
-     * Implementadas en metodos de ingresar, reservar, listar
+     * Variable estatica para guardar el token del administrador al logear
      */
     public static String TOKEN = "";
+    /**
+     * Variable estatica para guardar el external id del administrador al logear
+     */
     public static String ID_EXTERNAL = "";
+    /**
+     * Variable estatica para guardar el external id del usuario al logear
+     */
     public static String ID_EXTERNAL_USER = "";
+    /**
+     * Variable estatica para guardar el external id del parqueadero
+     */
     public static String ID_PARQUEADERO = "";
 
     /**
      * Variables utilizadas en metodos de Geolocalizacion de GoogleMaps
      * Añadir marcadores y localización
      */
-    private GoogleMap googleMapM;
     private GoogleMap mMap;
     private Marker marcador;
     double lat = 0.0;
     double lng = 0.0;
 
     /**
-     * Variables de clases Listar Vehiculo y Listar Parqueadero
-     */
-    private ListaVehiculo listaAdaptador;
-    private ListaParqueadero listaAdaptadorP;
-    private ListView listView;
-
-    private List<Parqueadero> dataset;
-    /**
-     * Variables implementadas para hacer uso de los layouts
-     * Login con Facebook, mostrar informacion de parqueaderos
+     * Variable para guardar y presentar el nombre del usuario obtenido al logear con Facebook
      */
     private TextView nombre;
+    /**
+     * Variable para guardar y presentar el email del usuario obtenido al logear con Facebook
+     */
     private TextView correo;
+    /**
+     * Variable para guardar y presentar la foto del usuario obtenido al logear con Facebook
+     */
     private ImageView foto;
 
     /**
-     * Variable utilizada en enviar recibir datos desde la base de datos del Host
+     * Variable utilizada para crear una cola de peticiones hacia la base de datos del Host
      */
     private RequestQueue requestQueue;
 
-    private MarkerOptions marker;
-
     private AlertDialog dialog;
 
-    private ViewPager mViewPager;
-
-    private TabLayout mTabLayout;
 
     /**
      * Variable estatica para la respuesta de Localizacion
@@ -414,8 +413,6 @@ public class MapsActivity extends AppCompatActivity
         }
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//        location.getLatitude();
-        //       location.getLongitude();
         actualizarUbicacion(location);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                 10000, 0, locationListener);

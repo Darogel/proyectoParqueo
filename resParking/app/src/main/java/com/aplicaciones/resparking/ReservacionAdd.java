@@ -43,21 +43,21 @@ import java.util.HashMap;
 
 /**
  * Clase implementada para agregar una nueva Reservacion a un parqueadero por parte de un usuario
- * Extendible de la Super Clase AppCompatActivity
+ * Extendible de la super clase AppCompatActivity
  */
 public class ReservacionAdd extends AppCompatActivity implements View.OnClickListener {
 
     /**
-     * Variable Statica implemetada para guardar el external_id de Plaza
+     * Variable estatica implemetada para guardar el external_id de Plaza
      */
     public static String ID_EXTERNAL_PLAZA = "";
     /**
-     * Variable Statica implemetada para guardar el external_id de Vehiculo
+     * Variable estatica implemetada para guardar el external_id de Vehiculo
      */
     public static String ID_EXTERNAL_VEHICULO = "";
 
     /**
-     * Variables de Tipo entero para utilizacion del reloj de Hora entrada y salida
+     * Variables de tipo entero para utilizacion del reloj de Hora entrada y salida
      */
     private int hora, minutos;
 
@@ -113,14 +113,14 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     private ListaPlaza listaPlaza;
 
     /**
-     * Varible implemtada para enviar y recibir datos desde la base de datos del Host
+     * Variable utilizada para crear una cola de peticiones hacia la base de datos del Host
      */
     private RequestQueue requestQueue;
 
     /**
-     * Metodo implementado para inicio de la Actividad
-     * Se Llama un recurso de Diseño que define su UI
-     * Recupera  widgets del Layout activity_reservacion_add
+     * Metodo implementado para inicio de la actividad
+     * Se llama un recurso de diseño que define su UI
+     * Recupera  widgets del layout activity_reservacion_add
      * @param savedInstanceState Guarda el estado de la aplicacion
      */
     @SuppressLint("WrongViewCast")
@@ -190,6 +190,11 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         startActivity(intent);
     }
 
+    /**
+     * Metodo sobreescrito para al ser presionado un boton ejecute una accion
+     * btn_hEntradaR obtener de un timePikerDialog la hora seleccionada y presentar en etxt_hEntrada
+     * btn_hSalidaR obtener de un timePikerDialog la hora seleccionada y presentar en etxt_hSalida
+     */
     @Override
     public void onClick(View v) {
 
@@ -233,15 +238,15 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Metodo implementado para asignar la Actividad que realizara
+     * Metodo implementado para asignar la actividad que realizara
      * btn_guardarR
      * btn_volverR
      */
     private void oyente() {
         /**
-         * Metodo implemtado Registrar un Reservacion
+         * Metodo implemtado registrar un reservacion
          * Comprueba que los datos no esten vacios
-         * Llama metodo registrar Reservacion de la Clase Conexion
+         * Llama metodo registrar reservacion de la clase Conexion
          */
         this.btn_guardarR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -297,8 +302,8 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
         });
 
         /**
-         * Metodo implemetado para reiniciar el Id parqueadero
-         * volver a la actividad del Mapa
+         * Metodo implemetado para reiniciar el la variable estatica Id parqueadero
+         * Volver a la actividad principal
          */
         this.btn_volverR.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -311,7 +316,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Metodo implementado para Limpiar Texto despues de agregar una Reservacion
+     * Metodo implementado para Limpiar texto despues de agregar una reservacion
      */
     public void limpiarTexto() {
         etxt_hEntrada.getText().clear();
@@ -319,7 +324,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Metodo implementado para llamar la actividad Maps Activity
+     * Metodo implementado para llamar la actividad MapsActivity
      * activity de inicio
      */
     private void goToMaps() {
@@ -329,7 +334,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Metodo implementado para Llenar el spinner con los diferentes Vehiculos
+     * Metodo implementado para llenar el spinner con los diferentes vehiculos del usuario
      * Llama el metodo Listar Vehiculo de la Clase Conexion
      */
     private void consultaVehiculo() {
@@ -372,7 +377,7 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Metodo implementado para Llenar el spinner con los diferentes Plazas de un Parqueadero
+     * Metodo implementado para Llenar el spinner con los diferentes plazas de un Parqueadero
      * Llama el metodo Listar Plazas de la Clase Conexion
      */
     private void consultaPlaza() {
