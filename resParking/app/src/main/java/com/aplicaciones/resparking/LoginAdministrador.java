@@ -21,14 +21,27 @@ import com.aplicaciones.resparking.modelo.Administrador;
 
 import java.util.HashMap;
 
+/**
+ * Clase implementada para Autenticar un Administrador registrado en la aplicacion
+ * Extendible de la Super Clase AppCompatActivity
+ */
 public class LoginAdministrador extends AppCompatActivity {
 
     /**
-     * Variables Utilizadas para revibir datos del Layout del Login de Administrador
+     * Variable Utilizada para recibir datos del Layout del Login de Administrador
      */
     private EditText usuario;
+    /**
+     * Variable Utilizada para recibir datos del Layout del Login de Administrador
+     */
     private EditText clave;
+    /**
+     * Variable Utilizadaa para recibir datos del Layout del Login de Administrador
+     */
     private Button btn_inicio;
+    /**
+     * Variable Utilizada para recibir datos del Layout del Login de Administrador
+     */
     private Button btn_volver;
 
     /**
@@ -44,6 +57,12 @@ public class LoginAdministrador extends AppCompatActivity {
         clave.getText().clear();
     }
 
+    /**
+     * Metodo implementado para inicio de la Actividad
+     * Se Llama un recurso de Diseño que define su UI
+     * Recupera  widgets del Layout activity_login_administrador
+     * @param savedInstanceState Guarda el estado de la aplicacion
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

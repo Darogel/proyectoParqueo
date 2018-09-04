@@ -26,6 +26,11 @@ import com.aplicaciones.resparking.modelo.Reservacion;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Clase implemetada para Listar Reservaciones de Parqueos por parte del Usuario
+ * Eliminacion de las Reservaciones Por Parte del Usuario
+ * Extendible de la Super Clase AppComparActivity
+ */
 public class ListarReservacionE extends AppCompatActivity {
     /**
      * Variable Statica utilizada para guardar el externaL_id de reservacion
@@ -33,9 +38,12 @@ public class ListarReservacionE extends AppCompatActivity {
     private static String EXTERNAL_ID_RESERVACION = "";
 
     /**
-     * Variable utilizad para recivir datos del Layout activity listar reservacion
+     * Variable utilizada para recivir datos del Layout activity listar reservacion
      */
     private ListView mi_lista;
+    /**
+     * Variable utilizada para recivir datos del Layout activity listar reservacion
+     */
     private Button btn_volver;
 
     /**
@@ -48,7 +56,12 @@ public class ListarReservacionE extends AppCompatActivity {
      */
     private RequestQueue requestQueue;
 
-
+    /**
+     * Metodo implementado para inicio de la Actividad
+     * Se Llama un recurso de Diseño que define su UI
+     * Recupera  widgets del Layout activity_listar_reservacion
+     * @param savedInstanceState Guarda el estado de la aplicacion
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

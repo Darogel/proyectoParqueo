@@ -21,6 +21,10 @@ public class MiFirebaseMessagingService extends FirebaseMessagingService {
      */
     public static final String TAG = "NOTICIAS";
 
+    /**
+     *
+     * @param remoteMessage
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);

@@ -10,15 +10,27 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-
+/**
+ * Clase Administrador implementada para administrar Parqueaderos por el administrador
+ * extendible de la Super Clase AppCompatActivity
+ */
 public class AdministradorActivity extends AppCompatActivity {
     /**
-     * Variables utilizadas para utilizar datos del Layout activity_administrador
+     * Variable implementada  para utilizar datos del Layout activity_administrador
      */
     private ImageButton btn_parqueadero;
+    /**
+     * Variable implementada para utilizar datos del Layout activity_administrador
+     */
     private ImageButton btn_plaza;
 
 
+    /**
+     * Metodo implementado para inicio de la Actividad
+     * Se Llama un recurso de Diseño que define su UI
+     * Recupera  widgets del Layout activity_administrador
+     * @param savedInstanceState Guarda el estado de la aplicacion
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +67,7 @@ public class AdministradorActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
 
     }
+
 
     /**
      * Metodo implementado en llamar la actividad ParqueaderoAdd

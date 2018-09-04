@@ -13,8 +13,18 @@ import com.aplicaciones.resparking.modelo.Vehiculo;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase implementada para realizar la lista de Vehiculo
+ * extendible de ArrayAdapter de Clase Vehiculo
+ */
 public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
+    /**
+     * Variable de tipo List de la Clase Vehiculo
+     */
     private List<Vehiculo> dataSet;
+    /**
+     * Variable de tipo context
+     */
     Context mContext;
 
     /**
@@ -41,6 +51,13 @@ public class ListaVehiculo extends ArrayAdapter<Vehiculo> {
         this.mContext = context;
     }
 
+    /**
+     * Metodo implementado para  mostrar la informacion del vehiculo
+     * @param position variable que permite llamar a un getview por cada posicion
+     * @param convertView variable a  Llamar muchas veces inflando una nueva lista
+     * @param parent variable que indica que esta vista es un hijo
+     * @return variable item con valor de vista
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);

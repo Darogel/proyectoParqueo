@@ -13,8 +13,19 @@ import com.aplicaciones.resparking.R;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase implementada para realizar la lista de Reservaciones
+ * extendible de ArrayAdapter de la clase Reservacion
+ */
 public class ListaReservacion extends ArrayAdapter<Reservacion> {
+    /**
+     * Variable de tipo List de la clase Reservacion
+     *
+     */
     private List<Reservacion> dataSet;
+    /**
+     * Variable de tipo Context
+     */
     Context mContext;
 
     /**
@@ -42,6 +53,13 @@ public class ListaReservacion extends ArrayAdapter<Reservacion> {
         this.mContext = context;
     }
 
+    /**
+     * Metodo implementado para  mostrar la informacion de Reservaciones
+     * @param position variable que permite llamar a un getview por cada posicion
+     * @param convertView variable a  Llamar muchas veces inflando una nueva lista
+     * @param parent variable que indica que esta vista es un hijo
+     * @return variable item con valor de vista
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);

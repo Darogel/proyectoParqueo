@@ -27,6 +27,10 @@ import com.aplicaciones.resparking.modelo.Plaza;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Clase implementada para agregar una nueva plaza a un parqueadero
+ * Extendible de la Super Clase AppCompatActivity
+ */
 public class PlazaAdd extends AppCompatActivity {
 
     /**
@@ -35,12 +39,24 @@ public class PlazaAdd extends AppCompatActivity {
     public static String ID_EXTERNAL_PARQUEADERO = "";
 
     /**
-     * Variables implementadas para recibir datos del Layout activity_plaza_add
+     * Variable implementada para recibir datos del Layout activity_plaza_add
      */
     private Spinner spinner;
+    /**
+     * Variable implementada para recibir datos del Layout activity_plaza_add
+     */
     private Spinner spinner1;
+    /**
+     * Variable implementada para recibir datos del Layout activity_plaza_add
+     */
     private Button btn_guardarPl;
+    /**
+     * Variable implementada para recibir datos del Layout activity_plaza_add
+     */
     private Button btn_volverPl;
+    /**
+     * Variable implementada para recibir datos del Layout activity_plaza_add
+     */
     private Spinner spinnerParqueadero;
 
     /**
@@ -49,10 +65,16 @@ public class PlazaAdd extends AppCompatActivity {
     private ListaParqueaderoPlaza listaParqueaderoPlaza;
 
     /**
-     * Variable implementada para enviar y revibir datos de la base de datos
+     * Variable implementada para enviar y revibir datos de la base de datos del Host
       */
     private RequestQueue requestQueue;
 
+    /**
+     * Metodo implementado para inicio de la Actividad
+     * Se Llama un recurso de Diseño que define su UI
+     * Recupera  widgets del Layout activity_plaza_add
+     * @param savedInstanceState Guarda el estado de la aplicacion
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

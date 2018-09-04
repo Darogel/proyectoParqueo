@@ -34,26 +34,51 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Clase implementada para agregar un nuevo parqueadero por parte de un administrador
+ * Extendible de la Super Clase AppCompatActivity
+ */
 public class ParqueaderoAdd extends AppCompatActivity {
 
     /**
-     * Variables utilizadas Para guardar Latitud y Longitud del parquedero
+     * Variables utilizada Para guardar Latitud del parquedero
      */
     private Double LATITUD;
+    /**
+     * Variable utilizada Para guardar  Longitud del parquedero
+     */
     private Double LONGITUD;
     /**
      * Variable static utilizada para almacenar La ubicacion del nuevo parqueadero
      */
     public static LatLng MAKER;
+    /**
+     * Variable Tipo String utilizada para almacenar La ubicacion del nuevo parqueadero
+     */
     private String makr;
     /**
-     * Variables para recibir datos del Layaut activity_parqueadero_add
+     * Variable para recibir datos del Layaut activity_parqueadero_add
      */
     private EditText txt_nombrePar;
+    /**
+     * Variable para recibir datos del Layaut activity_parqueadero_add
+     */
     private EditText txt_coordenadaX;
+    /**
+     * Variable para recibir datos del Layaut activity_parqueadero_add
+     */
     private EditText txt_precio;
+    /**
+     * Variable para recibir datos del Layaut activity_parqueadero_add
+     */
     private EditText txt_nPlazas;
+    /**
+     * Variable para recibir datos del Layaut activity_parqueadero_add
+     */
     private Button btn_guardarPr;
+    /**
+     * Variable para recibir datos del Layaut activity_parqueadero_add
+     */
     private Button btn_volver;
 
     /**
@@ -61,7 +86,12 @@ public class ParqueaderoAdd extends AppCompatActivity {
      */
     private RequestQueue requestQueue;
 
-
+    /**
+     * Metodo implementado para inicio de la Actividad
+     * Se Llama un recurso de Diseño que define su UI
+     * Recupera  widgets del Layout activity_parqueadero_add
+     * @param savedInstanceState Guarda el estado de la aplicacion
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

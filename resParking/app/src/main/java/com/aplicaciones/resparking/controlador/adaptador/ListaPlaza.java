@@ -13,8 +13,18 @@ import com.aplicaciones.resparking.modelo.Plaza;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase implementada para realizar la lista de Plazas
+ * extendible de ArrayAdapter de la clase Plaza
+ */
 public class ListaPlaza extends ArrayAdapter<Plaza> {
+    /**
+     * Variabla de tipo List  de la clase Plaza
+     */
     private List<Plaza> dataSet;
+    /**
+     * Varible de tipo Context
+     */
     Context mContext;
 
     /**
@@ -40,6 +50,13 @@ public class ListaPlaza extends ArrayAdapter<Plaza> {
         this.mContext = context;
     }
 
+    /**
+     * Metodo implementado para  mostrar la informacion de Plazas
+     * @param position variable que permite llamar a un getview por cada posicion
+     * @param convertView variable a  Llamar muchas veces inflando una nueva lista
+     * @param parent variable que indica que esta vista es un hijo
+     * @return variable item con valor de vista
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);

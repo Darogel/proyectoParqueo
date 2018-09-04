@@ -15,6 +15,9 @@ import com.aplicaciones.resparking.modelo.Vehiculo;
 
 import java.util.HashMap;
 
+/**
+ * Clase implementada para realizar la conexion con la base de datos del Host
+ */
 public class Conexion {
     /**
      * Variable estatica que contiene el URL del Host para conectar con el WebService

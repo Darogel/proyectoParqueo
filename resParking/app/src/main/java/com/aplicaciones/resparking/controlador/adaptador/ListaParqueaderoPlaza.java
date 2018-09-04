@@ -13,9 +13,18 @@ import com.aplicaciones.resparking.modelo.Parqueadero;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Clase implementada para realizar la lista de Parqueaderos
+ * extendible de ArrayAdapter de Parqueadero
+ */
 public class ListaParqueaderoPlaza extends ArrayAdapter<Parqueadero> {
+    /**
+     * Variable tipo List de la clase Parqueadero
+     */
     private List<Parqueadero> dataSet;
+    /**
+     * Variable de tipo Context
+     */
     Context mContext;
 
     /**
@@ -42,6 +51,13 @@ public class ListaParqueaderoPlaza extends ArrayAdapter<Parqueadero> {
         this.mContext = context;
     }
 
+    /**
+     *  Metodo implementado para  mostrar la informacion de la plaza por Parqueaderos
+     * @param position variable que permite llamar a un getview por cada posicion
+     * @param convertView variable a  Llamar muchas veces inflando una nueva lista
+     * @param parent variable que indica que esta vista es un hijo
+     * @return variable item con valor de vista
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(mContext);

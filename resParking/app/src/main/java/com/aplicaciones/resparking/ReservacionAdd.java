@@ -41,12 +41,19 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 
+/**
+ * Clase implementada para agregar una nueva Reservacion a un parqueadero por parte de un usuario
+ * Extendible de la Super Clase AppCompatActivity
+ */
 public class ReservacionAdd extends AppCompatActivity implements View.OnClickListener {
 
     /**
-     * Variables Statica implemetadas para guardar el external_id de Plaza y Vehiculo
+     * Variable Statica implemetada para guardar el external_id de Plaza
      */
     public static String ID_EXTERNAL_PLAZA = "";
+    /**
+     * Variable Statica implemetada para guardar el external_id de Vehiculo
+     */
     public static String ID_EXTERNAL_VEHICULO = "";
 
     /**
@@ -58,17 +65,41 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
      * Variable para recibir datos desde el layout de añadir Reservacion
      */
     private EditText etxt_hEntrada;
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private EditText etxt_hSalida;
-
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private TextView txt_plazaR;
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private TextView txt_vehiculoR;
-
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private ImageButton btn_hEntradaR;
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private ImageButton btn_hSalidaR;
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private Button btn_guardarR;
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private Button btn_volverR;
-
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private Spinner spinnerVehiculo;
+    /**
+     * Variable para recibir datos desde el layout de añadir Reservacion
+     */
     private Spinner spinnerPlaza;
 
     /**
@@ -86,6 +117,12 @@ public class ReservacionAdd extends AppCompatActivity implements View.OnClickLis
      */
     private RequestQueue requestQueue;
 
+    /**
+     * Metodo implementado para inicio de la Actividad
+     * Se Llama un recurso de Diseño que define su UI
+     * Recupera  widgets del Layout activity_reservacion_add
+     * @param savedInstanceState Guarda el estado de la aplicacion
+     */
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
