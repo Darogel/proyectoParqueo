@@ -1,24 +1,20 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use \App\Models\Administrador;
 
 /**
  * Description of AdministradorController
- *
- * @author Darwin
+ * Clase usada para el control de las funciones del administrador
  */
 class AdministradorController extends Controller {
 
-    //put your code here
+    /**
+     * Funcion para el inicio de sesion del administrador
+     * @param Request $request 
+     * @return response type json
+     */
     public function inicioSesionAdministrador(Request $request) {
         if ($request->isJson()) {
             try {

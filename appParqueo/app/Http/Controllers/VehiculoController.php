@@ -1,25 +1,21 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App\Http\Controllers;
 
-/**
- * Description of VehiculoController
- *
- * @author Darwin
- */
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use App\Models\Vehiculo;
-
+/**
+ * Description of VehiculoController
+ * Clase usada para el control de las funciones de vehículo
+ */
 class VehiculoController extends Controller {
 
-    //put your code here
+    /**
+     * Función para registrar un vehículo
+     * @param Request $request
+     * @return type mensaje json
+     */
     public function registrarVehiculo(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
@@ -43,7 +39,12 @@ class VehiculoController extends Controller {
             return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
         }
     }
-
+    
+    /**
+     * Función para modificar Vehículo
+     * @param Request $request
+     * @return type mensaje json
+     */
     public function modificarVehiculo(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
@@ -62,6 +63,11 @@ class VehiculoController extends Controller {
         }
     }
     
+    /**
+     * Función para eliminar un vehículo
+     * @param Request $request
+     * @return type mensaje json
+     */
     public function eliminarVehiculo(Request $request){
         if ($request->isJson()) {
             $data = $request->json()->all();
@@ -79,6 +85,11 @@ class VehiculoController extends Controller {
         }
     }
     
+    /**
+     * Función para listar los vehículos por usuarios 
+     * @param type $external_id
+     * @return type array con los datos de los vehiculos de un usuario
+     */
     public function listarVehiculoUsuario($external_id) {
         $this->external_id = $external_id;
         $lista =Vehiculo::whereHas('usuario', function ($q) {
@@ -87,7 +98,7 @@ class VehiculoController extends Controller {
 
         $data = array();
         foreach ($lista as $item) {
-            $data[] = ["placa" => $item->placa];
+            $data[] = ["placa" => $item->placa,"external_id" => $item->external_id];
         }
 
         return response()->json($data, 200);

@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -14,12 +8,15 @@ use \App\Models\Parqueadero;
 
 /**
  * Description of ParqueaderoController
- *
- * @author Darwin
+ * Clase usada para el control de las funciones del parqueadero
  */
 class ParqueaderoController extends Controller {
 
-    //put your code here
+    /**
+     * Función para registrar un nuevo parqueadero
+     * @param Request $request
+     * @return mensaje type json
+     */
     public function registrarParqueadero(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
@@ -48,6 +45,11 @@ class ParqueaderoController extends Controller {
         }
     }
 
+    /**
+     * Función para modificar un parquedero
+     * @param Request $request
+     * @return mensaje type json
+     */
     public function modificarParqueadero(Request $request) {
 
         if ($request->isJson()) {
@@ -79,6 +81,11 @@ class ParqueaderoController extends Controller {
         }
     }
 
+    /**
+     * Función para eliminar un parqueadero
+     * @param Request $request
+     * @return mensaje type json
+     */
     public function eliminarParqueadero(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
@@ -94,6 +101,67 @@ class ParqueaderoController extends Controller {
         } else {
             return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
         }
+    }
+    
+    /**
+     * Función para listar los parqueadero por administrador
+     * @param type $external_id
+     * @return array con una lista de parqueaderos
+     */
+    public function listarParqueadero($external_id) {
+        $this->external_id = $external_id;
+        $lista =Parqueadero::whereHas('administrador', function ($q) {
+                    $q->where('external_id', $this->external_id);
+                })->orderBy('created_at', 'desc')->get();
+
+        $data = array();
+        foreach ($lista as $item) {
+            $data[] = ["nombre" => $item->nombre,
+            "coordenada_x"=> $item->coordenada_x,
+            "coordenada_y"=> $item->coordenada_y,
+            "numero_plazas"=> $item->numero_plazas,
+            "precio_hora"=>$item->precio_hora];
+        }
+
+        return response()->json($data, 200);
+    }
+    
+    /**
+     * Función para listar parqueaderos Buscado
+     * @param  $coordenada_x type String 
+     * @return type array con los datos del parqueadero buscado
+     */
+    public function listarParqueaderoB(String $coordenada_x) {
+        $resultado = new Parqueadero();
+        $this->coordenada_x = $coordenada_x;
+        $lista = Parqueadero::where('coordenada_x', $this->coordenada_x)->OrderBy('created_at','asc')->get();
+
+        $data = array();
+        foreach ($lista as $item) {
+            $data[] = [$resultado->nombre = $item->nombre,
+                $resultado->coordenada_x = $item->coordenada_x,
+                $resultado->coordenada_y=$item->coordenada_y,
+                $resultado->numero_plazas=$item->numero_plazas,
+                $resultado->precio_hora=$item->precio_hora,
+                $resultado->external_id=$item->external_id];
+        }
+        //return response()->json($data, 200);
+        return response()->json($resultado, 200);
+    }
+    /**
+     * Funcion para listar todos los parqueaderos existentes en la base de datos
+     * @return type array de parqueaderos con su respectiva informacion
+     */
+    public function listarP(){
+        $lista= Parqueadero::where('estado',true)->orderBy('created_at','desc')->get();
+        $data=array();
+        foreach ($lista as $item){
+            $data[]=["nombre"=>$item->nombre,
+            "coordenada_x"=>$item->coordenada_x,
+            "coordenada_y"=>$item->coordenada_y,
+            "external_id"=>$item->external_id];
+        }
+        return response()->json($data,200);
     }
 
 }

@@ -1,25 +1,22 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App\Http\Controllers;
 
-/**
- * Description of PlazaController
- *
- * @author Darwin
- */
 use Illuminate\Http\Request;
 use App\Models\Administrador;
 use App\Models\Parqueadero;
 use App\Models\Plaza;
+
+/**
+ * Description of PlazaController
+ * Clase usada para el control de las funciones de plaza
+ */
 class PlazaController extends Controller {
-//private $external_id;
-    //put your code here
+    /**
+     * Función para registrar una plaza
+     * @param Request $request
+     * @return type mensaje json
+     */
     public function registrarPlaza(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
@@ -45,6 +42,11 @@ class PlazaController extends Controller {
         }
     }
     
+    /**
+     * Función para listar las plazas por parqueadero
+     * @param type $external_id
+     * @return type array con las plazas que posee el parqueadero
+     */
     public function listarPlazaParqueadero($external_id) {
         $this->external_id = $external_id;
         $lista = Plaza::whereHas('parqueadero', function ($q) {
@@ -55,7 +57,8 @@ class PlazaController extends Controller {
         $data = array();
         foreach ($lista as $item) {
             $data[] = ["numero_puesto" => $item->numero_puesto,
-                "tipo" => $item->tipo];
+                "tipo" => $item->tipo,
+                "external_id" => $item->external_id];
         }
 
         return response()->json($data, 200);

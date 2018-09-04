@@ -17,9 +17,14 @@ $router->get('/', function () use ($router) {
 
 $router->Post('/admin/login','AdministradorController@inicioSesionAdministrador');
 
+
 $router->Post('/parqueadero/registrar','ParqueaderoController@registrarParqueadero');
 $router->Post('/parqueadero/modificar','ParqueaderoController@modificarParqueadero');
 $router->Post('/parqueadero/eliminar','ParqueaderoController@eliminarParqueadero');
+$router->Get('/parqueadero/listar','ParqueaderoController@listarP');
+$router->Get('/parqueadero/listar/{external_id}','ParqueaderoController@listarParqueadero');
+//$router->Get('/parqueadero/listar/{external_id}/buscar/{coordenada_x}','ParqueaderoController@listarParqueaderoB');
+$router->Get('/parqueadero/listar/buscar/{coordenada_x}','ParqueaderoController@listarParqueaderoB');
 
 $router->Post('/plaza/registrar','PlazaController@registrarPlaza');
 $router->Get('/plaza/listar/{external_id}','PlazaController@listarPlazaParqueadero');
@@ -28,10 +33,12 @@ $router->Post('/reservacion/registrar','ReservacionController@registrarReservaci
 $router->Post('/reservacion/modificar','ReservacionController@modificarReservacion');
 //$router->Get('/reservacion/listar','ReservacionController@listarReservacion');
 $router->Get('/reservacion/listarParq/{id}','ReservacionController@listarReservacionesParqueadero');
+$router->Get('/reservacion/listarUs/{id}','ReservacionController@listarReservacionesUsuario');
 $router->Post('/reservacion/eliminar','ReservacionController@eliminarReservacion');
 
 $router->Post('/usuario/registrar','UsuarioController@registrarUsuario');
-//$router->Post('/usuario/login','UsuarioController@inicioSesionUsuario');
+$router->Post('/usuario/login','UsuarioController@inicioSesionUsuario');
+$router->Post('/usuario/loginReg','UsuarioController@loginRegistrarUsuario');
 $router->Post('/usuario/modificar','UsuarioController@modificarUsuario');
 
 $router->Post('/vehiculo/registrar','VehiculoController@registrarVehiculo');

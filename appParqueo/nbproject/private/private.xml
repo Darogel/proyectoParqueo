@@ -3,9 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp64/www/appParqueo/app/Http/Controllers/ReservacionController.php</file>
-            <file>file:/C:/wamp64/www/appParqueo/app/Http/Controllers/PlazaController.php</file>
-            <file>file:/C:/wamp64/www/appParqueo/app/Http/Controllers/AdministradorController.php</file>
+            <file>file:/C:/Users/Jean/Desktop/public_html/app/Models/Vehiculo.php</file>
+            <file>file:/C:/Users/Jean/Desktop/public_html/app/Models/Parqueadero.php</file>
         </group>
     </open-files>
 </project-private>

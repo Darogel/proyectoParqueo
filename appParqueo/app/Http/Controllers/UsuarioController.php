@@ -1,32 +1,26 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 
 /**
  * Description of UsuarioController
- *
- * @author Darwin
+ * Clase usada para el control de las funciones del usuario
  */
 class UsuarioController extends Controller {
 
-    //put your code here
+    /**
+     * Función para registrar un nuevo usuario
+     * @param Request $request
+     * @return type mensaje json
+     */
      public function registrarUsuario(Request $request) {
         if ($request->isJson()) {
             $data = $request->json()->all();
             try {
                 $usuario = new Usuario();
-                $usuario->nombres = $data["nombre"];
-              //  $usuario->usuario = $data["usuario"];
-              //  $usuario->clave = $data["clave"];
+                $usuario->correo = $data["correo"];
                 $usuario->external_id = utilidades\UUID::v4();
                 $usuario->save();
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
@@ -38,16 +32,20 @@ class UsuarioController extends Controller {
         }
     }
     
-  /*  public function inicioSesionUsuario(Request $request) {
+    /**
+     * Función para el inicio de sesión del usuario
+     * @param Request $request
+     * @return type mensaje json
+     */
+    public function inicioSesionUsuario(Request $request) {
         if ($request->isJson()) {
             try {
                 $data = $request->json()->all();
-                $user = Usuario::where("usuario", $data["usuario"])->where("clave", $data["clave"])->first();
+                $user = Usuario::where("correo", $data["correo"])->first();
                 if ($user) {
                     return response()->json(["usuario" => $user->usuario,
                                 "id" => $user->external_id,
                                 "nombre" => $user->nombres,
-                                "token" => base64_encode($user->external_id . '--' . $user->usuario),
                                 "mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
                 } else {
                     return response()->json(["mensaje" => "No se encontro ningun dato", "siglas" => "NDE"], 204);
@@ -60,32 +58,40 @@ class UsuarioController extends Controller {
         }
     }
 
- */  
-
-    public function modificarUsuario (Request $request) {
-
+  /**
+   * Función para login de Facebook y Firebase
+   * @param Request $request
+   * @return type mensaje json
+   */
+  public function loginRegistrarUsuario(Request $request) {
         if ($request->isJson()) {
-            $data = $request->json()->all();
             try {
-                $usuarioObjeto = Usuario::where("external_id", $data["external_id"])->first();
-                if (isset($data["nombre"])) {
-                    $usuarioObjeto->nombres = $data["nombre"];
-                }
-          /*      if (isset($data["usuario"])) {
-                    $usuarioObjeto->precio = $data["precio"];
-                }
-                if (isset($data["clave"])) {
-                    $usuarioObjeto->clave = $data["clave"];
-                }*/
-                $usuarioObjeto->save();
-
+                $data = $request->json()->all();
+                $user = Usuario::where("correo", $data["correo"])->first();
+                if ($user) {
+                    return response()->json([
+                        "external_id" => $user->external_id,
+                        "mensaje" => 
+                        "Operacion exitosa", 
+                        "siglas" => "OE"], 200);
+                } else {
+                    try {
+                $usuario = new Usuario();
+                $usuario->correo = $data["correo"];
+                $usuario->external_id = utilidades\UUID::v4();
+                $usuario->save();
                 return response()->json(["mensaje" => "Operacion exitosa", "siglas" => "OE"], 200);
-            } catch (Exception $ex) {
+            } catch (\Exception $ex) {
                 return response()->json(["mensaje" => "Faltan Datos", "siglas" => "FD"], 400);
             }
+                }
+            } catch (Exception $exc) {
+                return response()->json(["mensaje" => "Faltan Datos2", "siglas" => "FD"], 400);
+            }
         } else {
-            return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 404);
+            return response()->json(["mensaje" => "La data no tiene el formato deseado", "siglas" => "DNF"], 400);
         }
     }
+
 
 }
