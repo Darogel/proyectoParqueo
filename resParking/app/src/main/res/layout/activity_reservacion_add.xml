@@ -84,8 +84,8 @@
                 android:textColor="#fff"
                 android:maxLines="1"
                 android:padding="8dp"
+                android:enabled="false"
                 android:textColorHint="#fff" />
-            <!--android:hint="Hora Salida"-->
             <ImageButton
                 android:id="@+id/btn_hSalidaR"
                 android:layout_width="34dp"
