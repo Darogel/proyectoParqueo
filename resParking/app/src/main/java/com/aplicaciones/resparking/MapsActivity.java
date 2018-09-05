@@ -468,7 +468,9 @@ public class MapsActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_placa) {
-            ingresarVehiculo();
+            if(!ID_EXTERNAL_USER.equals("")) {
+                ingresarVehiculo();
+            }
         } else if (id == R.id.nav_listar) {
             listaReservacionE();
         } else if (id == R.id.nav_logOut) {
