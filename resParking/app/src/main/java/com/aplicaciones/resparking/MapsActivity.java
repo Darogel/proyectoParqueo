@@ -61,7 +61,11 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.List;
 
-
+/**
+ * Clase Principal de la aplicacion
+ * Extendible de la super clase AppCompatActivity
+ * Implementos de OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener
+ */
 public class MapsActivity extends AppCompatActivity
         implements OnMapReadyCallback, NavigationView.OnNavigationItemSelectedListener {
 
@@ -117,7 +121,12 @@ public class MapsActivity extends AppCompatActivity
      */
     private static final int LOCATION_REQUEST = 500;
 
-
+    /**
+     * Metodo implementado para inicio de la actividad
+     * Se llama un recurso de diseño que define su UI
+     * Recupera  widgets del layout activity_maps
+     * @param savedInstanceState Guarda el estado de la aplicacion
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -459,7 +468,9 @@ public class MapsActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_placa) {
-            ingresarVehiculo();
+            if(!ID_EXTERNAL_USER.equals("")) {
+                ingresarVehiculo();
+            }
         } else if (id == R.id.nav_listar) {
             listaReservacionE();
         } else if (id == R.id.nav_logOut) {
@@ -501,7 +512,7 @@ public class MapsActivity extends AppCompatActivity
                         if (response != null) {
                             //   MapsActivity.TOKEN = response.token;
                             MapsActivity.ID_EXTERNAL_USER = response.external_id;
-                            Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "Bienvenido", Toast.LENGTH_SHORT).show();
 
                         } else {
                             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();

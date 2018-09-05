@@ -49,5 +49,4 @@ public class Parqueadero {
     public String toString(){
         return nombre;
     }
-
 }
